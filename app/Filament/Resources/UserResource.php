@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
+use App\Filament\Resources\UserResource\Widgets\UserOverview;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -104,6 +105,13 @@ class UserResource extends Resource
         ];
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            UserOverview::class,
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
@@ -113,4 +121,6 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
+    
 }

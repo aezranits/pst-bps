@@ -31,15 +31,10 @@ class EditRequest extends EditRecord
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         try {
-            Log::info($data['guest_book_id']);
-            Log::info($data['status']);
-            if($data['status'] === 'inProgress'){
+            if($data['status'] === 'done'){
                 $guestBook = GuestBook::find($data['guest_book_id']);
 
                 if ($guestBook) {
-                    // $string = implode(",", $guestBook);
-                    Log::info("Isian data: " . $guestBook);
-                
                     $emailGuest = $guestBook['email'];
                     $nameGuest = $guestBook['nama_lengkap'];
                     $messageGuest = "Link Feedback PST";
@@ -47,7 +42,7 @@ class EditRequest extends EditRecord
                 
                     $this->sendEmailFeedback($emailGuest, $messageGuest, $subjectGuest, $nameGuest);
                 } else {
-                    Log::error("GuestBook dengan id 1 tidak ditemukan.");
+                    Log::error('GuestBook dengan id '. ${$data['guest_book_id']} .' tidak ditemukan.');
                 }
             }
             
