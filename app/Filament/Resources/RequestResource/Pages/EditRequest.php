@@ -24,8 +24,8 @@ class EditRequest extends EditRecord
         ];
     }
 
-    public function sendEmailFeedback($email, $message, $subject, $name){
-        Mail::to($email)->send(new MailableName($message, $subject, $name));
+    public function sendEmailFeedback($email, $subject, $name){
+        Mail::to($email)->send(new MailableName($subject, $name));
     }
 
     protected function handleRecordUpdate(Model $record, array $data): Model
@@ -37,10 +37,10 @@ class EditRequest extends EditRecord
                 if ($guestBook) {
                     $emailGuest = $guestBook['email'];
                     $nameGuest = $guestBook['nama_lengkap'];
-                    $messageGuest = "Link Feedback PST";
-                    $subjectGuest = "Link feedback PST";
+                    // $messageGuest = "Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi";
+                    $subjectGuest = "Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi";
                 
-                    $this->sendEmailFeedback($emailGuest, $messageGuest, $subjectGuest, $nameGuest);
+                    $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
                 } else {
                     Log::error('GuestBook dengan id '. ${$data['guest_book_id']} .' tidak ditemukan.');
                 }

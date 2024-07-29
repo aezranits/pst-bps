@@ -44,7 +44,7 @@
 			</div> --}}
 		</div>
 		<div class="py-10 border-t border-gray-200">
-			<p class="text-sm text-gray-500">Hak Cipta © 2024 Badan Pusat Statistik</p>
+			<p class="text-sm text-gray-500">Hak Cipta © {{ date('Y') }} BPS Kota Bukittinggi</p>
 		</div>
 	</div>
 </footer>

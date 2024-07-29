@@ -50,6 +50,7 @@ class FeedbackResource extends Resource
                                 $query->where('roles.id', $petugasPstRoleId);
                             })->pluck('name', 'id');
                     })
+                    ->searchable()
                     ->required(),
                 Select::make('front_office_id')
                     ->options(function ($record) {

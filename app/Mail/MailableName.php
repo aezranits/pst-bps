@@ -14,16 +14,13 @@ use Illuminate\Queue\SerializesModels;
 class MailableName extends Mailable
 {
     use Queueable, SerializesModels;
-    public $message;
     public $subject;
     
-
     /**
      * Create a new message instance.
      */
-    public function __construct($message, $subject, private $name)
+    public function __construct($subject, private $name)
     {
-        $this->message = $message;
         $this->subject = $subject;
     }
 
@@ -45,7 +42,7 @@ class MailableName extends Mailable
     {
         return new Content(
             view: 'mail.welcome-mail-template',
-            with: ['name' => $this->name],
+            with: (['name' => $this->name,'message' => $this]),
         );
     }
 

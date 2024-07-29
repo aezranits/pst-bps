@@ -7,4 +7,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class);
 Route::get('/buku-tamu', GuestBookPage::class);
-Route::get('/feedback', FeedBackPage ::class);
+Route::get('/feedback', FeedBackPage ::class)->name('feedback');;

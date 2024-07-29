@@ -22,26 +22,26 @@
                         <div class="flex ml-24 space-x-6 min-w-max sm:ml-3 lg:space-x-8">
                             <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                 <div class="flex-shrink-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                                 <div class="flex-shrink-0 mt-6 sm:mt-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                             </div>
                             <div class="flex space-x-6 sm:-mt-20 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                 <div class="flex-shrink-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                                 <div class="flex-shrink-0 mt-6 sm:mt-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                             </div>
                             <div class="flex space-x-6 sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                 <div class="flex-shrink-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                                 <div class="flex-shrink-0 mt-6 sm:mt-0">
-                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-1.jpeg') }}" alt="">
+                                    <img class="object-cover w-64 h-64 rounded-lg md:h-72 md:w-72" src="{{ asset('img/cta-2.jpeg') }}" alt="">
                                 </div>
                             </div>
                         </div>
