@@ -19,24 +19,22 @@ class CreateGuestBook extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $record =  static::getModel()::create($data);
+        $record = static::getModel()::create($data);
         try {
             $request = new Request();
             $request['guest_book_id'] = $record->id;
             $request['status'] = StatusRequestEnum::PENDING;
-            
+
             $request->save();
-    
-            $feedback = new Feedback();
-            $feedback['requests_id'] = $request->id;
-            
-            $feedback->save();
-    
+
             return $record;
         } catch (Error $e) {
-            Log::error("Error in CreateGuestBook : ".$e);
+            Log::error('Error in CreateGuestBook : ' . $e);
         }
-        
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
 }

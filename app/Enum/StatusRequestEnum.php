@@ -10,7 +10,6 @@ enum StatusRequestEnum: string implements HasLabel
     case IN_PROGRESS = 'inProgress';
     case DONE = 'done';
     case CANCELED = 'canceled';
-    case FAILED = 'failed';
     
     public function getLabel(): string
     {
@@ -19,7 +18,16 @@ enum StatusRequestEnum: string implements HasLabel
             self::IN_PROGRESS => 'In Progress',
             self::DONE => 'Done',
             self::CANCELED => 'Canceled',
-            self::FAILED => 'Failed',
+        };
+    }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::PENDING => 'info',
+            self::IN_PROGRESS => 'warning',
+            self::DONE => 'success',
+            self::CANCELED => 'danger',
         };
     }
 }

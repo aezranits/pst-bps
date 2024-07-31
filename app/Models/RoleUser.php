@@ -25,4 +25,6 @@ class RoleUser extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+ 
 }

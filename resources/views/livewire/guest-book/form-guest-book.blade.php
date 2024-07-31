@@ -83,23 +83,23 @@
 							<div class="max-w-lg">
 								<div class="space-y-6">
 									<div class="flex items-center gap-x-3">
-										<input id="mahasiswa" x-model="pekerjaan" wire:model="pekerjaan" value="Mahasiswa" name="pekerjaan" type="radio"
+										<input id="mahasiswa" x-model="pekerjaan" wire:model="pekerjaan" value="mahasiswa" name="pekerjaan" type="radio"
 											class="w-4 h-4 text-lightYellow border-gray-300 focus:ring-lightYellow">
 										<label for="mahasiswa" class="block text-sm font-medium leading-6 text-grey">Mahasiswa</label>
 									</div>
 									<div class="flex items-center gap-x-3">
-										<input id="dinas_instansi_opd" x-model="pekerjaan" wire:model="pekerjaan" value="Dinas/Instansi/OPD"
+										<input id="dinas_instansi_opd" x-model="pekerjaan" wire:model="pekerjaan" value="dinas/instansi/opd"
 											name="pekerjaan" type="radio" class="w-4 h-4 text-lightYellow border-gray-300 focus:ring-lightYellow">
 										<label for="dinas_instansi_opd"
 											class="block text-sm font-medium leading-6 text-grey">Dinas/Instansi/OPD</label>
 									</div>
 									<div class="flex items-center gap-x-3">
-										<input id="peneliti" x-model="pekerjaan" value="Peneliti" name="pekerjaan" wire:model="pekerjaan" type="radio"
+										<input id="peneliti" x-model="pekerjaan" value="peneliti" name="pekerjaan" wire:model="pekerjaan" type="radio"
 											class="w-4 h-4 text-lightYellow border-gray-300 focus:ring-lightYellow">
 										<label for="peneliti" class="block text-sm font-medium leading-6 text-grey">Peneliti</label>
 									</div>
 									<div class="flex items-center gap-x-3">
-										<input id="umum" x-model="pekerjaan" value="Umum" name="pekerjaan" wire:model="pekerjaan" type="radio"
+										<input id="umum" x-model="pekerjaan" value="umum" name="pekerjaan" wire:model="pekerjaan" type="radio"
 											class="w-4 h-4 text-lightYellow border-gray-300 focus:ring-lightYellow">
 										<label for="umum" class="block text-sm font-medium leading-6 text-grey">Umum</label>
 									</div>
@@ -113,7 +113,7 @@
 				</fieldset>
 
 				<!-- Conditional Inputs -->
-				<template x-if="pekerjaan === 'Mahasiswa'">
+				<template x-if="pekerjaan === 'mahasiswa'">
 					<div>
 						<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 							<label for="jurusan" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Jurusan</label>
@@ -140,7 +140,7 @@
 						</div>
 					</div>
 				</template>
-				<template x-if="pekerjaan === 'Dinas/Instansi/OPD'">
+				<template x-if="pekerjaan === 'dinas/instansi/opd'">
 					<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 						<label for="asal" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Asal</label>
 						<div class="mt-2 sm:col-span-2 sm:mt-0">
@@ -153,7 +153,7 @@
 						</div>
 					</div>
 				</template>
-				<template x-if="pekerjaan === 'Peneliti'">
+				<template x-if="pekerjaan === 'peneliti'">
 					<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 						<label for="asal-universitas-lembaga" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Asal
 							Universitas/Lembaga Penelitian</label>
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 				</template>
-				<template x-if="pekerjaan === 'Umum'">
+				<template x-if="pekerjaan === 'umum'">
 					<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 						<label for="organisasi-nama-perusahaan-kantor"
 							class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Organisasi/Nama Perusahaan/Kantor</label>
@@ -187,7 +187,7 @@
 					<div class="mt-2 sm:col-span-1 sm:mt-0">
 						<input type="tel" name="no-hp" id="no-hp" wire:model="no_hp" pattern="[0-9]*" inputmode="numeric"
 							class="block flex-1 rounded-md border-0 bg-white py-1.5 pl-1 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-							placeholder="ex: +6281268301644">
+							placeholder="ex: 08123456789">
 						@error('no_hp')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -331,7 +331,10 @@
 
 		</div>
 	</div>
-	<div>
+	<div x-data='{show: false}' x-show= 'show' :class="{ 'hidden': !show }" x-on:open-modal.window = "show = true"
+	x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 "
+	x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-200"
+	x-transition:leave-start="opacity-100 " x-transition:leave-end="opacity-0 " class="hidden">
 		@livewire('guest-book.modal-success')
 	</div>
 

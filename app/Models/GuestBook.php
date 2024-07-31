@@ -23,7 +23,8 @@ class GuestBook extends Model
         'email',
         'asal_kota',
         'tujuan_kunjungan',
-        'tujuan_kunjungan_lainnya'
+        'tujuan_kunjungan_lainnya',
+        'petugas_pst_id'
     ];
 
     protected $casts = [
@@ -33,6 +34,10 @@ class GuestBook extends Model
     public function requests()
     {
         return $this->hasOne(Request::class);
+    }
+
+    public function users(){
+        return $this->hasOne(User::class);
     }
 }
 

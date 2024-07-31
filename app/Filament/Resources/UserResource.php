@@ -5,18 +5,26 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\Widgets\UserOverview;
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Log;
 
 class UserResource extends Resource
 {
@@ -26,7 +34,7 @@ class UserResource extends Resource
 
     protected static ?string $modelLabel = 'Users';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     protected static ?string $navigationGroup = 'User Management';
 
@@ -34,82 +42,57 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                TextInput::make('name')
-                    ->label('Username')
-                    ->maxLength(255),
-                TextInput::make('email')
-                    ->label('Email Address')
-                    ->email()
-                    ->unique(column: 'email')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('password')
-                    ->password()
-                    ->same('confirm_password')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('confirm_password')
-                    ->same('password')
-                    ->password()
-                    ->required(),
-                Select::make('role')
-                    ->label('Role User')
-                    ->relationship('roles','description')
-                    ->required(),
-                TextInput::make('gender'),
-                DatePicker::make('dob'),
-            ]);
+        return $form->schema([
+            Section::make('Profil User')
+                ->description('Put the user name details in.')
+                ->schema([
+                    Select::make('role')->label('Role User')->relationship('roles', 'description')->required()->native(false)->columnSpanFull(), 
+                    TextInput::make('name')->label('Username')->maxLength(255)->columnSpanFull(), 
+                    TextInput::make('email')->label('Email Address')->email()->unique(ignoreRecord: true)->required()->maxLength(255)->columnSpanFull(), 
+                    TextInput::make('password')->password()->same('confirm_password')->required(
+                        fn ($context) => $context === 'create'
+                    )->maxLength(20)->visibleOn('create'), 
+                    TextInput::make('confirm_password')->same('password')->password()->required(fn ($context) => $context === 'create')->columns(1)->visibleOn('create'), 
+                    Select::make('gender')
+                        ->label('Jenis Kelamin')
+                        ->options([
+                            'laki-laki' => 'Laki - Laki',
+                            'perempuan' => 'Perempuan',
+                        ])
+                        ->native(false)
+                        ->required(), 
+                    DatePicker::make('dob')])
+                ->columns(2),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                TextColumn::make('name')
-                    ->label('Username')
-                    ->searchable(),
-                TextColumn::make('email')
-                    ->label('Email Address')
-                    ->searchable(),
-                TextColumn::make('roles.description')
-                    ->label('Role'),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ->columns([TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.description')->label('Role'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    ViewAction::make(), 
+                    EditAction::make(),
+                    DeleteAction::make(), 
+                ])
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 
     public static function getWidgets(): array
     {
-        return [
-            UserOverview::class,
-        ];
+        return [UserOverview::class];
     }
 
     public static function getPages(): array
@@ -122,5 +105,10 @@ class UserResource extends Resource
         ];
     }
 
-    
+    public static function canViewAny(): bool
+    {
+        $adminRole = Role::where('name', 'admin')->pluck('id');
+        $adminUserIds = RoleUser::where('role_id',$adminRole)->pluck('user_id');
+        return $adminUserIds->contains(auth()->user()->id);
+    }
 }

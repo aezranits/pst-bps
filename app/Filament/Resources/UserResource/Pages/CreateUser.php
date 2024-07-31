@@ -16,14 +16,19 @@ class CreateUser extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
-        $record =  static::getModel()::create($data);
+        $record = static::getModel()::create($data);
 
         $roleUser = new RoleUser();
         $roleUser['user_id'] = $record->id;
         $roleUser['role_id'] = $data['role'];
-        
+
         $roleUser->save();
 
         return $record;
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Livewire\GuestBook;
 
+use App\Enum\StatusRequestEnum;
 use App\Models\GuestBook;
-use Illuminate\Support\Facades\Log;
+use App\Models\Request;
 use Livewire\Component;
 
 class FormGuestBook extends Component
@@ -61,24 +62,24 @@ class FormGuestBook extends Component
             }
     
             switch ($validatedData['pekerjaan']) {
-                case 'Mahasiswa':
+                case 'mahasiswa':
                     $validatedData['asal'] = null;
                     $validatedData['asal_universitas_lembaga'] = null;
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
-                case 'Dinas/Instansi/OPD':
+                case 'dinas/instansi/opd':
                     $validatedData['jurusan'] = null;
                     $validatedData['asal_universitas'] = null;
                     $validatedData['asal_universitas_lembaga'] = null;
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
-                case 'Peneliti':
+                case 'peneliti':
                     $validatedData['jurusan'] = null;
                     $validatedData['asal_universitas'] = null;
                     $validatedData['asal'] = null;
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
-                case 'Umum':
+                case 'umum':
                     $validatedData['jurusan'] = null;
                     $validatedData['asal_universitas'] = null;
                     $validatedData['asal'] = null;
@@ -94,7 +95,14 @@ class FormGuestBook extends Component
             }
 
             $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota']. ', ' . $validatedData['provinsi'];
-            GuestBook::create($validatedData);
+            $guestBook = GuestBook::create($validatedData);
+            
+            $request = new Request();
+            $request['guest_book_id'] = $guestBook['id'];
+            $request['status'] = StatusRequestEnum::PENDING;
+            
+            $request->save();
+            
             $this->reset();
             $this->dispatch('open-modal');
     }

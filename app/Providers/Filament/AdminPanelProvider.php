@@ -2,6 +2,12 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\GuestBookStatsWidget;
+use App\Filament\Widgets\LatestFeedbackWidget;
+use App\Filament\Widgets\LatestGuestBooksWidget;
+use App\Filament\Widgets\PendingGuestBooksWidget;
+use App\Filament\Widgets\TopStaffWidget;
+use App\Filament\Widgets\WelcomeWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -26,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('user')
             ->path('user')
             ->login()
+            // ->profile()
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,
@@ -34,16 +41,20 @@ class AdminPanelProvider extends PanelProvider
                 'success' => Color::Emerald,
                 'warning' => Color::Orange,
             ])
+            ->viteTheme('resources/css/filament/user/theme.css')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->brandLogo(asset('img/logo-pst.svg'))
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                // Widgets\AccountWidget::class,
-                // Widgets\FilamentInfoWidget::class,
+                WelcomeWidget::class,
+                TopStaffWidget::class,
+                PendingGuestBooksWidget::class,
+                // GuestBookStatsWidget::class,
+                // LatestFeedbackWidget::class,
+                LatestGuestBooksWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -61,3 +72,4 @@ class AdminPanelProvider extends PanelProvider
             ]);
     }
 }
+

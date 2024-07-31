@@ -10,20 +10,21 @@ class CreateGuestBooksTable extends Migration
     {
         Schema::create('guest_books', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_lengkap');
-            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
-            $table->integer('usia');
-            $table->string('pekerjaan');
+            $table->string('nama_lengkap')->nullable();
+            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan'])->nullable();
+            $table->integer('usia')->nullable();
+            $table->string('pekerjaan')->nullable();
             $table->string('jurusan')->nullable();
             $table->string('asal_universitas')->nullable();
             $table->string('asal')->nullable();
             $table->string('asal_universitas_lembaga')->nullable();
             $table->string('organisasi_nama_perusahaan_kantor')->nullable();
-            $table->string('no_hp');
-            $table->string('email');
-            $table->string('asal_kota');
-            $table->json('tujuan_kunjungan');
+            $table->string('no_hp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('asal_kota')->nullable();
+            $table->json('tujuan_kunjungan')->nullable();
             $table->string('tujuan_kunjungan_lainnya')->nullable();
+            $table->foreignId('petugas_pst_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

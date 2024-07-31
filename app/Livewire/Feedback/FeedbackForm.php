@@ -13,6 +13,7 @@ class FeedbackForm extends Component
     public $frontOffice = [];
     public $petugasPst = [];
 
+    public $nama_lengkap;
     public $petugas_pst_id;
     public $front_office_id;
     public $kepuasan_petugas_pst;
@@ -21,6 +22,7 @@ class FeedbackForm extends Component
     public $kritik_saran;
 
     protected $rules = [
+        'nama_lengkap' => 'string|required',
         'petugas_pst_id' => 'required',
         'front_office_id' => 'required',
         'kepuasan_petugas_pst' => 'required|integer|between:1,5',
@@ -41,10 +43,9 @@ class FeedbackForm extends Component
 
     public function submit()
     {
-        $validatedData = $this->validate();
-        Feedback::create($validatedData);
+        $this->validate();
         $this->reset();
-        
+        $this->dispatch('open-modal');
     }
 
     public function render()

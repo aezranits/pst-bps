@@ -10,7 +10,7 @@ class Feedback extends Model
     use HasFactory;
 
     protected $fillable = [
-        'requests_id',
+        'nama_lengkap',
         'petugas_pst_id',
         'front_office_id',
         'kepuasan_petugas_pst',
@@ -18,11 +18,6 @@ class Feedback extends Model
         'kepuasan_sarana_prasarana',
         'kritik_saran',
     ];
-
-    public function requests()
-    {
-        return $this->belongsTo(Request::class);
-    }
 
     public function users(){
         return $this->belongsTo(User::class);

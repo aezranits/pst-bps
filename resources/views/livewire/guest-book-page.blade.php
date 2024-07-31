@@ -1,5 +1,6 @@
 <div class="pt-16 ">
 	@livewire('partials.svg-background')
+	
 	<div class="relative flex w-full max-w-7xl mx-auto bg-darkBlue rounded-3xl m-5">
 		<div
 			class="aspect-h-2 aspect-w-3 overflow-hidden sm:aspect-w-5 lg:aspect-none lg:sticky lg:top-16 lg:h-screen w-1/2 bg-opacity-90 lg:block hidden p-5 ">
