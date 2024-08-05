@@ -6,25 +6,13 @@
 			class="pb-10 mt-5 lg:mt-0 space-y-8 border-b border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
 
 			<form wire:submit.prevent="submit">
-				<!-- First Name -->
+				<!-- Nama Lengkap -->
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="first-name" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">First name</label>
+					<label for="nama-lengkap" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Nama Lengkap</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<input type="text" wire:model="first_name" id="first-name" autocomplete="given-name"
-							class="block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-						@error('first_name')
-							<span class="text-red-500">{{ $message }}</span>
-						@enderror
-					</div>
-				</div>
-
-				<!-- Last Name -->
-				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="last-name" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Last name</label>
-					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<input type="text" wire:model="last_name" id="last-name" autocomplete="family-name"
+						<input type="text" wire:model="nama_lengkap" id="nama-lengkap" autocomplete="family-name"
 							class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-						@error('last_name')
+						@error('nama_lengkap')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
 					</div>

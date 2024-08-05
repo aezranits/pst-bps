@@ -10,8 +10,7 @@ use Livewire\Component;
 
 class FormGuestBook extends Component
 {   
-    public $first_name;
-    public $last_name;
+    public $nama_lengkap;
     public $jenis_kelamin;
     public $usia;
     public $pekerjaan; // Make sure this property is defined
@@ -29,8 +28,7 @@ class FormGuestBook extends Component
     public $tujuan_kunjungan_lainnya;
 
     protected $rules = [
-        'first_name' => 'required|string|max:255',
-        'last_name' => 'required|string|max:255',
+        'nama_lengkap' => 'required|string|max:255',
         'jenis_kelamin' => 'required|string',
         'usia' => 'required|numeric|min:1|max:150',
         'pekerjaan' => 'required|string',
@@ -51,12 +49,9 @@ class FormGuestBook extends Component
     protected function messages()
     {
         return [
-            'first_name.required' => 'Nama depan wajib diisi.',
-            'first_name.string' => 'Nama depan harus berupa teks.',
-            'first_name.max' => 'Nama depan maksimal 255 karakter.',
-            'last_name.required' => 'Nama belakang wajib diisi.',
-            'last_name.string' => 'Nama belakang harus berupa teks.',
-            'last_name.max' => 'Nama belakang maksimal 255 karakter.',
+            'nama_lengkap.required' => 'Nama depan wajib diisi.',
+            'nama_lengkap.string' => 'Nama depan harus berupa teks.',
+            'nama_lengkap.max' => 'Nama depan maksimal 255 karakter.',
             'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
             'jenis_kelamin.string' => 'Jenis kelamin harus berupa teks.',
             'usia.required' => 'Usia wajib diisi.',
@@ -104,18 +99,9 @@ class FormGuestBook extends Component
         ];
     }
 
-    protected $repository;
-
-    public function __construct($id = null)
-    {
-        parent::__construct($id);
-        $this->repository = app(GuestbookRepositoryInterface::class);
-    }
-
     public function submit()
     {
             $validatedData = $this->validate();
-            $validatedData['nama_lengkap'] = $validatedData['first_name'] . ' ' . $validatedData['last_name'];
 
             if (!in_array('lainnya', $validatedData['tujuan_kunjungan'])) {
                 $validatedData['tujuan_kunjungan_lainnya'] = null;
@@ -155,7 +141,7 @@ class FormGuestBook extends Component
             }
 
             $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota']. ', ' . $validatedData['provinsi'];
-            $this->repository->create($validatedData);
+            GuestBook::create($validatedData);
             
             session()->flash('message', 'Guestbook entry created successfully.');
             $this->reset();
