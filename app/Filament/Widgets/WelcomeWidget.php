@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\GuestBook;
 use App\Models\Feedback;
 use Filament\Widgets\Widget;
+use Illuminate\Support\Facades\Log;
 
 class WelcomeWidget extends Widget
 {
@@ -15,22 +16,20 @@ class WelcomeWidget extends Widget
     {
         $user = auth()->user();
         $userId = $user->id;
-        $role = $user->roles->pluck('description')->first();
-        $doneGuestBooks = GuestBook::where('petugas_pst_id', $userId)
-            ->whereHas('requests', function ($query) {
-                $query->where('status', 'done');
-            })->count();
+        $userRole = $user->getRoleNames()->first();
+        $doneGuestBooks = GuestBook::where('petugas_pst', $userId)
+            ->where('status', 'done') // Check the status directly
+            ->count();
 
-        $feedbackRating = Feedback::where('petugas_pst_id', $userId)->avg('kepuasan_petugas_pst');
+        $feedbackRating = Feedback::where('petugas_pst', $userId)->avg('kepuasan_petugas_pst');
 
         $data = [
             'name' => $user->name,
             'email' => $user->email,
-            'role' => $role,
+            'role' => $userRole,
             'doneGuestBooks' => $doneGuestBooks,
             'feedbackRating' => number_format($feedbackRating, 2),
         ];
-
 
         return $data;
     }

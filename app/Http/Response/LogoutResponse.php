@@ -1,6 +1,6 @@
 <?php
  
-namespace App\Http\Responses;
+namespace App\Http\Response;
  
 use Filament\Http\Responses\Auth\Contracts\LogoutResponse as Responsable;
 use Illuminate\Http\RedirectResponse;

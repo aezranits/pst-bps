@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->string('nama_lengkap')->nullable();
-            $table->foreignId('petugas_pst_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('front_office_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('petugas_pst')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('front_office')->nullable()->constrained('users')->onDelete('set null');
             $table->integer('kepuasan_petugas_pst')->nullable();
             $table->integer('kepuasan_petugas_front_office')->nullable();
             $table->integer('kepuasan_sarana_prasarana')->nullable();
@@ -29,6 +29,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('guest_books', function (Blueprint $table) {
+            $table->dropForeign(['petugas_pst']);
+            $table->dropForeign(['front_office']);
+        });
         Schema::dropIfExists('feedbacks');
     }
 };

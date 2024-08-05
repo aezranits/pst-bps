@@ -5,6 +5,7 @@ namespace App\Livewire\GuestBook;
 use App\Enum\StatusRequestEnum;
 use App\Models\GuestBook;
 use App\Models\Request;
+use App\Repositories\Interface\GuestbookRepositoryInterface;
 use Livewire\Component;
 
 class FormGuestBook extends Component
@@ -47,10 +48,69 @@ class FormGuestBook extends Component
         'tujuan_kunjungan_lainnya' => 'nullable|string|max:255',
     ];
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName);
-    // }
+    protected function messages()
+    {
+        return [
+            'first_name.required' => 'Nama depan wajib diisi.',
+            'first_name.string' => 'Nama depan harus berupa teks.',
+            'first_name.max' => 'Nama depan maksimal 255 karakter.',
+            'last_name.required' => 'Nama belakang wajib diisi.',
+            'last_name.string' => 'Nama belakang harus berupa teks.',
+            'last_name.max' => 'Nama belakang maksimal 255 karakter.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib diisi.',
+            'jenis_kelamin.string' => 'Jenis kelamin harus berupa teks.',
+            'usia.required' => 'Usia wajib diisi.',
+            'usia.numeric' => 'Usia harus berupa angka.',
+            'usia.min' => 'Usia minimal 1 tahun.',
+            'usia.max' => 'Usia maksimal 150 tahun.',
+            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
+            'pekerjaan.string' => 'Pekerjaan harus berupa teks.',
+            'jurusan.required_if' => 'Jurusan wajib diisi jika pekerjaan adalah Mahasiswa.',
+            'jurusan.string' => 'Jurusan harus berupa teks.',
+            'jurusan.max' => 'Jurusan maksimal 255 karakter.',
+            'asal_universitas.required_if' => 'Asal universitas wajib diisi jika pekerjaan adalah Mahasiswa.',
+            'asal_universitas.string' => 'Asal universitas harus berupa teks.',
+            'asal_universitas.max' => 'Asal universitas maksimal 255 karakter.',
+            'asal_universitas_lembaga.required_if' => 'Asal universitas/lembaga wajib diisi jika pekerjaan adalah Peneliti.',
+            'asal_universitas_lembaga.string' => 'Asal universitas/lembaga harus berupa teks.',
+            'asal_universitas_lembaga.max' => 'Asal universitas/lembaga maksimal 255 karakter.',
+            'asal.required_if' => 'Asal wajib diisi jika pekerjaan adalah Dinas/Instansi/OPD.',
+            'asal.string' => 'Asal harus berupa teks.',
+            'asal.max' => 'Asal maksimal 255 karakter.',
+            'organisasi_nama_perusahaan_kantor.required_if' => 'Nama perusahaan/kantor wajib diisi jika pekerjaan adalah Umum.',
+            'organisasi_nama_perusahaan_kantor.string' => 'Nama perusahaan/kantor harus berupa teks.',
+            'organisasi_nama_perusahaan_kantor.max' => 'Nama perusahaan/kantor maksimal 255 karakter.',
+            'no_hp.required' => 'Nomor HP wajib diisi.',
+            'no_hp.regex' => 'Nomor HP harus berupa angka.',
+            'no_hp.min' => 'Nomor HP minimal 10 karakter.',
+            'no_hp.max' => 'Nomor HP maksimal 15 karakter.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Email harus berupa alamat email yang valid.',
+            'email.max' => 'Email maksimal 255 karakter.',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'alamat.string' => 'Alamat harus berupa teks.',
+            'alamat.max' => 'Alamat maksimal 500 karakter.',
+            'kota.required' => 'Kota wajib diisi.',
+            'kota.string' => 'Kota harus berupa teks.',
+            'kota.max' => 'Kota maksimal 255 karakter.',
+            'provinsi.required' => 'Provinsi wajib diisi.',
+            'provinsi.string' => 'Provinsi harus berupa teks.',
+            'provinsi.max' => 'Provinsi maksimal 255 karakter.',
+            'tujuan_kunjungan.required' => 'Tujuan kunjungan wajib diisi.',
+            'tujuan_kunjungan.array' => 'Tujuan kunjungan harus berupa array.',
+            'tujuan_kunjungan.min' => 'Minimal pilih satu tujuan kunjungan.',
+            'tujuan_kunjungan_lainnya.string' => 'Tujuan kunjungan lainnya harus berupa teks.',
+            'tujuan_kunjungan_lainnya.max' => 'Tujuan kunjungan lainnya maksimal 255 karakter.',
+        ];
+    }
+
+    protected $repository;
+
+    public function __construct($id = null)
+    {
+        parent::__construct($id);
+        $this->repository = app(GuestbookRepositoryInterface::class);
+    }
 
     public function submit()
     {
@@ -95,14 +155,9 @@ class FormGuestBook extends Component
             }
 
             $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota']. ', ' . $validatedData['provinsi'];
-            $guestBook = GuestBook::create($validatedData);
+            $this->repository->create($validatedData);
             
-            $request = new Request();
-            $request['guest_book_id'] = $guestBook['id'];
-            $request['status'] = StatusRequestEnum::PENDING;
-            
-            $request->save();
-            
+            session()->flash('message', 'Guestbook entry created successfully.');
             $this->reset();
             $this->dispatch('open-modal');
     }

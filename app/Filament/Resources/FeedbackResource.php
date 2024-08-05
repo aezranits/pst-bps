@@ -52,81 +52,43 @@ class FeedbackResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Select::make('nama_lengkap')->relationship('requests', 'id')->hiddenOn('edit')->required(),
-            Select::make('petugas_pst_id')
-                ->options(function ($record) {
-                    $petugasPstRoleId = Role::where('name', 'petugas_pst')->value('id');
-
-                    return User::whereHas('roles', function ($query) use ($petugasPstRoleId) {
-                        $query->where('roles.id', $petugasPstRoleId);
-                    })->pluck('name', 'id');
-                })
-                ->searchable()
+            TextInput::make('nama_lengkap')->required()->columnSpanFull(),
+            Select::make('petugas_pst')
+                ->relationship('petugasPst', 'name')
+                ->native(false)
                 ->required(),
-            Select::make('front_office_id')
-                ->options(function ($record) {
-                    $frontOfficeRoleId = Role::where('name', 'front_office')->value('id');
-
-                    return User::whereHas('roles', function ($query) use ($frontOfficeRoleId) {
-                        $query->where('roles.id', $frontOfficeRoleId);
-                    })->pluck('name', 'id');
-                })
+            Select::make('front_office')
+                ->relationship('frontOffice', 'name')
+                ->native(false)
                 ->required(),
-            TextInput::make('kepuasan_petugas_pst')->required()->numeric(),
-            TextInput::make('kepuasan_petugas_front_office')->required()->numeric(),
-            TextInput::make('kepuasan_sarana_prasarana')->required()->numeric(),
+            TextInput::make('kepuasan_petugas_pst')->required()->numeric()->maxValue(5)->minValue(0),
+            TextInput::make('kepuasan_petugas_front_office')->required()->numeric()->maxValue(5)->minValue(0),
+            TextInput::make('kepuasan_sarana_prasarana')->required()->numeric()->maxValue(5)->minValue(0),
             Textarea::make('kritik_saran')->columnSpanFull(),
-        ]);
+        ])->disabled(fn() => auth()->user()->hasAnyRole('pst','front-office'));
     }
 
     public static function table(Table $table): Table
     {
-        $userLogin = auth()->user();
-        $adminId = Role::where('name', 'admin')->value('id');
-        
-
-        $isAdmin = RoleUser::where('user_id', $userLogin->id)
-                                                    ->where('role_id', $adminId)->exists();
-        $table = $table
+        return $table
             ->columns([
                 TextColumn::make('nama_lengkap')->searchable()->sortable()->label('Nama Lengkap'),
-                TextColumn::make('petugas_pst_id')->searchable()->sortable()->label('Petugas PST'),
-                TextColumn::make('front_office_id')->searchable()->sortable()->label('Front Office'),
+                TextColumn::make('petugasPst.name')->searchable()->sortable()->label('Petugas PST'),
+                TextColumn::make('frontOffice.name')->searchable()->sortable()->label('Front Office'),
                 TextColumn::make('created_at')->dateTime()->sortable()->label('Tanggal Pengisian'),
                 TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()])])
-            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
-
-        if (!$isAdmin) {
-            $table = $table->filters([
-                Filter::make('my_feedback')
-                    ->query(function (Builder $query) {
-                        $user = auth()->user();
-                        $petugasPstRoleId = Role::where('name', 'petugas_pst')->value('id');
-                        $frontOfficeRoleId = Role::where('name', 'front_office')->value('id');
-                        if ($user && $petugasPstRoleId) {
-                            $isPetugasPst = RoleUser::where('user_id', $user->id)
-                                                    ->where('role_id', $petugasPstRoleId)->exists();
-    
-                            if ($isPetugasPst) {
-                                return $query->where('petugas_pst_id', $user->id);
-                            }
-                        }elseif(($user && $frontOfficeRoleId)) {
-                            $isPetugasPst = RoleUser::where('user_id', $user->id)
-                                                    ->where('role_id', $frontOfficeRoleId)->exists();
-    
-                            if ($isPetugasPst) {
-                                return $query->where('petugas_pst_id', $user->id);
-                            }
-                        }
-    
-                        return $query; // Show all records if not petugas_pst or user not found
-                    })
-            ]);
-        }
-
-        return $table;
+            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])])
+            ->modifyQueryUsing(function (Builder $query) { 
+                if (auth()->user()->hasRole('pst')) {
+                    $userId = auth()->user()->id;
+                    return $query->where('petugas_pst', $userId);
+                }else if(auth()->user()->hasRole('front-office')){
+                    $userId = auth()->user()->id;
+                    return $query->where('front_office', $userId);
+                }
+            }) ;
     }
 
     public static function getRelations(): array
@@ -146,7 +108,6 @@ class FeedbackResource extends Resource
         return [
             'index' => Pages\ListFeedback::route('/'),
             'create' => Pages\CreateFeedback::route('/create'),
-            'view' => Pages\ViewFeedback::route('/{record}'),
             'edit' => Pages\EditFeedback::route('/{record}/edit'),
         ];
     }

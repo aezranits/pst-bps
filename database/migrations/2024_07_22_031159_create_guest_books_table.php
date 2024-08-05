@@ -24,14 +24,19 @@ class CreateGuestBooksTable extends Migration
             $table->string('asal_kota')->nullable();
             $table->json('tujuan_kunjungan')->nullable();
             $table->string('tujuan_kunjungan_lainnya')->nullable();
-            $table->foreignId('petugas_pst_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->enum('status', ['done', 'pending', 'inProgress'])->default('pending');
+            $table->unsignedBigInteger('petugas_pst')->nullable();
+            $table->foreign('petugas_pst')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }
 
     public function down()
     {
+        Schema::table('guest_books', function (Blueprint $table) {
+            $table->dropForeign(['petugas_pst']);
+        });
+
         Schema::dropIfExists('guest_books');
     }
 }
-

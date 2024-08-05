@@ -46,13 +46,11 @@ class UserResource extends Resource
             Section::make('Profil User')
                 ->description('Put the user name details in.')
                 ->schema([
-                    Select::make('role')->label('Role User')->relationship('roles', 'description')->required()->native(false)->columnSpanFull(), 
-                    TextInput::make('name')->label('Username')->maxLength(255)->columnSpanFull(), 
-                    TextInput::make('email')->label('Email Address')->email()->unique(ignoreRecord: true)->required()->maxLength(255)->columnSpanFull(), 
-                    TextInput::make('password')->password()->same('confirm_password')->required(
-                        fn ($context) => $context === 'create'
-                    )->maxLength(20)->visibleOn('create'), 
-                    TextInput::make('confirm_password')->same('password')->password()->required(fn ($context) => $context === 'create')->columns(1)->visibleOn('create'), 
+                    Select::make('roles')->relationship('roles', 'name')->preload()->required()->native(false),
+                    TextInput::make('name')->label('Username')->maxLength(255)->columnSpanFull(),
+                    TextInput::make('email')->label('Email Address')->email()->unique(ignoreRecord: true)->required()->maxLength(255)->columnSpanFull(),
+                    TextInput::make('password')->password()->same('confirm_password')->required(fn($context) => $context === 'create')->maxLength(20)->visibleOn('create'),
+                    TextInput::make('confirm_password')->same('password')->password()->required(fn($context) => $context === 'create')->columns(1)->visibleOn('create'),
                     Select::make('gender')
                         ->label('Jenis Kelamin')
                         ->options([
@@ -60,8 +58,9 @@ class UserResource extends Resource
                             'perempuan' => 'Perempuan',
                         ])
                         ->native(false)
-                        ->required(), 
-                    DatePicker::make('dob')])
+                        ->required(),
+                    DatePicker::make('dob'),
+                ])
                 ->columns(2),
         ]);
     }
@@ -69,17 +68,11 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.description')->label('Role'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
+            ->columns([TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.name')->label('Roles'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
             ->filters([
                 //
             ])
-            ->actions([
-                ActionGroup::make([
-                    ViewAction::make(), 
-                    EditAction::make(),
-                    DeleteAction::make(), 
-                ])
-            ])
+            ->actions([ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()])])
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);
     }
 
@@ -107,8 +100,13 @@ class UserResource extends Resource
 
     public static function canViewAny(): bool
     {
-        $adminRole = Role::where('name', 'admin')->pluck('id');
-        $adminUserIds = RoleUser::where('role_id',$adminRole)->pluck('user_id');
-        return $adminUserIds->contains(auth()->user()->id);
+        return auth()->user()->hasRole('admin');
     }
+
+    public static function authorizeResource(?string $resource = null): bool
+    {
+        return auth()->user()->hasRole('admin');
+    }
+
+
 }

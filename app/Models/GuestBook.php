@@ -24,20 +24,17 @@ class GuestBook extends Model
         'asal_kota',
         'tujuan_kunjungan',
         'tujuan_kunjungan_lainnya',
-        'petugas_pst_id'
+        'status',
+        'petugas_pst'
     ];
 
     protected $casts = [
         'tujuan_kunjungan' => 'array',
     ];
 
-    public function requests()
+    public function petugasPst()
     {
-        return $this->hasOne(Request::class);
-    }
-
-    public function users(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'petugas_pst')->role('pst');
     }
 }
 

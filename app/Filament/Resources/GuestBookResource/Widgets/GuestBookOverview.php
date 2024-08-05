@@ -16,43 +16,24 @@ class GuestBookOverview extends BaseWidget
     protected function getStats(): array
     {
         $user = auth()->user();
-        $userId = $user->id;
-        $petugasPstRoleId = Role::where('name', 'petugas_pst')->value('id');
-        Log::info('test');
-        $isPetugasPST = RoleUser::where('user_id', $userId)
-                                                    ->where('role_id', $petugasPstRoleId)->exists();
-
-        // Calculate total guest books
-        $totalGuestBooks = GuestBook::count();
         
-        // Calculate my total guest books for petugas_pst
-        $myTotalGuestBooks = $isPetugasPST ? GuestBook::where('petugas_pst_id', $userId)->count() : 0;
-
-        // Calculate in progress guest books
-        if ($isPetugasPST) {
-            $inProgressGuestBooks = GuestBook::where('petugas_pst_id', $userId)
-                ->whereHas('requests', function ($query) {
-                    $query->where('status', 'inProgress');
-                })->count();
+        if ($user->hasRole('pst')) {
+            // Get GuestBooks for the logged-in 'petugas pst'
+            $query = GuestBook::where('petugas_pst', $user->id);
         } else {
-            $inProgressGuestBooks = GuestBook::whereHas('requests', function ($query) {
-                $query->where('status', 'inProgress');
-            })->count();
+            // Get all GuestBooks
+            $query = GuestBook::query();
         }
 
-        // Calculate done guest books
-        if ($isPetugasPST) {
-            $doneGuestBooks = GuestBook::where('petugas_pst_id', $userId)
-                ->whereHas('requests', function ($query) {
-                    $query->where('status', 'done');
-                })->count();
-        } else {
-            $doneGuestBooks = GuestBook::whereHas('requests', function ($query) {
-                $query->where('status', 'done');
-            })->count();
-        }
+        Log::info(GuestBook::where('status', 'done')->count());
+        // Get the counts
+        $totalGuestBooks = $query->count();
+        $inProgressGuestBooks = $query->where('status', 'inProgress')->count();
+        $doneGuestBooks = GuestBook::where('status', 'done')->count();
 
-        $stats = [
+        // bug ketika $query->where('status', 'done')->count(); menghasilkan nilai 1
+
+        return [
             Stat::make('Total', $totalGuestBooks)
                 ->color('primary'),
             Stat::make('In Progress', $inProgressGuestBooks)
@@ -60,12 +41,5 @@ class GuestBookOverview extends BaseWidget
             Stat::make('Done', $doneGuestBooks)
                 ->color('success'),
         ];
-
-        if ($isPetugasPST) {
-            $stats[] = Stat::make('My Total GuestBook', $myTotalGuestBooks)
-                ->color('info');
-        }
-
-        return $stats;
     }
 }

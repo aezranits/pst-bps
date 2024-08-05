@@ -7,10 +7,7 @@ use App\Enum\StatusRequestEnum;
 use App\Filament\Resources\GuestBookResource\Pages;
 use App\Filament\Resources\GuestBookResource\Widgets\GuestBookOverview;
 use App\Models\GuestBook;
-use App\Models\Request;
-use App\Models\Role;
-use App\Models\RoleUser;
-use App\Models\User;
+use App\Repositories\Interface\GuestbookRepositoryInterface;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Radio;
@@ -56,6 +53,10 @@ class GuestBookResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public function __construct(protected GuestbookRepositoryInterface $repository)
+    {
+    }
+
     public static function form(Form $form): Form
     {
         return $form
@@ -77,7 +78,13 @@ class GuestBookResource extends Resource
                                     ->required(),
                                 TextInput::make('usia')->required()->numeric(),
                                 TextInput::make('email')->label('Email')->email()->required()->maxLength(255),
-                                TextInput::make('no_hp')->label('No. HP')->required()->maxLength(255),
+                                TextInput::make('no_hp')
+                                    ->required()
+                                    ->regex('/^([0-9\s\-\+\(\)]*)$/')
+                                    ->minLength(10)
+                                    ->maxLength(15)
+                                    ->placeholder('Nomor HP (mis. 08123456789)')
+                                    ->rules(['regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:15']),
                                 TextInput::make('asal_kota')->label('Alamat')->required()->maxLength(255)->columnSpanFull(),
                             ])
                             ->columns(2),
@@ -86,14 +93,50 @@ class GuestBookResource extends Resource
                             ->description('Put the user name details in.')
                             ->schema([
                                 Radio::make('pekerjaan')
-                                    ->options([   
+                                    ->options([
                                         'mahasiswa' => 'Mahasiswa',
                                         'dinas/instansi/opd' => 'Dinas/Instansi/OPD',
                                         'peneliti' => 'Peneliti',
                                         'umum' => 'Umum',
                                     ])
+                                    ->live()
                                     ->reactive()
                                     ->required()
+                                    ->afterStateUpdated(function ($state, $set, $get) {
+                                        // Clear fields based on pekerjaan
+                                        switch ($state) {
+                                            case 'mahasiswa':
+                                                $set('asal', null);
+                                                $set('asal_universitas_lembaga', null);
+                                                $set('organisasi_nama_perusahaan_kantor', null);
+                                                break;
+                                            case 'dinas/instansi/opd':
+                                                $set('jurusan', null);
+                                                $set('asal_universitas', null);
+                                                $set('asal_universitas_lembaga', null);
+                                                $set('organisasi_nama_perusahaan_kantor', null);
+                                                break;
+                                            case 'peneliti':
+                                                $set('jurusan', null);
+                                                $set('asal_universitas', null);
+                                                $set('asal', null);
+                                                $set('organisasi_nama_perusahaan_kantor', null);
+                                                break;
+                                            case 'umum':
+                                                $set('jurusan', null);
+                                                $set('asal_universitas', null);
+                                                $set('asal', null);
+                                                $set('asal_universitas_lembaga', null);
+                                                break;
+                                            default:
+                                                $set('jurusan', null);
+                                                $set('asal_universitas', null);
+                                                $set('asal', null);
+                                                $set('asal_universitas_lembaga', null);
+                                                $set('organisasi_nama_perusahaan_kantor', null);
+                                                break;
+                                        }
+                                    })
                                     ->columnSpan(2),
                                 // Mahasiswa Fields
                                 TextInput::make('jurusan')->maxLength(255)->visible(fn($get) => $get('pekerjaan') === 'mahasiswa'),
@@ -121,22 +164,37 @@ class GuestBookResource extends Resource
                                     ])
                                     ->live()
                                     ->afterStateUpdated(function (Set $set, Get $get) {
-                                        $set('tujuan_kunjungan_lainnya', null);
+                                        if (!in_array('lainnya', $get('tujuan_kunjungan'))) {
+                                            $set('tujuan_kunjungan_lainnya', null);
+                                        }
                                     })
                                     ->reactive()
                                     ->required(),
 
-                                TextInput::make('tujuan_kunjungan_lainnya')->label('Tujuan Kunjungan Lainnya')->placeholder('Masukkan tujuan kunjungan lainnya')->live()->hidden(fn(callable $get) => !in_array('Lainnya', $get('tujuan_kunjungan') ?? []))->required(),
+                                TextInput::make('tujuan_kunjungan_lainnya')->label('Tujuan Kunjungan Lainnya')->placeholder('Masukkan tujuan kunjungan lainnya')->visible(fn($get) => in_array('lainnya', $get('tujuan_kunjungan'))),
                             ]),
                     ])
-                    ->columnSpan(fn($state, $livewire) => $livewire instanceof ViewRecord ? 3 : 2),
+                    ->columnSpan(2)
+                    ->disabled(fn() => auth()->user()->hasRole('pst')),
                 Group::make()
                     ->schema([
                         Section::make('Status Buku Tamu')
                             ->description('Tentukan status buku tamu')
                             ->schema([
+                                Select::make('petugas_pst')->label('Petugas PST')->relationship('petugasPst', 'name')->native(false)->visible(fn() => auth()->user()->hasRole('admin')),
                                 ToggleButtons::make('status')
-                                    ->options(StatusRequestEditEnum::class)
+                                    ->options(function () {
+                                        $options = [
+                                            'inProgress' => 'In Progress',
+                                            'done' => 'Done',
+                                        ];
+
+                                        if (auth()->user()->hasRole('admin')) {
+                                            $options['pending'] = 'Pending';
+                                        }
+
+                                        return $options;
+                                    })
                                     ->colors([
                                         'pending' => 'info',
                                         'inProgress' => 'warning',
@@ -154,22 +212,15 @@ class GuestBookResource extends Resource
                                     })
                                     ->inline()
                                     ->required(),
-                                Textarea::make('response')->columnSpanFull(),
                             ]),
                     ])
-                    ->columnSpan(1)
-                    ->hiddenOn('view'),
+                    ->columnSpan(1),
             ])
             ->columns(3);
     }
 
     public static function table(Table $table): Table
     {
-        $userLogin = auth()->user();
-        $petugasPstRoleId = Role::where('name', 'petugas_pst')->value('id');
-        $isPetugasPst = RoleUser::where('user_id', $userLogin->id)
-                                                    ->where('role_id', $petugasPstRoleId)->exists();
-
         $table = $table
             ->columns([
                 TextColumn::make('nama_lengkap')->searchable()->sortable()->label('Nama Lengkap'),
@@ -189,40 +240,29 @@ class GuestBookResource extends Resource
                         return $options[$record->pekerjaan] ?? $record->pekerjaan;
                     }),
                 TextColumn::make('created_at')->dateTime()->sortable()->label('Tanggal Pengisian'),
-                TextColumn::make('status')
-                    ->badge()
+                TextColumn::make('petugasPst.name')->label('Petugas PST')->searchable()->sortable()->hidden(fn() => auth()->user()->hasRole('pst')),
+                SelectColumn::make('status')
                     ->label('Status')
-                    ->getStateUsing(function ($record) {
-                        $requestGuestBook = Request::where('guest_book_id', $record->id)->first();
-                        return $requestGuestBook ? StatusRequestEnum::from($requestGuestBook->status)->getLabel() : 'Unknown';
-                    })
-                    ->color(function ($record) {
-                        $requestGuestBook = Request::where('guest_book_id', $record->id)->first();
-                        return $requestGuestBook ? StatusRequestEnum::from($requestGuestBook->status)->getColor() : 'gray';
+                    ->options(function () {
+                        $options = [
+                            'inProgress' => 'In Progress',
+                            'done' => 'Done',
+                        ];
+
+                        return $options;
                     }),
                 TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
             ->actions([ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()])])
-            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])]);
+            ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])])
+            ->modifyQueryUsing(function (Builder $query) {
+                if (auth()->user()->hasRole('pst')) {
+                    $userId = auth()->user()->id;
+                    return $query->where('petugas_pst', $userId)->whereIn('status', ['inProgress', 'done']);
+                }
+            })
+            ->poll('2s');
 
-        if ($isPetugasPst) {
-            $table = $table->filters([
-                Filter::make('my_guest_book')
-                    ->query(function (Builder $query) use ($petugasPstRoleId) {
-                        $user = auth()->user();
-                        
-                        if ($user && $petugasPstRoleId) {
-                            $isPetugasPst = RoleUser::where('user_id', $user->id)
-                                                    ->where('role_id', $petugasPstRoleId)->exists();
-    
-                            if ($isPetugasPst) {
-                                return $query->where('petugas_pst_id', $user->id);
-                            }
-                        }
-                        return $query; // Show all records if not petugas_pst or user not found
-                    })
-            ]);
-        }
 
         return $table;
     }
@@ -244,7 +284,6 @@ class GuestBookResource extends Resource
         return [
             'index' => Pages\ListGuestBooks::route('/'),
             'create' => Pages\CreateGuestBook::route('/create'),
-            // 'view' => Pages\ViewGuestBook::route('/{record}'),
             'edit' => Pages\EditGuestBook::route('/{record}/edit'),
         ];
     }

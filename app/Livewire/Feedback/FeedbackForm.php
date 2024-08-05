@@ -30,6 +30,26 @@ class FeedbackForm extends Component
         'kepuasan_sarana_prasarana' => 'required|integer|between:1,5',
         'kritik_saran' => 'string'
     ];
+
+    protected function messages()
+    {
+        return [
+            'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
+            'nama_lengkap.string' => 'Nama lengkap harus berupa teks.',
+            'petugas_pst_id.required' => 'Petugas PST wajib dipilih.',
+            'front_office_id.required' => 'Front Office wajib dipilih.',
+            'kepuasan_petugas_pst.required' => 'Kepuasan terhadap petugas PST wajib diisi.',
+            'kepuasan_petugas_pst.integer' => 'Kepuasan terhadap petugas PST harus berupa angka.',
+            'kepuasan_petugas_pst.between' => 'Kepuasan terhadap petugas PST harus antara 1 hingga 5.',
+            'kepuasan_petugas_front_office.required' => 'Kepuasan terhadap petugas Front Office wajib diisi.',
+            'kepuasan_petugas_front_office.integer' => 'Kepuasan terhadap petugas Front Office harus berupa angka.',
+            'kepuasan_petugas_front_office.between' => 'Kepuasan terhadap petugas Front Office harus antara 1 hingga 5.',
+            'kepuasan_sarana_prasarana.required' => 'Kepuasan terhadap sarana dan prasarana wajib diisi.',
+            'kepuasan_sarana_prasarana.integer' => 'Kepuasan terhadap sarana dan prasarana harus berupa angka.',
+            'kepuasan_sarana_prasarana.between' => 'Kepuasan terhadap sarana dan prasarana harus antara 1 hingga 5.',
+            'kritik_saran.string' => 'Kritik dan saran harus berupa teks.'
+        ];
+    }
     
     public function mount()
     {

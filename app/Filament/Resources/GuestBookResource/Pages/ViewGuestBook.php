@@ -17,12 +17,4 @@ class ViewGuestBook extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
-
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        $requestGuestBook = Request::where('guest_book_id', $data['id'])->first();
-        $data['status'] = $requestGuestBook['status'] ?? 'null';
-        $data['response'] = $requestGuestBook['response'] ?? 'null';
-        return $data;
-    }
 }

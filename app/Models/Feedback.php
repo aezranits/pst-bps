@@ -11,16 +11,22 @@ class Feedback extends Model
 
     protected $fillable = [
         'nama_lengkap',
-        'petugas_pst_id',
-        'front_office_id',
+        'petugas_pst',
+        'front_office',
         'kepuasan_petugas_pst',
         'kepuasan_petugas_front_office',
         'kepuasan_sarana_prasarana',
         'kritik_saran',
     ];
 
-    public function users(){
-        return $this->belongsTo(User::class);
+    public function petugasPst()
+    {
+        return $this->belongsTo(User::class, 'petugas_pst')->role('pst');
+    }
+
+    public function frontOffice()
+    {
+        return $this->belongsTo(User::class, 'front_office')->role('front-office');
     }
 }
 

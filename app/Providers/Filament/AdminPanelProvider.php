@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\GuestBookChart;
 use App\Filament\Widgets\GuestBookStatsWidget;
 use App\Filament\Widgets\LatestFeedbackWidget;
 use App\Filament\Widgets\LatestGuestBooksWidget;
@@ -32,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('user')
             ->path('user')
             ->login()
+            ->profile(isSimple: false)
             // ->profile()
             ->colors([
                 'danger' => Color::Rose,
@@ -51,10 +53,9 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 WelcomeWidget::class,
                 TopStaffWidget::class,
-                PendingGuestBooksWidget::class,
-                // GuestBookStatsWidget::class,
+                // GuestBookChart::class,
                 // LatestFeedbackWidget::class,
-                LatestGuestBooksWidget::class,
+                // LatestGuestBooksWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -71,5 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
+
+    
 }
 

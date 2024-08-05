@@ -13,40 +13,27 @@ class FeedbackOverview extends BaseWidget
     protected function getStats(): array
     {
         $user = auth()->user();
-        $userId = $user->id;
-        $petugasPstRoleId = Role::where('name', 'petugas_pst')->value('id');
-        $frontOfficeRoleId = Role::where('name', 'front_office')->value('id');
-        $isPetugasPst = RoleUser::where('user_id', $userId)
-                                                    ->where('role_id', $petugasPstRoleId)->exists();
-        $isFrontOffice = RoleUser::where('user_id', $userId)
-                                                    ->where('role_id', $frontOfficeRoleId)->exists();        
-        // Calculate My Rating Pelayanan
-        if ($isPetugasPst) {
-            // Petugas PST
-            $userFeedbacks = Feedback::where('petugas_pst_id', $userId)->get();
-            $myRatingPelayanan = $userFeedbacks->avg('kepuasan_petugas_pst');
-        } elseif ($isFrontOffice) {
-            // Front Office
-            $userFeedbacks = Feedback::where('front_office_id', $userId)->get();
-            $myRatingPelayanan = $userFeedbacks->avg('kepuasan_petugas_front_office');
-        } else {
-            $myRatingPelayanan = 0;
+        $stats = [];
+
+        if ($user->hasRole('pst')) {
+            // Calculate the average rating for the logged-in 'petugas pst'
+            $myRatingPelayanan = Feedback::where('petugas_pst', $user->id)->avg('kepuasan_petugas_pst');
+            $stats[] = Stat::make('Rating Pelayanan Petugas PST', $myRatingPelayanan ? number_format($myRatingPelayanan, 2) . '/5' : '0/5');
+        } elseif ($user->hasRole('front-office')) {
+            $myRatingPelayanan = Feedback::where('front_office', $user->id)->avg('kepuasan_petugas_front_office');
+            $stats[] = Stat::make('Rating Pelayanan Petugas Front Office', $myRatingPelayanan ? number_format($myRatingPelayanan, 2) . '/5' : '0/5');
         }
 
-        // Calculate Total Rating Pelayanan Petugas PST
-        $totalRatingPelayananPST = Feedback::where('petugas_pst_id', 2)->avg('kepuasan_petugas_pst');
-
-        // Calculate Total Rating Pelayanan Petugas Front Office
-        $totalRatingPelayananFrontOffice = Feedback::where('front_office_id', 3)->avg('kepuasan_petugas_front_office');
-
-        // Calculate Total Rating Sarana Prasaran
+        // Calculate the average ratings for all feedbacks
+        $totalRatingPelayananPST = Feedback::avg('kepuasan_petugas_pst');
+        $totalRatingPelayananFrontOffice = Feedback::avg('kepuasan_petugas_front_office');
         $totalRatingSaranaPrasarana = Feedback::avg('kepuasan_sarana_prasarana');
 
-        return [
-            Stat::make('My Rating Pelayanan', $myRatingPelayanan? number_format($myRatingPelayanan,2).'/5' : '0/5'),
-            Stat::make('Total Rating Pelayanan Petugas PST', $totalRatingPelayananPST?number_format($totalRatingPelayananPST,2).'/5'  : '0/5'),
-            Stat::make('Total Rating Pelayanan Petugas Front Office', $totalRatingPelayananFrontOffice ? number_format($totalRatingPelayananFrontOffice,2).'/5' : '0/5'),
-            Stat::make('Total Rating Sarana Prasarana', $totalRatingSaranaPrasarana ? number_format($totalRatingSaranaPrasarana,2).'/5' : '0/5'),
-        ];
+        $stats[] = Stat::make('Total Rating Pelayanan Petugas PST', $totalRatingPelayananPST ? number_format($totalRatingPelayananPST, 2) . '/5' : '0/5');
+        $stats[] = Stat::make('Total Rating Pelayanan Petugas Front Office', $totalRatingPelayananFrontOffice ? number_format($totalRatingPelayananFrontOffice, 2) . '/5' : '0/5');
+        $stats[] = Stat::make('Total Rating Sarana Prasarana', $totalRatingSaranaPrasarana ? number_format($totalRatingSaranaPrasarana, 2) . '/5' : '0/5');
+
+        return $stats;
     }
 }
+
