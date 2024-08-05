@@ -28,17 +28,16 @@
 					class="flex flex-col flex-grow w-full overflow-hidden border-4 rounded-lg bg-grey sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto border-lightBlue">
 					<div class="bg-lightBlue">
 						<div class="m-10 rounded-full md:m-5 bg-grey">
-							<img class="p-10" src="{{ asset('img/penjualan-logo.svg') }}" alt="Logo Penjualan">
+							<img class="p-6 md:p-10" src="{{ asset('img/penjualan-logo.svg') }}" alt="Logo Penjualan">
 						</div>
 					</div>
 					<div>
 						<div class="p-4">
-							<p class="text-2xl font-bold  text-darkBlue">Penjualan</p>
-							<p class=" text-lightYellow ">Layanan Umum </p>
+							<p class="text-xl md:text-2xl font-bold  text-darkBlue">Penjualan</p>
+							<p class="text-lightYellow ">Layanan Umum </p>
 							<p >Layanan penjualan data mikro, publikasi elektronik, dan peta digital wilkerstat.</p>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<div class="relative flex flex-col group">
@@ -46,17 +45,16 @@
 					class="flex flex-col flex-grow w-full overflow-hidden border-4 rounded-lg bg-grey sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto border-lightBlue">
 					<div class="bg-lightBlue">
 						<div class="m-10 rounded-full md:m-5 bg-grey">
-							<img class="p-10" src="{{ asset('img/penjualan-logo.svg') }}" alt="Logo Penjualan">
+							<img class="p-6 md:p-10" src="{{ asset('img/konsultasi-logo.svg') }}" alt="Logo Konsultasi">
 						</div>
 					</div>
 					<div>
 						<div class="p-4">
-							<p class="text-2xl font-bold text-darkBlue">Konsultasi</p>
+							<p class="text-xl md:text-2xl font-bold  text-darkBlue">Konsultasi</p>
 							<p class="text-lightYellow ">Layanan Umum </p>
 							<p >Konsultasi terkait data, metadata, klasifikasi, dan produk statistik BPS lainnya.</p>
 						</div>
 					</div>
-
 				</div>
 			</div>
 			<div class="relative flex flex-col group">
@@ -64,19 +62,21 @@
 					class="flex flex-col flex-grow w-full overflow-hidden border-4 rounded-lg bg-grey sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto border-lightBlue">
 					<div class="bg-lightBlue">
 						<div class="m-10 rounded-full md:m-5 bg-grey">
-							<img class="p-10" src="{{ asset('img/penjualan-logo.svg') }}" alt="Logo Penjualan">
+							<img class="p-6 md:p-10" src="{{ asset('img/rekomendasi-logo.svg') }}" alt="Logo Penjualan">
 						</div>
 					</div>
 					<div>
 						<div class="p-4">
-							<p class="text-2xl font-bold  text-darkBlue">Rekomendasi</p>
-							<p class=" text-lightYellow ">Layanan Umum </p>
+							<p class="text-xl md:text-2xl font-bold  text-darkBlue">Rekomendasi</p>
+							<p class="text-lightYellow ">Layanan Umum </p>
 							<p >yaitu layanan bagi instansi pemerintah yang akan melakukan survei dan mengajukan rekomendasi
 								kegiatan statistik.</p>
 						</div>
 					</div>
 				</div>
 			</div>
+			
+		
 		</div>
 	</div>
 </section>

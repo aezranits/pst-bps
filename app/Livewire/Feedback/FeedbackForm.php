@@ -14,8 +14,8 @@ class FeedbackForm extends Component
     public $petugasPst = [];
 
     public $nama_lengkap;
-    public $petugas_pst_id;
-    public $front_office_id;
+    public $petugas_pst;
+    public $front_office;
     public $kepuasan_petugas_pst;
     public $kepuasan_petugas_front_office;
     public $kepuasan_sarana_prasarana;
@@ -23,8 +23,8 @@ class FeedbackForm extends Component
 
     protected $rules = [
         'nama_lengkap' => 'string|required',
-        'petugas_pst_id' => 'required',
-        'front_office_id' => 'required',
+        'petugas_pst' => 'required',
+        'front_office' => 'required',
         'kepuasan_petugas_pst' => 'required|integer|between:1,5',
         'kepuasan_petugas_front_office' => 'required|integer|between:1,5',
         'kepuasan_sarana_prasarana' => 'required|integer|between:1,5',
@@ -36,8 +36,8 @@ class FeedbackForm extends Component
         return [
             'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
             'nama_lengkap.string' => 'Nama lengkap harus berupa teks.',
-            'petugas_pst_id.required' => 'Petugas PST wajib dipilih.',
-            'front_office_id.required' => 'Front Office wajib dipilih.',
+            'petugas_pst.required' => 'Petugas PST wajib dipilih.',
+            'front_office.required' => 'Front Office wajib dipilih.',
             'kepuasan_petugas_pst.required' => 'Kepuasan terhadap petugas PST wajib diisi.',
             'kepuasan_petugas_pst.integer' => 'Kepuasan terhadap petugas PST harus berupa angka.',
             'kepuasan_petugas_pst.between' => 'Kepuasan terhadap petugas PST harus antara 1 hingga 5.',
@@ -53,17 +53,14 @@ class FeedbackForm extends Component
     
     public function mount()
     {
-        $this->petugasPst = User::whereHas('roles', function($query) {
-            $query->where('name', 'petugas_pst');
-        })->get();
-        $this->frontOffice = User::whereHas('roles', function($query) {
-            $query->where('name', 'front_office');
-        })->get();
+        $this->petugasPst = User::role('pst')->get();
+        $this->frontOffice = User::role('front-office')->get();
     }
 
     public function submit()
     {
-        $this->validate();
+        $validateData = $this->validate();
+        Feedback::create($validateData);
         $this->reset();
         $this->dispatch('open-modal');
     }

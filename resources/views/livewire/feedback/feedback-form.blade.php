@@ -14,14 +14,14 @@
 		<div>
 			<label for="petugas-pst" class="block text-sm font-medium leading-6 text-gray-900">Petugas PST</label>
 			<div class="relative mt-3">
-				<select wire:model="petugas_pst_id" id="petugas-pst" 
+				<select wire:model="petugas_pst" id="petugas-pst" 
 					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 					<option value="">Pilih Petugas PST</option>
 					@foreach ($petugasPst as $user)
 						<option value="{{ $user->id }}">{{ $user->name }}</option>
 					@endforeach
 				</select>
-                @error('petugas_pst_id')
+                @error('petugas_pst')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
 			</div>
@@ -33,7 +33,6 @@
             hoverRating: 0,
             ratings: [{'amount': 1, 'label':'Terrible'}, {'amount': 2, 'label':'Bad'}, {'amount': 3, 'label':'Okay'}, {'amount': 4, 'label':'Good'}, {'amount': 5, 'label':'Great'}],
             rate(amount) {
-				console.log('Rating amount:', amount);
                 if (this.rating == amount) {
                     this.rating = 0;
                 } else {
@@ -55,7 +54,7 @@
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0 justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
                             <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
@@ -80,14 +79,14 @@
 		<div>
 			<label for="front-office" class="block text-sm font-medium leading-6 text-gray-900">Front Office</label>
 			<div class="relative mt-2">
-				<select wire:model="front_office_id" id="front-office"
+				<select wire:model="front_office" id="front-office"
 					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 					<option value="">Pilih Front Office</option>
 					@foreach ($frontOffice as $user)
 						<option value="{{ $user->id }}">{{ $user->name }}</option>
 					@endforeach
 				</select>
-                @error('front_office_id')
+                @error('front_office')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
 			</div>
@@ -121,7 +120,7 @@
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0  justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
                             <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
@@ -166,11 +165,11 @@
                 }
             }
         }" class="flex flex-col items-center sm:col-span-2">
-            <label class="block text-sm font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Sarana Prasaran?</label>
+            <label class="block text-sm font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Sarana Prasarana?</label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0 justify-center ">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
                             <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
@@ -225,10 +224,22 @@
 @script
 <script>
 
-    $(document).ready(function() {
-        $('.select-2').select2()({
-            width: 'resolve'
-        });
+$(document).ready(function() {
+    // Inisialisasi select2 untuk petugas PST
+    $('#petugas-pst').select2({
+        width: 'resolve'
+    }).on('change', function(e) {
+        var selectedValue = $(this).val();
+        @this.set('petugas_pst', selectedValue);
     });
+
+    // Inisialisasi select2 untuk front office
+    $('#front-office').select2({
+        width: 'resolve'
+    }).on('change', function(e) {
+        var selectedValue = $(this).val();
+        @this.set('front_office', selectedValue);
+    });
+});
 </script>
 @endscript
