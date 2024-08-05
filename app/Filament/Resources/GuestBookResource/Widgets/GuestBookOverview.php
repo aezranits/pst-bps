@@ -20,9 +20,11 @@ class GuestBookOverview extends BaseWidget
         if ($user->hasRole('pst')) {
             // Get GuestBooks for the logged-in 'petugas pst'
             $query = GuestBook::where('petugas_pst', $user->id);
+            $doneGuestBooks = $query->count();
         } else {
             // Get all GuestBooks
             $query = GuestBook::query();
+            $doneGuestBooks = GuestBook::where('status', 'done')->count();
         }
 
         Log::info(GuestBook::where('status', 'done')->count());

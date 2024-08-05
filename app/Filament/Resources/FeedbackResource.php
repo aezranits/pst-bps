@@ -74,11 +74,14 @@ class FeedbackResource extends Resource
             ->columns([
                 TextColumn::make('nama_lengkap')->searchable()->sortable()->label('Nama Lengkap'),
                 TextColumn::make('petugasPst.name')->searchable()->sortable()->label('Petugas PST'),
+                TextColumn::make('kepuasan_petugas_pst')->searchable()->sortable()->label('Rating PST'),
                 TextColumn::make('frontOffice.name')->searchable()->sortable()->label('Front Office'),
+                TextColumn::make('kepuasan_petugas_front_office')->searchable()->sortable()->label('Rating Front Office'),
+                TextColumn::make('kepuasan_sarana_prasarana')->searchable()->sortable()->label('Rating Sarana Prasarana'),
                 TextColumn::make('created_at')->dateTime()->sortable()->label('Tanggal Pengisian'),
                 TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()])])
+            ->actions([ActionGroup::make([ViewAction::make(),EditAction::make(), DeleteAction::make()])])
             ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])])
             ->modifyQueryUsing(function (Builder $query) { 
                 if (auth()->user()->hasRole('pst')) {

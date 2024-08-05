@@ -53,9 +53,6 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 WelcomeWidget::class,
                 TopStaffWidget::class,
-                // GuestBookChart::class,
-                // LatestFeedbackWidget::class,
-                // LatestGuestBooksWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
