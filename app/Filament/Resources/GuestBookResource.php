@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Enum\StatusRequestEditEnum;
 use App\Enum\StatusRequestEnum;
+use App\Filament\Exports\GuestBookExporter;
+use App\Filament\Imports\GuestBookImporter;
 use App\Filament\Resources\GuestBookResource\Pages;
 use App\Filament\Resources\GuestBookResource\Widgets\GuestBookOverview;
 use App\Models\GuestBook;
@@ -27,6 +29,8 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\SelectAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\SelectColumn;
@@ -261,6 +265,17 @@ class GuestBookResource extends Resource
                     return $query->where('petugas_pst', $userId)->whereIn('status', ['inProgress', 'done']);
                 }
             })
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(GuestBookExporter::class)->label('Export')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('primary'),
+                // ImportAction::make()
+                //     ->importer(GuestBookImporter::class)
+                //     ->icon('heroicon-o-arrow-up-tray')
+                //     ->color('warning'),
+                    
+            ])
             ->poll('2s');
 
 

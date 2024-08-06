@@ -8,7 +8,6 @@ use App\Models\RoleUser;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\StatsOverviewWidget\Stat;
-use Illuminate\Support\Facades\Log;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 
 class GuestBookOverview extends BaseWidget
@@ -27,7 +26,6 @@ class GuestBookOverview extends BaseWidget
             $doneGuestBooks = GuestBook::where('status', 'done')->count();
         }
 
-        Log::info(GuestBook::where('status', 'done')->count());
         // Get the counts
         $totalGuestBooks = $query->count();
         $inProgressGuestBooks = $query->where('status', 'inProgress')->count();

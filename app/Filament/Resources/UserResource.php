@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\UserExporter;
+use App\Filament\Imports\UserImporter;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Filament\Resources\UserResource\Widgets\UserOverview;
@@ -20,6 +22,8 @@ use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -74,6 +78,15 @@ class UserResource extends Resource
             ->columns([ImageColumn::make('avatar_url')->label('Avatar'), TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.name')->label('Roles'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
             ->filters([
                 //
+            ])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(UserExporter::class)
+                    ->label('Export')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('primary'),
+                // ImportAction::make()
+                //     ->importer(UserImporter::class)
             ])
             ->actions([ActionGroup::make([ViewAction::make(), EditAction::make(), DeleteAction::make()])])
             ->bulkActions([Tables\Actions\BulkActionGroup::make([Tables\Actions\DeleteBulkAction::make()])]);

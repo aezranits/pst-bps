@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Enum\StatusRequestEnum;
+use App\Filament\Exports\FeedbackExporter;
+use App\Filament\Imports\FeedbackImporter;
 use App\Filament\Resources\FeedbackResource\Pages;
 use App\Filament\Resources\FeedbackResource\RelationManagers;
 use App\Filament\Resources\FeedbackResource\Widgets\FeedbackOverview;
@@ -24,6 +26,8 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
@@ -83,6 +87,15 @@ class FeedbackResource extends Resource
             ])
             ->actions([ActionGroup::make([ViewAction::make(),EditAction::make(), DeleteAction::make()])])
             ->bulkActions([BulkActionGroup::make([DeleteBulkAction::make()])])
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(FeedbackExporter::class)
+                    ->label('Export')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->color('primary'),
+                // ImportAction::make()
+                //     ->importer(FeedbackImporter::class)
+            ])
             ->modifyQueryUsing(function (Builder $query) { 
                 if (auth()->user()->hasRole('pst')) {
                     $userId = auth()->user()->id;
