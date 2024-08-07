@@ -3,12 +3,14 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Widgets\GuestBookChart;
+use App\Filament\Widgets\GuestBookChartByDate;
 use App\Filament\Widgets\GuestBookStatsWidget;
 use App\Filament\Widgets\LatestFeedbackWidget;
 use App\Filament\Widgets\LatestGuestBooksWidget;
 use App\Filament\Widgets\PendingGuestBooksWidget;
 use App\Filament\Widgets\TopStaffWidget;
 use App\Filament\Widgets\WelcomeWidget;
+use App\Http\Livewire\GuestBookChart as LivewireGuestBookChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -50,13 +52,13 @@ class AdminPanelProvider extends PanelProvider
             ->databaseNotificationsPolling('2s')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
-            ->pages([
-                Pages\Dashboard::class,
-            ])
+            ->pages([])
             // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 WelcomeWidget::class,
                 TopStaffWidget::class,
+                GuestBookChartByDate::class,
+                // LivewireGuestBookChart::class,
             ])
             ->middleware([
                 EncryptCookies::class,

@@ -269,12 +269,7 @@ class GuestBookResource extends Resource
                 ExportAction::make()
                     ->exporter(GuestBookExporter::class)->label('Export')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->color('primary'),
-                // ImportAction::make()
-                //     ->importer(GuestBookImporter::class)
-                //     ->icon('heroicon-o-arrow-up-tray')
-                //     ->color('warning'),
-                    
+                    ->color('primary'),   
             ])
             ->poll('2s');
 

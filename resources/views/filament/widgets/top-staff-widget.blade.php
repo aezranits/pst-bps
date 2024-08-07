@@ -14,7 +14,7 @@
        <div class="ml-5 w-0 flex-1 relative mx-auto flex flex-col items-center text-center ">
         <h1 class="text-2xl font-bold tracking-tight lg:text-4xl">{{ $topPetugasPST->petugasPst->name ?? 'N/A' }}</h1>
         <a href="#"
-         class="mt-6 inline-block rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium  hover:bg-yellow-300">Rating
+         class="mt-6 inline-block rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium  ">Rating
          : {{ number_format($topPetugasPST->avg_rating ?? 0, 2) . '/5.00' }}</a>
        </div>
       </div>
@@ -32,7 +32,7 @@
        <div class="ml-5 w-0 flex-1 relative mx-auto flex flex-col items-center text-center ">
         <h1 class="text-2xl font-bold tracking-tight lg:text-4xl">{{ $topFrontOffice->frontOffice->name ?? 'N/A' }}</h1>
         <a href="#"
-         class="mt-6 inline-block rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium  hover:bg-yellow-300">Rating
+         class="mt-6 inline-block rounded-md border border-transparent bg-yellow-600 px-8 py-3 text-base font-medium  ">Rating
          : {{ number_format($topFrontOffice->avg_rating ?? 0, 2) . '/5.00' }}</a>
        </div>
       </div>
