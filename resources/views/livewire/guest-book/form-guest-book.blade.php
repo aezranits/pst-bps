@@ -11,7 +11,7 @@
 					<label for="nama-lengkap" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Nama Lengkap</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
 						<input type="text" wire:model="nama_lengkap" id="nama-lengkap" autocomplete="family-name"
-							class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+						placeholder="Budi Setiawan" class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
 						@error('nama_lengkap')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -53,7 +53,7 @@
 							class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-lightYellow sm:max-w-md">
 							<input type="number" wire:model="usia" id="usia" autocomplete="usia"
 								class="block rounded-l-md flex-1 border-0 bg-white py-1.5 pl-1 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-								placeholder="ex: 25" min="1" max="150">
+								placeholder="25" min="1" max="150">
 							<span class="flex select-none rounded-r-md items-center pl-3 pr-3 text-black bg-white sm:text-sm">Tahun</span>
 						</div>
 						@error('usia')
@@ -175,7 +175,7 @@
 					<div class="mt-2 sm:col-span-1 sm:mt-0">
 						<input type="tel" name="no-hp" id="no-hp" wire:model="no_hp" pattern="[0-9]*" inputmode="numeric"
 							class="block flex-1 rounded-md border-0 bg-white py-1.5 pl-1 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-							placeholder="ex: 08123456789">
+							placeholder="08123456789">
 						@error('no_hp')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -186,7 +186,7 @@
 					<label for="email" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Email address</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
 						<input type="text" name="email" id="email" wire:model='email' autocomplete="email"
-							class="block w-full rounded-md border-0
+						placeholder="pstbps@gmail.com"  class="block w-full rounded-md border-0
 							 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
 						@error('email')
 							<span class="text-red-500">{{ $message }}</span>
@@ -199,7 +199,7 @@
 					<label for="alamat" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Alamat</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
 						<input type="text" name="alamat" id="alamat" autocomplete="alamat" wire:model='alamat'
-							class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xl sm:text-sm sm:leading-6">
+						placeholder="Jl. Perwira No.50, Belakang Balok, Kec. Aur Birugo Tigo Baleh, Kota Bukittinggi, Sumatera Barat 26181"	class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xl sm:text-sm sm:leading-6">
 						@error('alamat')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -211,7 +211,7 @@
 					<label for="kota" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Kota</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
 						<input type="text" name="kota" id="kota" autocomplete="kota" wire:model='kota'
-							class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+						 placeholder="Bukittinggi"	class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
 						@error('kota')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -223,7 +223,7 @@
 					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Provinsi</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
 						<input type="text" name="provinsi" id="provinsi" wire:model='provinsi'
-							class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+							placeholder="Sumatera Barat" class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
 						@error('provinsi')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
