@@ -1,4 +1,4 @@
-<div class="bg-indigo-950 shadow rounded-3xl text-white">
+<div class="dark:bg-gray-900 shadow rounded-3xl">
  <svg
   class="absolute inset-0 -z-10 h-full w-full stroke-gray-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)] dark:hidden"
   aria-hidden="true">
@@ -57,10 +57,10 @@
    @if (auth()->user()->hasRole('pst'))
     <div class="mt-6 flex space-x-3 md:ml-4 md:mt-0">
      <p
-      class="inline-flex items-center rounded-md bg-yellow-600 px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 ">
+      class="inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-sm font-semibold  shadow-sm ring-1 ring-inset ring-gray-300 ">
       Total Guest Books (Done): {{ $doneGuestBooks }}</p>
      <p
-      class="inline-flex items-center rounded-md bg-yellow-600 px-3 py-2 text-sm font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-600">
+      class="inline-flex items-center rounded-md bg-yellow-400 px-3 py-2 text-sm font-semibold shadow-sm ring-1 ring-inset ring-gray-300">
       Feedback Rating: {{ $feedbackRating }} / 5</p>
     </div>
    @endif

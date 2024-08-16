@@ -13,7 +13,6 @@ class TopStaffWidget extends Widget
 {
     protected static string $view = 'filament.widgets.top-staff-widget';
 
-
     public function getViewData(): array
     {
         $startDate = Carbon::now()->subMonths(3)->startOfMonth();
