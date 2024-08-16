@@ -27,7 +27,7 @@
                         <a href="/feedback" wire:navigate class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('feedback')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 Feedback
                         </a>
-                        <a href="#" wire:navigate class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('tentang-kami')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                        <a href="/about-us" wire:navigate class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('about-us')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 Tentang Kami
                         </a>
                         <a href="/user/login" wire:navigate class="py-2 px-6 bg-lightYellow inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-black hover:bg-lightYellow/95 focus:outline-none focus:bg-lightYellow/95  disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
@@ -84,8 +84,8 @@
 					<div class="flow-root px-2 py-2 hover:bg-lightYellow {{ request()->is('feedback')? 'bg-lightYellow' : '' }}">
 						<a wire:navigate href="/feedback" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Feedback</a>
 					</div>
-					<div class="flow-root px-2 py-2 hover:bg-lightYellow {{ request()->is('tentang-kami')? 'bg-lightYellow' : '' }}">
-						<a wire:navigate href="/tentang-kami" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Tentang Kami</a>
+					<div class="flow-root px-2 py-2 hover:bg-lightYellow {{ request()->is('about-us')? 'bg-lightYellow' : '' }}">
+						<a wire:navigate href="/about-us" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Tentang Kami</a>
 					</div>
 				</div>
 
