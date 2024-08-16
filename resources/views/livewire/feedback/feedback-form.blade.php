@@ -14,13 +14,15 @@
 		<div>
 			<label for="petugas-pst" class="block text-sm font-medium leading-6 text-gray-900">Petugas PST</label>
 			<div class="relative mt-3">
-				<select wire:model="petugas_pst" id="petugas-pst" 
+				<div wire:ignore>
+                <select wire:model="petugas_pst" id="petugas-pst" 
 					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 					<option value="">Pilih Petugas PST</option>
 					@foreach ($petugasPst as $user)
 						<option value="{{ $user->id }}">{{ $user->name }}</option>
 					@endforeach
 				</select>
+                </div>
                 @error('petugas_pst')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
@@ -79,13 +81,15 @@
 		<div>
 			<label for="front-office" class="block text-sm font-medium leading-6 text-gray-900">Front Office</label>
 			<div class="relative mt-2">
-				<select wire:model="front_office" id="front-office"
+                <div wire:ignore>
+				<select  wire:model="front_office" id="front-office"
 					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
 					<option value="">Pilih Front Office</option>
 					@foreach ($frontOffice as $user)
 						<option value="{{ $user->id }}">{{ $user->name }}</option>
 					@endforeach
 				</select>
+                </div>
                 @error('front_office')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
@@ -216,14 +220,9 @@
 	</div>
 </form>
 
-@assets
-<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@endassets
+
 @script
 <script>
-
 $(document).ready(function() {
     // Inisialisasi select2 untuk petugas PST
     $('#petugas-pst').select2({

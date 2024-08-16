@@ -28,7 +28,7 @@ class FeedbackForm extends Component
         'kepuasan_petugas_pst' => 'required|integer|between:1,5',
         'kepuasan_petugas_front_office' => 'required|integer|between:1,5',
         'kepuasan_sarana_prasarana' => 'required|integer|between:1,5',
-        'kritik_saran' => 'string'
+        'kritik_saran' => 'string',
     ];
 
     protected function messages()
@@ -47,10 +47,10 @@ class FeedbackForm extends Component
             'kepuasan_sarana_prasarana.required' => 'Kepuasan terhadap sarana dan prasarana wajib diisi.',
             'kepuasan_sarana_prasarana.integer' => 'Kepuasan terhadap sarana dan prasarana harus berupa angka.',
             'kepuasan_sarana_prasarana.between' => 'Kepuasan terhadap sarana dan prasarana harus antara 1 hingga 5.',
-            'kritik_saran.string' => 'Kritik dan saran harus berupa teks.'
+            'kritik_saran.string' => 'Kritik dan saran harus berupa teks.',
         ];
     }
-    
+
     public function mount()
     {
         $this->petugasPst = User::role('pst')->get();
@@ -63,6 +63,24 @@ class FeedbackForm extends Component
         Feedback::create($validateData);
         $this->reset();
         $this->dispatch('open-modal');
+    }
+
+    public function getListeners()
+    {
+        return [
+            'setPetugasPst' => 'updatePetugasPst',
+            'setFrontOffice' => 'updateFrontOffice',
+        ];
+    }
+
+    public function updatePetugasPst($value)
+    {
+        $this->petugas_pst = $value;
+    }
+
+    public function updateFrontOffice($value)
+    {
+        $this->front_office = $value;
     }
 
     public function render()
