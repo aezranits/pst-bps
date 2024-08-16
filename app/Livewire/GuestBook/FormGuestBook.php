@@ -3,9 +3,11 @@
 namespace App\Livewire\GuestBook;
 
 use App\Enum\StatusRequestEnum;
+use App\Mail\MailableName;
 use App\Models\GuestBook;
 use App\Models\Request;
 use App\Repositories\Interface\GuestbookRepositoryInterface;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class FormGuestBook extends Component
@@ -99,6 +101,10 @@ class FormGuestBook extends Component
         ];
     }
 
+    public function sendEmailFeedback($email, $subject, $name){
+        Mail::to($email)->send(new MailableName($subject, $name));
+    }
+
     public function submit()
     {
             $validatedData = $this->validate();
@@ -144,6 +150,11 @@ class FormGuestBook extends Component
             GuestBook::create($validatedData);
             
             session()->flash('message', 'Guestbook entry created successfully.');
+            $emailGuest = $validatedData['email'];
+            $nameGuest = $validatedData['nama_lengkap'];
+            $subjectGuest = "Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi";
+
+            $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);   
             $this->reset();
             $this->dispatch('open-modal');
     }

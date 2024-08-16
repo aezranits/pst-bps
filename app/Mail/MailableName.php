@@ -30,7 +30,7 @@ class MailableName extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('pstbpsbukittinggi@gmail.com', 'PST BPS BUKITTINGGI'),
+            from: new Address('tubps1375@gmail.com', 'PST BPS BUKITTINGGI'),
             subject: $this->subject,
         );
     }
