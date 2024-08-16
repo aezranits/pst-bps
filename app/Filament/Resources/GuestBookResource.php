@@ -191,11 +191,12 @@ class GuestBookResource extends Resource
                                         $options = [
                                             'inProgress' => 'In Progress',
                                             'done' => 'Done',
+                                            'pending' => 'Pending'
                                         ];
 
-                                        if (auth()->user()->hasRole('admin')) {
-                                            $options['pending'] = 'Pending';
-                                        }
+                                        // if (auth()->user()->hasRole('admin')) {
+                                        //     $options['pending'] = 'Pending';
+                                        // }
 
                                         return $options;
                                     })
@@ -251,6 +252,7 @@ class GuestBookResource extends Resource
                         $options = [
                             'inProgress' => 'In Progress',
                             'done' => 'Done',
+                            'pending' => 'Pending'
                         ];
 
                         return $options;
