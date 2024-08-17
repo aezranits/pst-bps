@@ -7,11 +7,12 @@ use App\Mail\MailableName;
 use App\Models\GuestBook;
 use App\Models\Request;
 use App\Repositories\Interface\GuestbookRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class FormGuestBook extends Component
-{   
+{
     public $nama_lengkap;
     public $jenis_kelamin;
     public $usia;
@@ -29,6 +30,15 @@ class FormGuestBook extends Component
     public $tujuan_kunjungan = [];
     public $tujuan_kunjungan_lainnya;
 
+    public $provinces = [];
+    public $regencies = [];
+    public $selectedProvince = null;
+
+    public function mount()
+    {
+        $this->provinces = $this->getProvinces();
+    }
+
     protected $rules = [
         'nama_lengkap' => 'required|string|max:255',
         'jenis_kelamin' => 'required|string',
@@ -43,7 +53,7 @@ class FormGuestBook extends Component
         'email' => 'required|email|max:255',
         'alamat' => 'required|string|max:500',
         'kota' => 'required|string|max:255',
-        'provinsi' => 'required|string|max:255',
+        'selectedProvince' => 'required',
         'tujuan_kunjungan' => 'required|array|min:1',
         'tujuan_kunjungan_lainnya' => 'nullable|string|max:255',
     ];
@@ -88,11 +98,7 @@ class FormGuestBook extends Component
             'alamat.string' => 'Alamat harus berupa teks.',
             'alamat.max' => 'Alamat maksimal 500 karakter.',
             'kota.required' => 'Kota wajib diisi.',
-            'kota.string' => 'Kota harus berupa teks.',
-            'kota.max' => 'Kota maksimal 255 karakter.',
-            'provinsi.required' => 'Provinsi wajib diisi.',
-            'provinsi.string' => 'Provinsi harus berupa teks.',
-            'provinsi.max' => 'Provinsi maksimal 255 karakter.',
+            'selectedProvince.required' => 'Provinsi wajib diisi.',
             'tujuan_kunjungan.required' => 'Tujuan kunjungan wajib diisi.',
             'tujuan_kunjungan.array' => 'Tujuan kunjungan harus berupa array.',
             'tujuan_kunjungan.min' => 'Minimal pilih satu tujuan kunjungan.',
@@ -101,18 +107,58 @@ class FormGuestBook extends Component
         ];
     }
 
-    public function sendEmailFeedback($email, $subject, $name){
+    public function updatedSelectedProvince($provinceId)
+    {
+        // Update regencies list based on selected province
+        $this->regencies = $this->getRegencies($provinceId);
+        $getProvinsi = collect($this->provinces)->firstWhere('id', $provinceId);
+        $this->provinsi = $getProvinsi['name'] ?? null;
+    }
+
+    public function getProvinces()
+    {
+        $file = storage_path('app/database/constant/provinces.csv');
+        $provinces = [];
+
+        if (($handle = fopen($file, 'r')) !== false) {
+            while (($data = fgetcsv($handle, 1000, ';')) !== false) {
+                $provinces[] = ['id' => $data[0], 'name' => trim($data[1], '"')];
+            }
+            fclose($handle);
+        }
+        return collect($provinces);
+    }
+
+    public function getRegencies($provinceId)
+    {
+        $file = storage_path('app/database/constant/regencies.csv');
+        $regencies = [];
+
+        if (($handle = fopen($file, 'r')) !== false) {
+            while (($data = fgetcsv($handle, 1000, ';')) !== false) {
+                if ($data[1] == $provinceId) {
+                    $regencies[] = ['id' => $data[0], 'name' => trim($data[2], '"')];
+                }
+            }
+            fclose($handle);
+        }
+        return collect($regencies);
+    }
+
+    public function sendEmailFeedback($email, $subject, $name)
+    {
         Mail::to($email)->send(new MailableName($subject, $name));
     }
 
     public function submit()
     {
+        try {
             $validatedData = $this->validate();
 
             if (!in_array('lainnya', $validatedData['tujuan_kunjungan'])) {
                 $validatedData['tujuan_kunjungan_lainnya'] = null;
             }
-    
+
             switch ($validatedData['pekerjaan']) {
                 case 'mahasiswa':
                     $validatedData['asal'] = null;
@@ -146,19 +192,25 @@ class FormGuestBook extends Component
                     break;
             }
 
-            $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota']. ', ' . $validatedData['provinsi'];
+            $validatedData['provinsi'] = $this->provinsi;
+            $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota'] . ', ' . $validatedData['provinsi'];
             GuestBook::create($validatedData);
-            
+
             session()->flash('message', 'Guestbook entry created successfully.');
+
+            // Send email
             $emailGuest = $validatedData['email'];
             $nameGuest = $validatedData['nama_lengkap'];
-            $subjectGuest = "Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi";
+            $subjectGuest = 'Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi';
 
-            $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);   
+            $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
             $this->reset();
             $this->dispatch('open-modal');
+        } catch (\Exception $e) {
+            session()->flash('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
-    
+
     public function render()
     {
         return view('livewire.guest-book.form-guest-book');

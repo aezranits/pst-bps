@@ -1,10 +1,23 @@
 <div x-data="{ pekerjaan: '', tujuanLainnya: false }" class="space-y-12 sm:space-y-16">
+	
 	<div>
 		<h2 class="text-4xl font-bold leading-7 text-grey lg:hidden block">Buku Tamu</h2>
 
 		<div
 			class="pb-10 mt-5 lg:mt-0 space-y-8 border-b border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
-
+			<div x-data="{ show: true }" x-show="show">
+				@if (session()->has('success'))
+					<div class="bg-green-500 text-white p-4 rounded-md">
+						{{ session('success') }}
+					</div>
+				@endif
+			
+				@if (session()->has('error'))
+					<div class="bg-red-500 text-white p-4 rounded-md">
+						{{ session('error') }}
+					</div>
+				@endif
+			</div>
 			<form wire:submit.prevent="submit">
 				<!-- Nama Lengkap -->
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
@@ -52,7 +65,7 @@
 						<div
 							class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-lightYellow sm:max-w-md">
 							<input type="number" wire:model="usia" id="usia" autocomplete="usia"
-								class="block rounded-l-md flex-1 border-0 bg-white py-1.5 pl-1 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+								class="block rounded-l-md flex-1 border-0 bg-white py-1.5 pl-3 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
 								placeholder="25" min="1" max="150">
 							<span class="flex select-none rounded-r-md items-center pl-3 pr-3 text-black bg-white sm:text-sm">Tahun</span>
 						</div>
@@ -161,7 +174,7 @@
 						<label for="organisasi-nama-perusahaan-kantor"
 							class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Organisasi/Nama Perusahaan/Kantor</label>
 						<div class="mt-2 sm:col-span-2 sm:mt-0">
-							<input type="text" wire:model="organisasi_nama_perusahaan_kantorKantor"
+							<input type="text" wire:model="organisasi_nama_perusahaan_kantor"
 								id="organisasi-nama-perusahaan-kantor" autocomplete="organisasi-nama-perusahaan-kantor"
 								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
 							@error('organisasi_nama_perusahaan_kantorKantor')
@@ -174,7 +187,7 @@
 					<label for="no-hp" class="block text-sm font-semibold leading-6 text-grey sm:pt-1.5">No. HP</label>
 					<div class="mt-2 sm:col-span-1 sm:mt-0">
 						<input type="tel" name="no-hp" id="no-hp" wire:model="no_hp" pattern="[0-9]*" inputmode="numeric"
-							class="block flex-1 rounded-md border-0 bg-white py-1.5 pl-1 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+							class="block flex-1 rounded-md border-0 bg-white py-1.5 pl-3 text-black placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
 							placeholder="08123456789">
 						@error('no_hp')
 							<span class="text-red-500">{{ $message }}</span>
@@ -208,11 +221,16 @@
 				</div>
 
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="kota" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Kota</label>
+					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Provinsi</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<input type="text" name="kota" id="kota" autocomplete="kota" wire:model='kota'
-						 placeholder="Bukittinggi"	class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-						@error('kota')
+						<select type="text" name="selectedProvince" id="provinsi" wire:model='selectedProvince'
+							placeholder="Sumatera Barat" class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+							<option value="">Pilih Provinsi</option>
+							@foreach ($provinces as $province)
+								<option value="{{ $province["id"] }}">{{ $province["name"] }}</option>
+							@endforeach
+						</select>
+						@error('provinsi')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
 
@@ -220,16 +238,25 @@
 				</div>
 
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Provinsi</label>
+					<label for="kota" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Kota</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<input type="text" name="provinsi" id="provinsi" wire:model='provinsi'
-							placeholder="Sumatera Barat" class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-						@error('provinsi')
+						<select name="kota" id="kota" autocomplete="kota" wire:model='kota'
+						 placeholder="Bukittinggi"	class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+						 <option value="">Pilih Kota</option>
+						 @if(!empty($regencies))
+							@foreach ($regencies as $regency)
+								<option value="{{ $regency["name"] }}">{{ $regency["name"] }}</option>
+							@endforeach
+						@endif
+						</select>
+						@error('kota')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
 
 					</div>
 				</div>
+
+				
 
 				<fieldset>
 					<legend class="sr-only">Tujuan Kunjungan</legend>
@@ -327,3 +354,25 @@
 	</div>
 
 </div>
+
+@script
+<script>
+$(document).ready(function() {
+    // Inisialisasi select2 untuk petugas PST
+    $('#provinsi').select2({
+        width: 'resolve'
+    }).on('change', function(e) {
+        var selectedValue = $(this).val();
+        @this.set('selectedProvince', selectedValue);
+    });
+
+    // Inisialisasi select2 untuk front office
+    $('#kota').select2({
+        width: 'resolve'
+    }).on('change', function(e) {
+        var selectedValue = $(this).val();
+        @this.set('kota', selectedValue);
+    });
+});
+</script>
+@endscript
