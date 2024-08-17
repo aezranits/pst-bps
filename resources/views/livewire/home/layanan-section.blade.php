@@ -1,4 +1,4 @@
-<section aria-labelledby="favorites-heading" x-data="{ show: false, index: 0 }" x-init="window.addEventListener('scroll', () => { show = true })">
+<section aria-labelledby="favorites-heading" x-data="{ show: true }">
     <div class="px-4 py-20 mx-auto max-w-7xl sm:px-6 sm:py-18 lg:px-8">
         <div class="sm:flex sm:items-baseline sm:justify-between">
             <h2 id="favorites-heading" class="text-4xl font-bold text-gray-900">Layanan Utama</h2>
@@ -6,11 +6,7 @@
         <div class="grid h-auto w-auto grid-cols-2 mt-6 md:w-auto lg:grid-cols-4 gap-y-10 gap-x-6 sm:gap-y-10 lg:gap-x-8">
             <template x-for="(item, i) in [0, 1, 2, 3]" :key="i">
                 <div 
-                    x-intersect.once="index = i" 
-                    x-show="show && index >= i" 
-                    x-transition:enter="transition ease-out duration-500 delay-[i * 200]"
-                    x-transition:enter-start="opacity-0 transform translate-y-10"
-                    x-transition:enter-end="opacity-100 transform translate-y-0"
+                    x-show="show"
                     class="relative flex flex-col group">
                     <div class="flex flex-col flex-grow w-full overflow-hidden border-4 rounded-lg bg-grey sm:aspect-h-3 sm:aspect-w-2 group-hover:opacity-75 sm:h-auto border-lightBlue">
                         <div class="bg-lightBlue">

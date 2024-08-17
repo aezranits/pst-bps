@@ -17,14 +17,7 @@
 </head>
 
 <body>
-  <div x-data="{ show: false }" x-init="setTimeout(() => show = true, 100)" 
-    x-show="show"
-    x-transition:enter="transition transform ease-out duration-200"
-    x-transition:enter-start="opacity-0 translate-x-[-20px]"
-    x-transition:enter-end="opacity-100 translate-x-0"
-    :class="{ 'invisible': !show, 'relative': show, 'absolute': !show }">
     @livewire('partials.navbar')
-  </div>
  <main>
   {{ $slot }}
  </main>
