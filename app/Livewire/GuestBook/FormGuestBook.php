@@ -5,10 +5,13 @@ namespace App\Livewire\GuestBook;
 use App\Enum\StatusRequestEnum;
 use App\Mail\MailableName;
 use App\Models\GuestBook;
+use App\Models\Province;
+use App\Models\Regency;
 use App\Models\Request;
 use App\Repositories\Interface\GuestbookRepositoryInterface;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class FormGuestBook extends Component
@@ -24,20 +27,11 @@ class FormGuestBook extends Component
     public $organisasi_nama_perusahaan_kantor;
     public $no_hp;
     public $email;
+    public $provinsi_id;
+    public $kota_id;
     public $alamat;
-    public $kota;
-    public $provinsi;
     public $tujuan_kunjungan = [];
     public $tujuan_kunjungan_lainnya;
-
-    public $provinces = [];
-    public $regencies = [];
-    public $selectedProvince = null;
-
-    public function mount()
-    {
-        $this->provinces = $this->getProvinces();
-    }
 
     protected $rules = [
         'nama_lengkap' => 'required|string|max:255',
@@ -52,8 +46,8 @@ class FormGuestBook extends Component
         'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:15',
         'email' => 'required|email|max:255',
         'alamat' => 'required|string|max:500',
-        'kota' => 'required|string|max:255',
-        'selectedProvince' => 'required',
+        'kota_id' => 'required',
+        'provinsi_id' => 'required',
         'tujuan_kunjungan' => 'required|array|min:1',
         'tujuan_kunjungan_lainnya' => 'nullable|string|max:255',
     ];
@@ -97,8 +91,8 @@ class FormGuestBook extends Component
             'alamat.required' => 'Alamat wajib diisi.',
             'alamat.string' => 'Alamat harus berupa teks.',
             'alamat.max' => 'Alamat maksimal 500 karakter.',
-            'kota.required' => 'Kota wajib diisi.',
-            'selectedProvince.required' => 'Provinsi wajib diisi.',
+            'kota_id.required' => 'Kota wajib diisi.',
+            'provinsi_id.required' => 'Provinsi wajib diisi.',
             'tujuan_kunjungan.required' => 'Tujuan kunjungan wajib diisi.',
             'tujuan_kunjungan.array' => 'Tujuan kunjungan harus berupa array.',
             'tujuan_kunjungan.min' => 'Minimal pilih satu tujuan kunjungan.',
@@ -107,42 +101,20 @@ class FormGuestBook extends Component
         ];
     }
 
-    public function updatedSelectedProvince($provinceId)
-    {
-        // Update regencies list based on selected province
-        $this->regencies = $this->getRegencies($provinceId);
-        $getProvinsi = collect($this->provinces)->firstWhere('id', $provinceId);
-        $this->provinsi = $getProvinsi['name'] ?? null;
+    public function updatedProvinceId(){
+        $this->kota_id = null;
     }
 
-    public function getProvinces()
+    #[Computed()]
+    public function provinces()
     {
-        $file = storage_path('app/database/constant/provinces.csv');
-        $provinces = [];
-
-        if (($handle = fopen($file, 'r')) !== false) {
-            while (($data = fgetcsv($handle, 1000, ';')) !== false) {
-                $provinces[] = ['id' => $data[0], 'name' => trim($data[1], '"')];
-            }
-            fclose($handle);
-        }
-        return collect($provinces);
+        return Province::all();
     }
 
-    public function getRegencies($provinceId)
+    #[Computed()]
+    public function regencies()
     {
-        $file = storage_path('app/database/constant/regencies.csv');
-        $regencies = [];
-
-        if (($handle = fopen($file, 'r')) !== false) {
-            while (($data = fgetcsv($handle, 1000, ';')) !== false) {
-                if ($data[1] == $provinceId) {
-                    $regencies[] = ['id' => $data[0], 'name' => trim($data[2], '"')];
-                }
-            }
-            fclose($handle);
-        }
-        return collect($regencies);
+        return Regency::where('province_id', $this->provinsi_id)->get();
     }
 
     public function sendEmailFeedback($email, $subject, $name)
@@ -152,7 +124,6 @@ class FormGuestBook extends Component
 
     public function submit()
     {
-        try {
             $validatedData = $this->validate();
 
             if (!in_array('lainnya', $validatedData['tujuan_kunjungan'])) {
@@ -191,9 +162,8 @@ class FormGuestBook extends Component
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
             }
+            Log::info($validatedData);
 
-            $validatedData['provinsi'] = $this->provinsi;
-            $validatedData['asal_kota'] = $validatedData['alamat'] . ', ' . $validatedData['kota'] . ', ' . $validatedData['provinsi'];
             GuestBook::create($validatedData);
 
             session()->flash('message', 'Guestbook entry created successfully.');
@@ -206,9 +176,6 @@ class FormGuestBook extends Component
             $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
             $this->reset();
             $this->dispatch('open-modal');
-        } catch (\Exception $e) {
-            session()->flash('error', 'Terjadi kesalahan saat menyimpan data.');
-        }
     }
 
     public function render()

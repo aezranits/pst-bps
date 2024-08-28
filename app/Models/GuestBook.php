@@ -21,7 +21,9 @@ class GuestBook extends Model
         'organisasi_nama_perusahaan_kantor',
         'no_hp',
         'email',
-        'asal_kota',
+        'provinsi_id',
+        'kota_id',
+        'alamat',
         'tujuan_kunjungan',
         'tujuan_kunjungan_lainnya',
         'status',
@@ -35,6 +37,18 @@ class GuestBook extends Model
     public function petugasPst()
     {
         return $this->belongsTo(User::class, 'petugas_pst')->role('pst');
+    }
+
+    // Relasi ke tabel Province
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    // Relasi ke tabel Regency
+    public function regency()
+    {
+        return $this->belongsTo(Regency::class);
     }
 }
 

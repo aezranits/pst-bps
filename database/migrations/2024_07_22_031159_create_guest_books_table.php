@@ -21,13 +21,20 @@ class CreateGuestBooksTable extends Migration
             $table->string('organisasi_nama_perusahaan_kantor')->nullable();
             $table->string('no_hp')->nullable();
             $table->string('email')->nullable();
-            $table->string('asal_kota')->nullable();
+            $table->integer('provinsi_id'); // Foreign key untuk provinces
+            $table->integer('kota_id'); // Foreign key untuk regencies
+            $table->string('alamat')->nullable();
             $table->json('tujuan_kunjungan')->nullable();
             $table->string('tujuan_kunjungan_lainnya')->nullable();
             $table->enum('status', ['done', 'pending', 'inProgress'])->default('pending');
             $table->unsignedBigInteger('petugas_pst')->nullable();
             $table->foreign('petugas_pst')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
+
+            // Definisikan foreign key untuk province_id
+            $table->foreign('provinsi_id')->references('id')->on('provinces')->onDelete('cascade');
+            // Definisikan foreign key untuk regency_id
+            $table->foreign('kota_id')->references('id')->on('regencies')->onDelete('cascade');
         });
     }
 

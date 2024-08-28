@@ -120,7 +120,7 @@
 							<label for="jurusan" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Jurusan</label>
 							<div class="mt-2 sm:col-span-2 sm:mt-0">
 								<input type="text" wire:model="jurusan" id="jurusan" autocomplete="jurusan"
-									class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+									class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6" placeholder="Statistika">
 								@error('jurusan')
 									<span class="text-red-500">{{ $message }}</span>
 								@enderror
@@ -132,7 +132,7 @@
 								Universitas</label>
 							<div class="mt-2 sm:col-span-2 sm:mt-0">
 								<input type="text" wire:model="asal_universitas" id="asal-universitas" autocomplete="family-name"
-									class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+									class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6" placeholder="Universitas Islam Negeri Sjech M. Djamil Djambek Bukittinggi">
 								@error('asal_universitas')
 									<span class="text-red-500">{{ $message }}</span>
 								@enderror
@@ -143,10 +143,10 @@
 				</template>
 				<template x-if="pekerjaan === 'dinas/instansi/opd'">
 					<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-						<label for="asal" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Asal</label>
+						<label for="asal" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Asal Instansi</label>
 						<div class="mt-2 sm:col-span-2 sm:mt-0">
 							<input type="text" wire:model="asal" id="asal" autocomplete="asal"
-								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6" placeholder="Diskominfo Kota Bukittinggi">
 							@error('asal')
 								<span class="text-red-500">{{ $message }}</span>
 							@enderror
@@ -161,7 +161,7 @@
 						<div class="mt-2 sm:col-span-2 sm:mt-0">
 							<input type="text" wire:model="asal_universitas_lembaga" id="asal-universitas-lembaga"
 								autocomplete="asal-universitas-lembaga"
-								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6" placeholder="">
 							@error('asal_universitas_lembaga')
 								<span class="text-red-500">{{ $message }}</span>
 							@enderror
@@ -176,7 +176,7 @@
 						<div class="mt-2 sm:col-span-2 sm:mt-0">
 							<input type="text" wire:model="organisasi_nama_perusahaan_kantor"
 								id="organisasi-nama-perusahaan-kantor" autocomplete="organisasi-nama-perusahaan-kantor"
-								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
+								class="block w-full rounded-md border-0 py-1.5 text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6" placeholder="">
 							@error('organisasi_nama_perusahaan_kantorKantor')
 								<span class="text-red-500">{{ $message }}</span>
 							@enderror
@@ -208,6 +208,26 @@
 					</div>
 				</div>
 
+				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 mt-4">
+					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Provinsi</label>
+					<div class="mt-2 sm:col-span-2 sm:mt-0">
+						<livewire:components.select-option name="provinsi_id" :options="$this->provinces" wire:model.live="provinsi_id" :key="$this->provinces->pluck('id')->join('-')">
+						@error('provinsi_id')
+							<span class="text-red-500">{{ $message }}</span>
+						@enderror
+					</div>
+				</div>
+
+				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 mt-4">
+					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Kota</label>
+					<div class="mt-2 sm:col-span-2 sm:mt-0">
+						<livewire:components.select-option name="kota_id" :options="$this->regencies" wire:model.live="kota_id" :key="$this->regencies->pluck('id')->join('-')">
+						@error('kota_id')
+							<span class="text-red-500">{{ $message }}</span>
+						@enderror
+					</div>
+				</div>
+
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
 					<label for="alamat" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Alamat</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
@@ -219,44 +239,6 @@
 
 					</div>
 				</div>
-
-				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="provinsi" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Provinsi</label>
-					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<select type="text" name="selectedProvince" id="provinsi" wire:model='selectedProvince'
-							placeholder="Sumatera Barat" class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-							<option value="">Pilih Provinsi</option>
-							@foreach ($provinces as $province)
-								<option value="{{ $province["id"] }}">{{ $province["name"] }}</option>
-							@endforeach
-						</select>
-						@error('provinsi')
-							<span class="text-red-500">{{ $message }}</span>
-						@enderror
-
-					</div>
-				</div>
-
-				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6">
-					<label for="kota" class="block text-sm font-medium leading-6 text-grey sm:pt-1.5">Kota</label>
-					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<select name="kota" id="kota" autocomplete="kota" wire:model='kota'
-						 placeholder="Bukittinggi"	class="block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-lightYellow sm:max-w-xs sm:text-sm sm:leading-6">
-						 <option value="">Pilih Kota</option>
-						 @if(!empty($regencies))
-							@foreach ($regencies as $regency)
-								<option value="{{ $regency["name"] }}">{{ $regency["name"] }}</option>
-							@endforeach
-						@endif
-						</select>
-						@error('kota')
-							<span class="text-red-500">{{ $message }}</span>
-						@enderror
-
-					</div>
-				</div>
-
-				
 
 				<fieldset>
 					<legend class="sr-only">Tujuan Kunjungan</legend>
@@ -355,24 +337,3 @@
 
 </div>
 
-@script
-<script>
-$(document).ready(function() {
-    // Inisialisasi select2 untuk petugas PST
-    $('#provinsi').select2({
-        width: 'resolve'
-    }).on('change', function(e) {
-        var selectedValue = $(this).val();
-        @this.set('selectedProvince', selectedValue);
-    });
-
-    // Inisialisasi select2 untuk front office
-    $('#kota').select2({
-        width: 'resolve'
-    }).on('change', function(e) {
-        var selectedValue = $(this).val();
-        @this.set('kota', selectedValue);
-    });
-});
-</script>
-@endscript

@@ -40,7 +40,7 @@ class UserResource extends Resource
 
     protected static ?string $modelLabel = 'Users';
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-s-user';
 
     protected static ?string $navigationGroup = 'User Management';
 

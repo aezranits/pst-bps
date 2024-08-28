@@ -89,7 +89,11 @@ class GuestBookResource extends Resource
                                     ->maxLength(15)
                                     ->placeholder('Nomor HP (mis. 08123456789)')
                                     ->rules(['regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:15']),
-                                TextInput::make('asal_kota')->label('Alamat')->required()->maxLength(255)->columnSpanFull(),
+                                Select::make('provinsi')->relationship('province', 'name')->preload()->required()->native(false),
+                                Select::make('kota')
+                                    ->disabled(fn(Get $get) : bool => !filled($get('provinsi')))
+                                    ->relationship('regency', 'name')->preload()->required()->native(false),
+                                TextInput::make('alamat')->label('Alamat')->required()->maxLength(255)->columnSpanFull(),
                             ])
                             ->columns(2),
 
@@ -191,7 +195,7 @@ class GuestBookResource extends Resource
                                         $options = [
                                             'inProgress' => 'In Progress',
                                             'done' => 'Done',
-                                            'pending' => 'Pending'
+                                            'pending' => 'Pending',
                                         ];
 
                                         // if (auth()->user()->hasRole('admin')) {
@@ -252,7 +256,7 @@ class GuestBookResource extends Resource
                         $options = [
                             'inProgress' => 'In Progress',
                             'done' => 'Done',
-                            'pending' => 'Pending'
+                            'pending' => 'Pending',
                         ];
 
                         return $options;
@@ -269,12 +273,12 @@ class GuestBookResource extends Resource
             })
             ->headerActions([
                 ExportAction::make()
-                    ->exporter(GuestBookExporter::class)->label('Export')
+                    ->exporter(GuestBookExporter::class)
+                    ->label('Export')
                     ->icon('heroicon-o-arrow-down-tray')
-                    ->color('primary'),   
+                    ->color('primary'),
             ])
             ->poll('2s');
-
 
         return $table;
     }
