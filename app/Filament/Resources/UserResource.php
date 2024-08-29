@@ -75,7 +75,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([ImageColumn::make('avatar_url')->label('Avatar'), TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.name')->label('Roles'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
+            ->columns([ImageColumn::make('avatar_url')->label('')->square()->size(80), TextColumn::make('name')->label('Username')->searchable(), TextColumn::make('email')->label('Email Address')->searchable(), TextColumn::make('roles.name')->label('Roles'), TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true), TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true)])
             ->filters([
                 //
             ])

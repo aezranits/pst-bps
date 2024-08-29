@@ -7,12 +7,10 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use Livewire\Attributes\Computed;
 
 class FeedbackForm extends Component
 {
-    public $frontOffice = [];
-    public $petugasPst = [];
-
     public $nama_lengkap;
     public $petugas_pst;
     public $front_office;
@@ -20,6 +18,10 @@ class FeedbackForm extends Component
     public $kepuasan_petugas_front_office;
     public $kepuasan_sarana_prasarana;
     public $kritik_saran;
+    public $frontOfficeUser;
+    public $petugasPstUser;
+    public $frontOfficePhotoUrl;
+    public $petugasPstPhotoUrl;
 
     protected $rules = [
         'nama_lengkap' => 'string|required',
@@ -28,7 +30,6 @@ class FeedbackForm extends Component
         'kepuasan_petugas_pst' => 'required|integer|between:1,5',
         'kepuasan_petugas_front_office' => 'required|integer|between:1,5',
         'kepuasan_sarana_prasarana' => 'required|integer|between:1,5',
-        'kritik_saran' => 'string',
     ];
 
     protected function messages()
@@ -47,14 +48,38 @@ class FeedbackForm extends Component
             'kepuasan_sarana_prasarana.required' => 'Kepuasan terhadap sarana dan prasarana wajib diisi.',
             'kepuasan_sarana_prasarana.integer' => 'Kepuasan terhadap sarana dan prasarana harus berupa angka.',
             'kepuasan_sarana_prasarana.between' => 'Kepuasan terhadap sarana dan prasarana harus antara 1 hingga 5.',
-            'kritik_saran.string' => 'Kritik dan saran harus berupa teks.',
         ];
     }
 
-    public function mount()
+    #[Computed()]
+    public function listPetugasPst()
     {
-        $this->petugasPst = User::role('pst')->get();
-        $this->frontOffice = User::role('front-office')->get();
+        return User::role('pst')->get();
+    }
+
+    #[Computed()]
+    public function listFrontOffice()
+    {
+        return User::role('front-office')->get();
+    }
+
+    public function updatedPetugasPst(){
+        $petugasPstUser = User::find($this->petugas_pst);
+
+        if ($petugasPstUser) {
+            $this->petugasPstPhotoUrl = $petugasPstUser->avatar_url;
+        } else {
+            $this->petugasPstPhotoUrl = null;
+        }
+    }
+    public function updatedFrontOffice(){
+        $frontOfficeUser = User::find($this->front_office);
+
+        if ($frontOfficeUser) {
+            $this->frontOfficePhotoUrl = $frontOfficeUser->avatar_url;
+        } else {
+            $this->frontOfficePhotoUrl = null;
+        }
     }
 
     public function submit()
@@ -71,16 +96,6 @@ class FeedbackForm extends Component
             'setPetugasPst' => 'updatePetugasPst',
             'setFrontOffice' => 'updateFrontOffice',
         ];
-    }
-
-    public function updatePetugasPst($value)
-    {
-        $this->petugas_pst = $value;
-    }
-
-    public function updateFrontOffice($value)
-    {
-        $this->front_office = $value;
     }
 
     public function render()

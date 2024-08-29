@@ -1,10 +1,10 @@
 <form wire:submit.prevent="submit" class="lg:flex-auto">
 	<div class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
 		<div class="sm:col-span-2">
-			<label for="nama_lengkap" class="block text-sm font-semibold leading-6 text-gray-900">Nama Lengkap</label>
+			<label for="nama_lengkap" class="block text-lg font-semibold leading-6 text-gray-900">Nama Lengkap</label>
 			<div class="mt-3">
 				<input id="nama_lengkap" name="nama_lengkap" rows="4" wire:model="nama_lengkap" type='text'
-				 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></input>
+				 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"></input>
 			</div>
             @error('nama_lengkap')
 				<span class="text-red-500">{{ $message }}</span>
@@ -12,17 +12,23 @@
 		</div>
 		<!-- Petugas PST Section -->
 		<div>
-			<label for="petugas-pst" class="block text-sm font-medium leading-6 text-gray-900">Petugas PST</label>
+			<label for="petugas-pst" class="block text-lg font-medium leading-6 text-gray-900">Petugas PST</label>
 			<div class="relative mt-3">
-				<div wire:ignore>
-                <select wire:model="petugas_pst" id="petugas-pst" 
-					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-					<option value="">Pilih Petugas PST</option>
-					@foreach ($petugasPst as $user)
-						<option value="{{ $user->id }}">{{ $user->name }}</option>
-					@endforeach
-				</select>
-                </div>
+                <div class="rounded-2xl bg-white">
+                    @if (!is_null($petugasPstPhotoUrl))
+                    <img class="mx-auto h-48 w-48 rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$petugasPstPhotoUrl) }}" alt="">
+                    @endif
+                    <div wire:ignore class="mt-6 text-base font-semibold leading-7 tracking-tight text-white">
+                        <select wire:model="petugas_pst" id="petugas-pst" style="width: 100%; height: 100%"
+                            class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+                            <option value="">Pilih Petugas PST</option>
+                            @foreach ($this->listPetugasPst as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        </div>
+                  </div>
+				
                 @error('petugas_pst')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
@@ -52,7 +58,7 @@
                 }
             }
         }" class="flex flex-col items-center">
-            <label class="block text-sm font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas PST?</label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas PST?</label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0 justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
@@ -79,17 +85,22 @@
 
 		<!-- Front Office Section -->
 		<div>
-			<label for="front-office" class="block text-sm font-medium leading-6 text-gray-900">Front Office</label>
+			<label for="front-office" class="block text-lg font-medium leading-6 text-gray-900">Front Office</label>
 			<div class="relative mt-2">
-                <div wire:ignore>
-				<select  wire:model="front_office" id="front-office"
-					class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-					<option value="">Pilih Front Office</option>
-					@foreach ($frontOffice as $user)
-						<option value="{{ $user->id }}">{{ $user->name }}</option>
-					@endforeach
-				</select>
-                </div>
+                <div class="rounded-2xl bg-white">
+                    @if (!is_null($frontOfficePhotoUrl))
+                    <img class="mx-auto h-48 w-48 rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$frontOfficePhotoUrl) }}" alt="">
+                    @endif
+                    <div wire:ignore class="mt-6 text-base font-semibold leading-7 tracking-tight text-white">
+                        <select  wire:model="front_office" id="front-office" style="width: 100%; height: 100%"
+                            class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
+                            <option value="">Pilih Front Office</option>
+                            @foreach ($this->listFrontOffice as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                  </div>
                 @error('front_office')
 					<span class="text-red-500">{{ $message }}</span>
                 @enderror
@@ -120,7 +131,7 @@
                 }
             }
         }" class="flex flex-col items-center">
-            <label class="block text-sm font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Front Office?</label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Front Office?</label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0  justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
@@ -169,7 +180,7 @@
                 }
             }
         }" class="flex flex-col items-center sm:col-span-2">
-            <label class="block text-sm font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Sarana Prasarana?</label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Sarana Prasarana?</label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0 justify-center ">
                     <template x-for="(star, index) in ratings" :key="index">
@@ -195,10 +206,10 @@
         </div>
 
 		<div class="sm:col-span-2">
-			<label for="message" class="block text-sm font-semibold leading-6 text-gray-900 sm:text-center">Kritik dan Saran</label>
+			<label for="message" class="block text-lg font-semibold leading-6 text-gray-900 sm:text-center">Kritik dan Saran</label>
 			<div class="mt-3">
 				<textarea id="message" name="message" rows="4" wire:model="kritik_saran" type='text'
-				 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+				 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"></textarea>
 			</div>
             @error('kritik_saran')
                 <span class="text-red-500">{{ $message }}</span>
@@ -209,7 +220,7 @@
 
 	<div class="mt-10">
 		<button type="submit"
-			class="block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
+			class="block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
 	</div>
 
 	<div x-data='{show: false}' x-show= 'show' :class="{ 'hidden': !show }" x-on:open-modal.window = "show = true"
@@ -225,17 +236,13 @@
 <script>
 $(document).ready(function() {
     // Inisialisasi select2 untuk petugas PST
-    $('#petugas-pst').select2({
-        width: 'resolve'
-    }).on('change', function(e) {
+    $('#petugas-pst').select2().on('change', function(e) {
         var selectedValue = $(this).val();
         @this.set('petugas_pst', selectedValue);
     });
 
     // Inisialisasi select2 untuk front office
-    $('#front-office').select2({
-        width: 'resolve'
-    }).on('change', function(e) {
+    $('#front-office').select2().on('change', function(e) {
         var selectedValue = $(this).val();
         @this.set('front_office', selectedValue);
     });
