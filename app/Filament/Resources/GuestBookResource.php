@@ -9,6 +9,7 @@ use App\Filament\Imports\GuestBookImporter;
 use App\Filament\Resources\GuestBookResource\Pages;
 use App\Filament\Resources\GuestBookResource\Widgets\GuestBookOverview;
 use App\Models\GuestBook;
+use App\Models\Regency;
 use App\Repositories\Interface\GuestbookRepositoryInterface;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Group;
@@ -40,8 +41,10 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class GuestBookResource extends Resource
 {
@@ -89,10 +92,15 @@ class GuestBookResource extends Resource
                                     ->maxLength(15)
                                     ->placeholder('Nomor HP (mis. 08123456789)')
                                     ->rules(['regex:/^([0-9\s\-\+\(\)]*)$/', 'min:10', 'max:15']),
-                                Select::make('provinsi')->relationship('province', 'name')->preload()->required()->native(false),
-                                Select::make('kota')
-                                    ->disabled(fn(Get $get) : bool => !filled($get('provinsi')))
-                                    ->relationship('regency', 'name')->preload()->required()->native(false),
+                                Select::make('provinsi_id')->live()->relationship('provinsi', 'name')->preload()->required()->searchable()
+                                    ->afterStateUpdated(fn (Set $set) => $set('kota_id',null)),
+                                Select::make('kota_id')
+                                    ->options(fn(Get $get) : Collection => Regency::query()
+                                        ->where('provinsi_id', $get('provinsi_id'))
+                                        ->pluck('name', 'id'))
+                                    ->searchable()
+                                    ->preload()
+                                    ->live(),                                        
                                 TextInput::make('alamat')->label('Alamat')->required()->maxLength(255)->columnSpanFull(),
                             ])
                             ->columns(2),
@@ -219,6 +227,35 @@ class GuestBookResource extends Resource
                                             return 'pending';
                                         }
                                     })
+                                    ->afterStateUpdated(function ($state, $set, $get) {
+                                        $guestBook = $get('record');
+                                        
+                                        if ($state === 'pending') {
+                                            $guestBook->petugas_pst = null;
+                                            $guestBook->in_progress_at = null;
+                                            $guestBook->done_at = null;
+                                            $guestBook->duration = null;
+                                            $guestBook->save();
+                                        }
+                                        
+                                        if ($state === 'inProgress') {
+                                            $guestBook->in_progress_at = now();
+                                            $guestBook->done_at = null;
+                                            $guestBook->duration = null;
+                                            $guestBook->save();
+                                        }
+                                    
+                                        if ($state === 'done') {
+                                            $guestBook->done_at = now();
+                                            // Hitung lama waktu dari in_progress_at ke done_at
+                                            $duration = $guestBook->done_at->diffInSeconds($guestBook->in_progress_at);
+                                            $guestBook->duration = $duration;
+                                            $guestBook->save();
+                                            Log::info('Lama waktu in progress ke done: ' . $duration);
+                                        }
+                                    
+                                        $guestBook->save();
+                                    })
                                     ->inline()
                                     ->required(),
                             ]),
@@ -252,14 +289,48 @@ class GuestBookResource extends Resource
                 TextColumn::make('petugasPst.name')->label('Petugas PST')->searchable()->sortable()->hidden(fn() => auth()->user()->hasRole('pst')),
                 SelectColumn::make('status')
                     ->label('Status')
+                    ->afterStateUpdated(function ($record, $state) {
+                        $guestBook = $record;
+
+                        if ($state === 'pending') {
+                            $guestBook->petugas_pst = null;
+                            $guestBook->in_progress_at = null;
+                            $guestBook->done_at = null;
+                            $guestBook->duration = null;
+                            $guestBook->save();
+                        }
+
+                        if ($state === 'inProgress') {
+                            $guestBook->in_progress_at = now();
+                            $guestBook->done_at = null;
+                            $guestBook->duration = null;
+                            $guestBook->save();
+                        }
+                    
+                        if ($state === 'done') {
+                            $guestBook->done_at = now();
+                            // Hitung lama waktu dari in_progress_at ke done_at
+                            $duration = $guestBook->done_at->diffInSeconds($guestBook->in_progress_at);
+                            $guestBook->duration = $duration;
+                            $guestBook->save();
+                            Log::info('Lama waktu in progress ke done: ' . $duration);
+                        }
+                    
+                        $guestBook->save();
+                    })
                     ->options(function () {
                         $options = [
                             'inProgress' => 'In Progress',
                             'done' => 'Done',
                             'pending' => 'Pending',
                         ];
-
                         return $options;
+                    }),
+                TextColumn::make('duration')
+                    ->label('Duration')
+                    ->sortable()
+                    ->formatStateUsing(function ($state) {
+                        return $state ? $state : null;
                     }),
                 TextColumn::make('updated_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -269,8 +340,8 @@ class GuestBookResource extends Resource
                 if (auth()->user()->hasRole('pst')) {
                     $userId = auth()->user()->id;
                     return $query->where('petugas_pst', $userId)->whereIn('status', ['inProgress', 'done']);
-                }
-            })
+                }}
+            )
             ->headerActions([
                 ExportAction::make()
                     ->exporter(GuestBookExporter::class)

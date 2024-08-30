@@ -39,6 +39,7 @@ class GuestbookRepository implements GuestbookRepositoryInterface
         $guestbook->update([
             'status' => 'inProgress',
             'petugas_pst' => $userId,
+            'in_progress_at' => now(),
         ]);
         return $guestbook;
     }

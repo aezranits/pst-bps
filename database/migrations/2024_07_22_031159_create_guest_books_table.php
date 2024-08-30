@@ -29,6 +29,9 @@ class CreateGuestBooksTable extends Migration
             $table->enum('status', ['done', 'pending', 'inProgress'])->default('pending');
             $table->unsignedBigInteger('petugas_pst')->nullable();
             $table->foreign('petugas_pst')->references('id')->on('users')->onDelete('set null');
+            $table->timestamp('in_progress_at')->nullable();
+            $table->timestamp('done_at')->nullable();
+            $table->integer('duration')->nullable();
             $table->timestamps();
 
             // Definisikan foreign key untuk province_id

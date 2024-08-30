@@ -18,7 +18,7 @@ class RegencyImporter extends Importer
                 ->numeric()
                 ->requiredMapping()
                 ->rules(['required', 'max:255']),
-            ImportColumn::make('province_id')
+            ImportColumn::make('provinsi_id')
                 ->requiredMapping()
                 ->numeric()
                 ->rules(['required', 'integer']),

@@ -104,19 +104,19 @@ class FormGuestBook extends Component
     public function updatedProvinceId(){
         $this->kota_id = null;
     }
-
+        
     #[Computed()]
     public function provinces()
     {
         return Province::all();
     }
-
+     
     #[Computed()]
     public function regencies()
     {
-        return Regency::where('province_id', $this->provinsi_id)->get();
+        return Regency::where('provinsi_id', $this->provinsi_id)->get();
     }
-
+         
     public function sendEmailFeedback($email, $subject, $name)
     {
         Mail::to($email)->send(new MailableName($subject, $name));

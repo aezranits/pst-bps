@@ -36,8 +36,6 @@ class GuestBookImporter extends Importer
                 ->rules(['max:255']),
             ImportColumn::make('email')
                 ->rules(['email', 'max:255']),
-            ImportColumn::make('asal_kota')
-                ->rules(['max:255']),
             ImportColumn::make('tujuan_kunjungan'),
             ImportColumn::make('tujuan_kunjungan_lainnya')
                 ->rules(['max:255']),

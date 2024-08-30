@@ -27,11 +27,17 @@ class GuestBook extends Model
         'tujuan_kunjungan',
         'tujuan_kunjungan_lainnya',
         'status',
-        'petugas_pst'
+        'petugas_pst',
+        'in_progress_at',
+        'done_at',
+        'duration'
     ];
 
     protected $casts = [
         'tujuan_kunjungan' => 'array',
+        'in_progress_at' => 'datetime',
+        'done_at' => 'datetime',
+        'duration' => 'integer',
     ];
 
     public function petugasPst()
@@ -40,15 +46,25 @@ class GuestBook extends Model
     }
 
     // Relasi ke tabel Province
-    public function province()
+    public function provinsi()
     {
         return $this->belongsTo(Province::class);
     }
 
     // Relasi ke tabel Regency
-    public function regency()
+    public function kota()
     {
         return $this->belongsTo(Regency::class);
+    }
+
+    // Method untuk menghitung durasi dari inProgress ke done
+    public function getDurationAttribute()
+    {
+        if ($this->in_progress_at && $this->done_at) {
+            return $this->done_at->diffForHumans($this->in_progress_at, true);
+        }
+
+        return null;
     }
 }
 

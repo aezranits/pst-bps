@@ -46,7 +46,7 @@ class RegencyResource extends Resource
                     ->required()
                     ->numeric()
                     ->unique(ignoreRecord: true)->required(),
-                Select::make('province_id')->relationship('province', 'name')->preload()->required()->native(false),
+                Select::make('provinsi_id')->relationship('province', 'name')->preload()->required()->native(false),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

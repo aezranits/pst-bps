@@ -220,7 +220,7 @@
 
 	<div class="mt-10">
 		<button type="submit"
-			class="block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-lg font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
+			class="block w-full rounded-md bg-lightYellow hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 px-3 py-2 text-center text-lg font-semibold text-white shadow-sm  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Kirim</button>
 	</div>
 
 	<div x-data='{show: false}' x-show= 'show' :class="{ 'hidden': !show }" x-on:open-modal.window = "show = true"

@@ -13,7 +13,7 @@ use App\Repositories\Interface\GuestbookRepositoryInterface;
 class PendingGuestBooksWidget extends BaseWidget
 {
     // use CanSpanColumns;
-    protected static ?string $heading = 'Daftar Buku Tamu';
+    protected static ?string $heading = 'Buku Tamu Menunggu Persetujuan';
     protected int | string | array $columnSpan = 'full';
 
     protected function getTableQuery(): Builder
@@ -48,6 +48,7 @@ class PendingGuestBooksWidget extends BaseWidget
     {
         $userId = Auth::id();
         $guestbookRepository = app(GuestbookRepositoryInterface::class);
+        
         return $guestbookRepository->accept($id, $userId);
 
         $this->emit('guestBookAccepted');

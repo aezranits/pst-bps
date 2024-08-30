@@ -11,7 +11,7 @@ class Regency extends Model
     public $incrementing = false; // Non-auto-increment
     protected $keyType = 'integer'; // Tipe kunci utama
 
-    protected $fillable = ['id', 'province_id', 'name']; // Pastikan kolom id ada di fillable
+    protected $fillable = ['id', 'provinsi_id', 'name']; // Pastikan kolom id ada di fillable
 
     public function province()
     {

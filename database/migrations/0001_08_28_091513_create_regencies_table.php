@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('regencies', function (Blueprint $table) {
             $table->integer('id')->primary(); // Kolom id bukan auto-increment
-            $table->integer('province_id'); // Harus sama tipe datanya dengan id di provinces
+            $table->integer('provinsi_id'); // Harus sama tipe datanya dengan id di provinces
             $table->string('name');
             $table->timestamps();
         
-            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
+            $table->foreign('provinsi_id')->references('id')->on('provinces')->onDelete('cascade');
         });
     }
 

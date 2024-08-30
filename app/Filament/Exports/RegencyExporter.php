@@ -16,7 +16,7 @@ class RegencyExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('province_id'),
+            ExportColumn::make('provinsi_id'),
             ExportColumn::make('name'),
             ExportColumn::make('created_at'),
             ExportColumn::make('updated_at'),
