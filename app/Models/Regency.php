@@ -13,7 +13,7 @@ class Regency extends Model
 
     protected $fillable = ['id', 'provinsi_id', 'name']; // Pastikan kolom id ada di fillable
 
-    public function province()
+    public function provinsi()
     {
         return $this->belongsTo(Province::class);
     }

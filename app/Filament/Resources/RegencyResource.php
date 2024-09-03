@@ -46,7 +46,7 @@ class RegencyResource extends Resource
                     ->required()
                     ->numeric()
                     ->unique(ignoreRecord: true)->required(),
-                Select::make('provinsi_id')->relationship('province', 'name')->preload()->required()->native(false),
+                Select::make('provinsi_id')->relationship('provinsi', 'name')->preload()->required()->native(false),
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
@@ -59,7 +59,7 @@ class RegencyResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('province.name')->label('Province')->searchable(),
+                Tables\Columns\TextColumn::make('provinsi.name')->label('Province')->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Regency')
                     ->searchable(),

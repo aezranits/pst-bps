@@ -99,6 +99,7 @@ class GuestBookResource extends Resource
                                         ->where('provinsi_id', $get('provinsi_id'))
                                         ->pluck('name', 'id'))
                                     ->searchable()
+                                    ->label('Kota')
                                     ->preload()
                                     ->live(),                                        
                                 TextInput::make('alamat')->label('Alamat')->required()->maxLength(255)->columnSpanFull(),

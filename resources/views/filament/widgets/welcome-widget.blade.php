@@ -33,7 +33,7 @@
      </div>
     </div>
  
-    {{-- @if (auth()->user()->hasRole('pst')) --}}
+    @if (auth()->user()->hasRole('pst'))
      <div class="pt-6 flex justify-center space-x-3 md:ml-4 md:mt-0">
       <p class="inline-flex items-center text-center justify-center w-1/2 rounded-md dark:text-green-400 px-3 py-2 md:text-sm text-xs font-semibold shadow-sm ring-1 ring-inset ring-gray-300">
        Total kunjungan yang ditangani : {{ $doneGuestBooks }}
@@ -42,7 +42,7 @@
        Rating : {{ $feedbackRating }} / 5
       </p>
      </div>
-    {{-- @endif --}}
+    @endif
    </div>
   </div>
  </div>
