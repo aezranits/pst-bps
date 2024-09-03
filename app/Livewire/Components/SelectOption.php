@@ -14,13 +14,15 @@ class SelectOption extends Component
     public $value = null;
 
     public $name;
+    public $label;
 
     #[Reactive]
     public $options;
 
-    public function mount ($name, $options){
+    public function mount ($name, $options, $label){
         $this->name = $name;
         $this->options = $options;
+        $this->label =$label;
         $this->options->ensure([Province::class, Regency::class]);
     }
 

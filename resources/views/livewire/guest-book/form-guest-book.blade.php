@@ -213,7 +213,7 @@
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 py-3">
 					<label for="provinsi" class="block sm:text-lg text-sm  font-bold leading-6 text-grey sm:pt-1.5">Provinsi</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<livewire:components.select-option name="provinsi_id" :options="$this->provinces" wire:model.live="provinsi_id" :key="$this->provinces->pluck('id')->join('-')">
+						<livewire:components.select-option name="provinsi_id" label="Provinsi" :options="$this->provinces" wire:model.live="provinsi_id" :key="$this->provinces->pluck('id')->join('-')">
 						@error('provinsi_id')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
@@ -223,7 +223,7 @@
 				<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:py-6 py-3">
 					<label for="provinsi" class="block sm:text-lg text-sm  font-bold leading-6 text-grey sm:pt-1.5">Kota</label>
 					<div class="mt-2 sm:col-span-2 sm:mt-0">
-						<livewire:components.select-option name="kota_id" :options="$this->regencies" wire:model.live="kota_id" :key="$this->regencies->pluck('id')->join('-')">
+						<livewire:components.select-option name="kota_id" label="Kota" :options="$this->regencies" wire:model.live="kota_id" :key="$this->regencies->pluck('id')->join('-')">
 						@error('kota_id')
 							<span class="text-red-500">{{ $message }}</span>
 						@enderror
