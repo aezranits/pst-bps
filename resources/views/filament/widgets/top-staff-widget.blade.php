@@ -1,45 +1,44 @@
 <div class="bg-white shadow p-6 rounded-3xl dark:bg-gray-900">
- <div class="mx-auto max-w-7xl ">
-  <h2 class="text-3xl font-bold leading-6 text-center pb-4">Petugas Pelayanan Terbaik</h2>
-  <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2">
+  <div class="mx-auto max-w-7xl md:px-6">
+      <h2 class="md:text-3xl text-xl font-bold leading-6 text-center pb-4">Petugas Pelayanan Terbaik</h2>
 
-   <div class="overflow-hidden rounded-lg bg-white dark:bg-gray-900 shadow  dark:border-2 dark:border-black ">
-    <div class="bg-blue-500 py-3 text-center">
-     <div class="text-sm ">
-      <a href="#" class="font-medium text-white ">Petugas PST</a>
-     </div>
-    </div>
-    <div class="p-5">
-     <div class="flex items-center">
-      <div class="ml-5 w-0 flex-1 relative mx-auto flex flex-col items-center text-center ">
-       <h1 class="text-2xl font-bold tracking-tight lg:text-4xl">{{ $topPetugasPST->petugasPst->name ?? 'N/A' }}</h1>
-       <a href="#"
-        class="mt-6 inline-block rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium  ring-1 ring-inset ring-gray-30">Rating
-        : {{ number_format($topPetugasPST->avg_rating ?? 0, 2) . '/5.00' }}</a>
+      <!-- Gunakan grid untuk menampilkan dua div berdampingan -->
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 p-2">
+          <!-- Card 1 -->
+          <div class="dark:bg-gray-800 p-4 rounded-lg shadow-md text-center ">
+            <h2 class=" xl:text-2xl text-xl font-semibold text-cyan-400">Petugas PST Terbaik</h2>
+            <div class="flex items-center  justify-evenly mx-auto text-wrap p-4 ">
+              <div class="h-fit w-2/5">
+                <img class="rounded-xl h-full w-full object-center"
+                  src="{{ $topPetugasPST->avatar_url ? Storage::url($topPetugasPST->avatar_url) : asset('img/logo-pst.svg') }}"
+                  alt="User Avatar">
+              </div>
+              <div class="px-2 w-3/5">
+                <div class="font-bold pb-2 text-wrap md:text-2xl">{{ $topPetugasPST->name }}</div>
+                <div class="flex items-center justify-center text-cyan-400">
+                    <span>Rating : {{ number_format($ratingTopPST->average_kepuasan,2) }}/5.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dark:bg-gray-800 p-4 rounded-lg shadow-md text-center">
+            <h2 class="xl:text-2xl text-xl font-semibold text-green-400">Petugas Front Office Terbaik</h2>
+            <div class="flex items-center justify-evenly text-wrap p-4">
+              <div class="h-fit w-2/5">
+                <img class="rounded-xl h-full w-full object-center"
+                  src="{{ $topFrontOffice->avatar_url ? Storage::url($topFrontOffice->avatar_url) : asset('img/logo-pst.svg') }}"
+                  alt="User Avatar">
+              </div>
+              <div class="px-2 w-3/5">
+                <div class="font-bold pb-2 text-wrap md:text-2xl">{{ $topFrontOffice->name }}</div>
+                <div class="flex items-center justify-center text-green-400">
+                  <span>Rating : {{ number_format($ratingTopFrontOffice->average_kepuasan,2)  }}/5.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
       </div>
-     </div>
-    </div>
-   </div>
-
-   <div class="overflow-hidden rounded-lg bg-white dark:bg-gray-900 shadow dark:border-2 dark:border-black ">
-    <div class="bg-blue-500 text-center py-3">
-     <div class="text-sm">
-      <a href="#" class="font-medium text-white">Petugas Front Office</a>
-     </div>
-    </div>
-    <div class="p-5">
-     <div class="flex items-center">
-      <div class="ml-5 w-0 flex-1 relative mx-auto flex flex-col items-center text-center  ">
-       <h1 class="text-2xl font-bold tracking-tight lg:text-4xl">{{ $topFrontOffice->frontOffice->name ?? 'N/A' }}</h1>
-       <a href="#"
-        class="mt-6 inline-block rounded-md border border-transparent bg-yellow-400 px-8 py-3 text-base font-medium  ring-1 ring-inset ring-gray-30">Rating
-        : {{ number_format($topFrontOffice->avg_rating ?? 0, 2) . '/5.00' }}</a>
-      </div>
-     </div>
-    </div>
-   </div>
-
-   <!-- More items... -->
   </div>
- </div>
 </div>

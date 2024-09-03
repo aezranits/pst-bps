@@ -2,12 +2,8 @@
 
 namespace App\Providers\Filament;
 
-use App\Filament\Widgets\GuestBookChart;
+use App\Filament\Widgets\GuestBookAdvancedChartWidget;
 use App\Filament\Widgets\GuestBookChartByDate;
-use App\Filament\Widgets\GuestBookStatsWidget;
-use App\Filament\Widgets\LatestFeedbackWidget;
-use App\Filament\Widgets\LatestGuestBooksWidget;
-use App\Filament\Widgets\PendingGuestBooksWidget;
 use App\Filament\Widgets\TopStaffWidget;
 use App\Filament\Widgets\WelcomeWidget;
 use App\Http\Livewire\GuestBookChart as LivewireGuestBookChart;
@@ -57,8 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 WelcomeWidget::class,
                 TopStaffWidget::class,
-                GuestBookChartByDate::class,
-                // LivewireGuestBookChart::class,
+                GuestBookChartByDate::class,                
             ])
             ->middleware([
                 EncryptCookies::class,

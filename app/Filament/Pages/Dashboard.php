@@ -2,27 +2,32 @@
  
 namespace App\Filament\Pages;
 
-use App\Filament\Widgets\GuestBookChartByDate;
-use App\Filament\Widgets\TopStaffWidget;
 use App\Filament\Widgets\WelcomeWidget;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Contracts\HasForms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Dashboard\Concerns\HasFiltersForm;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Facades\Log;
 
-class Dashboard extends \Filament\Pages\Dashboard implements HasForms
+class Dashboard extends \Filament\Pages\Dashboard
 {
     use HasFiltersForm;
+    // public function getWidgets(): array
+    // {
+    //     return [
+    //         WelcomeWidget::class(),
+    //     ];
+    // }
 
-    public function getWidgets(): array
+    public function filtersForm(Form $form): Form
     {
-        return [
-            WelcomeWidget::class,
-            TopStaffWidget::class,
-            GuestBookChartByDate::class,
-        ];
+        return $form->schema([
+            Section::make('')->schema([
+                DatePicker::make('startDate'),
+                DatePicker::make('endDate'),
+            ])->columns(2)
+        ]);
     }
+
+    // ...
 }
