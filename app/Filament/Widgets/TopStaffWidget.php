@@ -32,7 +32,8 @@ class TopStaffWidget extends BaseWidget
             ->orderByDesc('average_kepuasan')
             ->first();
 
-        $topPetugasPST = $topRatingPetugasPst ? User::find($topRatingPetugasPst->petugas_pst) : 'Tidak Ada Data';
+        $topPetugasPST = $topRatingPetugasPst ? User::find($topRatingPetugasPst->petugas_pst) : null;
+        Log::info($topPetugasPST);
         $topRatingFrontOffice = Feedback::query()
             ->select('front_office', DB::raw('AVG(kepuasan_petugas_front_office) as average_kepuasan'))
             ->whereBetween('updated_at', [Carbon::parse($start), Carbon::parse($end)])
@@ -41,7 +42,7 @@ class TopStaffWidget extends BaseWidget
             ->orderByDesc('average_kepuasan')
             ->first();
 
-        $topFrontOffice = $topRatingFrontOffice ? User::find($topRatingFrontOffice->front_office) : 'Tidak Ada Data';
+        $topFrontOffice = $topRatingFrontOffice ? User::find($topRatingFrontOffice->front_office) : null;
 
         return [
             'topPetugasPST' => $topPetugasPST,

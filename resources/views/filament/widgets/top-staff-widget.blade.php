@@ -10,13 +10,13 @@
             <div class="flex items-center  justify-evenly mx-auto text-wrap p-4 ">
               <div class="h-fit w-2/5">
                 <img class="rounded-xl h-full w-full object-center"
-                  src="{{ $topPetugasPST->avatar_url ? Storage::url($topPetugasPST->avatar_url) : asset('img/logo-pst.svg') }}"
+                  src="{{ isset($topPetugasPST) && isset($topPetugasPST->avatar_url) ? Storage::url($topPetugasPST->avatar_url) : asset('img/logo-pst.svg') }}"
                   alt="User Avatar">
               </div>
               <div class="px-2 w-3/5">
-                <div class="font-bold pb-2 text-wrap md:text-2xl">{{ $topPetugasPST->name }}</div>
+                <div class="font-bold pb-2 text-wrap md:text-2xl">{{ $topPetugasPST ? $topPetugasPST->name : 'Tidak ada data' }}</div>
                 <div class="flex items-center justify-center text-cyan-400">
-                    <span>Rating : {{ number_format($ratingTopPST->average_kepuasan,2) }}/5.00</span>
+                    <span>Rating : {{ $topPetugasPST ? number_format($ratingTopPST->average_kepuasan,2) : 0 }}/5.00</span>
                 </div>
               </div>
             </div>
@@ -27,13 +27,13 @@
             <div class="flex items-center justify-evenly text-wrap p-4">
               <div class="h-fit w-2/5">
                 <img class="rounded-xl h-full w-full object-center"
-                  src="{{ $topFrontOffice->avatar_url ? Storage::url($topFrontOffice->avatar_url) : asset('img/logo-pst.svg') }}"
+                  src="{{ isset($topFrontOffice->avatar_url) && isset($topFrontOffice) ? Storage::url($topFrontOffice->avatar_url) : asset('img/logo-pst.svg') }}"
                   alt="User Avatar">
               </div>
               <div class="px-2 w-3/5">
-                <div class="font-bold pb-2 text-wrap md:text-2xl">{{ $topFrontOffice->name }}</div>
+                <div class="font-bold pb-2 text-wrap md:text-2xl">{{$topFrontOffice ? $topFrontOffice->name : 'Tidak ada data' }}</div>
                 <div class="flex items-center justify-center text-green-400">
-                  <span>Rating : {{ number_format($ratingTopFrontOffice->average_kepuasan,2)  }}/5.00</span>
+                  <span>Rating : {{ $topFrontOffice ? number_format($ratingTopFrontOffice->average_kepuasan,2) : 0  }}/5.00</span>
                 </div>
               </div>
             </div>
