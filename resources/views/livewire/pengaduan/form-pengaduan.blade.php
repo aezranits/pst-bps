@@ -2,8 +2,6 @@
  @cara_memperoleh_informasi-changed.window="caraMemperolehInformasi = $event.detail; $wire.set('cara_memperoleh_informasi', caraMemperolehInformasi)"
  @cara_mendapatkan_salinan_informasi-changed.window="caraMendapatkanSalinanInformasi = $event.detail; $wire.set('cara_mendapatkan_salinan_informasi', caraMendapatkanSalinanInformasi)">
  <div>
-  <h2 class="text-4xl font-bold leading-7 text-grey lg:hidden block">Buku Tamu</h2>
-
   <div
    class="mt-5 lg:mt-0 space-y-8 border-b border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
    <form wire:submit.prevent="submit">
@@ -28,7 +26,7 @@
     </div>
 
     <div class="sm:py-6 py-3">
-      <livewire:components.text-input colorText="text-grey" label="Email" name="email" placeholder="pstbps@gmail.com" type="email"
+      <livewire:components.text-input label="Email" name="email" placeholder="pstbps@gmail.com" type="email"
        wire:model="email" />
      </div>
 
@@ -72,7 +70,7 @@
       <div class="mt-2 sm:col-span-2 sm:mt-0">
        <div class="h-full">
         <input
-         class="block w-full h-20 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+         class="block w-full sm:text-lg text-sm  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
          aria-describedby="file_input_help" id="bukti_identitas_diri_path" type="file"
          name="bukti_identitas_diri_path" wire:model="bukti_identitas_diri_path">
         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or PDF (MAX.2MB).</p>
@@ -84,6 +82,20 @@
       </div>
      </div>
     </div>
+
+    <div class="sm:py-6 py-3">
+      <label class="block sm:text-lg text-sm  font-semibold text-center pb-3 text-gray-700">Tanda Tangan</label>
+      <div class="border border-gray-300 rounded-lg p-2">
+        <canvas id="signature-pad" class="border w-full h-60"></canvas>
+      </div>
+      <div class="mt-2">
+        <button type="button" id="clear-signature" class="bg-red-500 text-white py-1 px-4 rounded">Hapus</button>
+      </div>
+      @error('tanda_tangan') 
+      <span class="text-red-500 text-sm">{{ $message }}</span>
+      @enderror
+    </div>
+    
 
     <div class="flex items-center justify-end mt-6 gap-x-6">
      <button type="submit" wire:loading.attr="disabled"
@@ -109,3 +121,21 @@
   </div>
  </div>
 </div>
+
+@script
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const canvas = document.getElementById('signature-pad');
+    const signaturePad = new SignaturePad(canvas);
+
+    document.getElementById('clear-signature').addEventListener('click', function () {
+        signaturePad.clear();
+    });
+
+    document.querySelector('form').addEventListener('submit', function () {
+        @this.set('tanda_tangan', signaturePad.toDataURL());
+    });
+});
+
+</script>
+@endscript

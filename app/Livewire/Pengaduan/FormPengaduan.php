@@ -34,7 +34,7 @@ class FormPengaduan extends Component
         'cara_memperoleh_informasi' => 'required|string',
         'cara_mendapatkan_salinan_informasi' => 'required|string',
         'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Add rules for file validation
-        // 'tanda_tangan' => 'required|string',
+        'tanda_tangan' => 'required|string',
     ];
 
     protected function messages()
@@ -76,8 +76,9 @@ class FormPengaduan extends Component
 
     public function submit()
     {
-            Log::info(request());
+            
             $this->validate();
+            Log::info($this->validate());
             if ($this->bukti_identitas_diri_path) {
                 // Simpan file ke dalam storage/app/public/bukti_identitas
                 $filePath = $this->bukti_identitas_diri_path->store('bukti_identitas', 'public');
