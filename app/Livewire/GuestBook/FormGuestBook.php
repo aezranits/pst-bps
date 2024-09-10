@@ -38,19 +38,30 @@ class FormGuestBook extends Component
         'jenis_kelamin' => 'required|string',
         'usia' => 'required|numeric|min:1|max:150',
         'pekerjaan' => 'required|string',
-        'jurusan' => 'nullable|required_if:pekerjaan,Mahasiswa|string|max:255',
-        'asal_universitas' => 'nullable|required_if:pekerjaan,Mahasiswa|string|max:255',
-        'asal_universitas_lembaga' => 'nullable|required_if:pekerjaan,Peneliti|string|max:255',
-        'asal' => 'nullable|required_if:pekerjaan,Dinas/Instansi/OPD|string|max:255',
-        'organisasi_nama_perusahaan_kantor' => 'nullable|required_if:pekerjaan,Umum|string|max:255',
+        'jurusan' => 'nullable|required_if:pekerjaan,mahasiswa|string|max:255',
+        'asal_universitas' => 'nullable|required_if:pekerjaan,mahasiswa|string|max:255',
+        'asal_universitas_lembaga' => 'nullable|required_if:pekerjaan,peneliti|string|max:255',
+        'asal' => 'nullable|required_if:pekerjaan,dinas/instansi/opd|string|max:255',
+        'organisasi_nama_perusahaan_kantor' => 'nullable|required_if:pekerjaan,umum|string|max:255',
         'no_hp' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10|max:15',
         'email' => 'required|email|max:255',
         'alamat' => 'required|string|max:500',
         'kota_id' => 'required',
         'provinsi_id' => 'required',
         'tujuan_kunjungan' => 'required|array|min:1',
-        'tujuan_kunjungan_lainnya' => 'nullable|string|max:255',
+        'tujuan_kunjungan_lainnya' => 'nullable|string',
     ];
+
+    protected function rules()
+    {
+        $rules = $this->rules;
+
+        if (in_array('lainnya', $this->tujuan_kunjungan)) {
+            $rules['tujuan_kunjungan_lainnya'] = 'required|string|max:255';
+        }
+
+        return $rules;
+    }
 
     protected function messages()
     {
@@ -97,7 +108,7 @@ class FormGuestBook extends Component
             'tujuan_kunjungan.array' => 'Tujuan kunjungan harus berupa array.',
             'tujuan_kunjungan.min' => 'Minimal pilih satu tujuan kunjungan.',
             'tujuan_kunjungan_lainnya.string' => 'Tujuan kunjungan lainnya harus berupa teks.',
-            'tujuan_kunjungan_lainnya.max' => 'Tujuan kunjungan lainnya maksimal 255 karakter.',
+            'tujuan_kunjungan_lainnya.required' => 'Tujuan kunjungan lainnya wajib diisi jika terdapat tujuan lainnya.',
         ];
     }
 
@@ -125,7 +136,6 @@ class FormGuestBook extends Component
     public function submit()
     {
             $validatedData = $this->validate();
-
             if (!in_array('lainnya', $validatedData['tujuan_kunjungan'])) {
                 $validatedData['tujuan_kunjungan_lainnya'] = null;
             }
@@ -162,22 +172,27 @@ class FormGuestBook extends Component
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
             }
-            Log::info($validatedData);
 
             GuestBook::create($validatedData);
-
             session()->flash('message', 'Guestbook entry created successfully.');
-
+            Log::info("Sukses membuat guestbook");
             // Send email
             $emailGuest = $validatedData['email'];
             $nameGuest = $validatedData['nama_lengkap'];
             $subjectGuest = 'Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi';
 
             $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
+            Log::info("Sukses mengirim email");
             $this->reset();
+            Log::info("Sukses reset inputan");
             $this->dispatch('open-modal');
-    }
+            Log::info("Sukses membuka modal");
 
+    }
+    public function rendered(): void
+    {
+        $this->dispatch('ParentComponentValidated', $this->getErrorBag()->messages());
+    }
     public function render()
     {
         return view('livewire.guest-book.form-guest-book');

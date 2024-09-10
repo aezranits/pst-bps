@@ -110,7 +110,7 @@
             <h1>Halo, {{ $name }}!</h1>
             <p>Terima kasih telah mengunjungi PST BPS Kota Bukittinggi. Kami berharap Anda mendapatkan pengalaman yang
                 menyenangkan dan bermanfaat.</p>
-            <a href="{{ route('feedback') }}" class="feedback-link">Layanan Feedback PST</a>
+            <a href="{{ route('guest-book.feedback') }}" class="feedback-link">Layanan Feedback PST</a>
             <p>Kami sangat menghargai jika Anda dapat meluangkan waktu sejenak untuk memberikan feedback tentang
                 layanan kami. Masukan Anda sangat berharga bagi kami untuk terus meningkatkan kualitas pelayanan.</p>
         </div>

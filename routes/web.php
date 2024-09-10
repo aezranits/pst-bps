@@ -2,11 +2,17 @@
 
 use App\Livewire\AboutUs;
 use App\Livewire\FeedBackPage;
+use App\Livewire\FeedbackPengaduanPage;
 use App\Livewire\GuestBookPage;
 use App\Livewire\HomePage;
+use App\Livewire\PengaduanPage;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomePage::class)->name('home');
-Route::get('/buku-tamu', GuestBookPage::class);
-Route::get('/feedback', FeedBackPage ::class)->name('feedback');;
-Route::get('/about-us', AboutUs ::class)->name('feedback');;
+Route::get('/buku-tamu', GuestBookPage::class)->name('guest-book');
+Route::get('/buku-tamu/feedback', FeedBackPage ::class)->name('guest-book.feedback');;
+Route::get('/pengaduan', PengaduanPage ::class)->name('pengaduan');;
+Route::get('/pengaduan/feedback', FeedbackPengaduanPage ::class)->name('pengaduan.feedback');;
+
+
+Route::get('/tentang-kami', AboutUs ::class)->name('about-us');;

@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "jquery": "^3.7.1",
-        "preline": "^2.4.0"
+        "preline": "^2.4.0",
+        "signature_pad": "^5.0.3"
     }
 }

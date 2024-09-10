@@ -1,7 +1,7 @@
 <form wire:submit.prevent="submit" class="lg:flex-auto">
 	<div class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
 		<div class="sm:col-span-2">
-			<label for="nama_lengkap" class="block text-lg font-semibold leading-6 text-gray-900">Nama Lengkap</label>
+			<label for="nama_lengkap" class="block text-lg font-semibold leading-6 text-gray-900">Nama Lengkap <span class="text-red-500">*</span></label>
 			<div class="mt-3">
 				<input id="nama_lengkap" name="nama_lengkap" rows="4" wire:model="nama_lengkap" type='text'
 				 class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6"></input>
@@ -12,7 +12,7 @@
 		</div>
 		<!-- Petugas PST Section -->
 		<div>
-			<label for="petugas-pst" class="block text-lg font-medium leading-6 text-gray-900">Petugas PST</label>
+			<label for="petugas-pst" class="block text-lg font-medium leading-6 text-gray-900">Petugas PST <span class="text-red-500">*</span></label>
 			<div class="relative mt-3">
                 <div class="rounded-2xl bg-white">
                     @if (!is_null($petugasPstPhotoUrl))
@@ -58,7 +58,7 @@
                 }
             }
         }" class="flex flex-col items-center">
-            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas PST?</label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas PST? <span class="text-red-500">*</span></label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0 justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
@@ -85,7 +85,7 @@
 
 		<!-- Front Office Section -->
 		<div>
-			<label for="front-office" class="block text-lg font-medium leading-6 text-gray-900">Front Office</label>
+			<label for="front-office" class="block text-lg font-medium leading-6 text-gray-900">Front Office <span class="text-red-500">*</span></label>
 			<div class="relative mt-2">
                 <div class="rounded-2xl bg-white">
                     @if (!is_null($frontOfficePhotoUrl))
@@ -131,7 +131,7 @@
                 }
             }
         }" class="flex flex-col items-center">
-            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Front Office?</label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Front Office? <span class="text-red-500">*</span></label>
             <div class="relative mt-2">
                 <div class="flex items-center space-x-0  justify-center">
                     <template x-for="(star, index) in ratings" :key="index">
