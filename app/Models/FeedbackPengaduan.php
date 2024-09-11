@@ -13,6 +13,7 @@ class FeedbackPengaduan extends Model
         'nama_lengkap',
         'petugas_pengaduan',
         'kepuasan_petugas_pengaduan',
+        'kepuasan_sarana_prasarana_pengaduan',
         'kritik_saran',
     ];
 
@@ -21,8 +22,4 @@ class FeedbackPengaduan extends Model
         return $this->belongsTo(User::class, 'petugas_pengaduan');
     }
 
-    public function frontOffice()
-    {
-        return $this->belongsTo(User::class, 'front_office');
-    }
 }

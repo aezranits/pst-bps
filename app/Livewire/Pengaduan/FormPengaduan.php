@@ -21,6 +21,8 @@ class FormPengaduan extends Component
     public $cara_memperoleh_informasi;
     public $cara_mendapatkan_salinan_informasi;
     public $bukti_identitas_diri_path;
+    public $dokumen_pernyataan_keberatan_atas_permohonan_informasi_path;
+    public $dokumen_permintaan_informasi_publik_path;
     public $tanda_tangan;
 
     protected $rules = [
@@ -33,7 +35,9 @@ class FormPengaduan extends Component
         'tujuan_penggunaan_informasi' => 'required|string',
         'cara_memperoleh_informasi' => 'required|string',
         'cara_mendapatkan_salinan_informasi' => 'required|string',
-        'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', // Add rules for file validation
+        'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+        'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        'dokumen_permintaan_informasi_publik_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',// Add rules for file validation
         'tanda_tangan' => 'required|string',
     ];
 
@@ -69,6 +73,15 @@ class FormPengaduan extends Component
             'bukti_identitas_diri_path.file' => 'Bukti Identitas Diri harus berupa file.',
             'bukti_identitas_diri_path.mimes' => 'Bukti Identitas Diri harus berupa file dengan format jpg, jpeg, png, atau pdf.',
             'bukti_identitas_diri_path.max' => 'Ukuran file Bukti Identitas Diri maksimal 2MB.',
+
+            'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path.file' => 'Dokumen harus berupa file.',
+            'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path.mimes' => 'Dokumen harus berupa file dengan format jpg, jpeg, png, atau pdf.',
+            'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path.max' => 'Ukuran Dokumen maksimal 2MB.',
+
+            'dokumen_permintaan_informasi_publik_path.file' => 'Dokumen harus berupa file.',
+            'dokumen_permintaan_informasi_publik_path.mimes' => 'Dokumen harus berupa file dengan format jpg, jpeg, png, atau pdf.',
+            'dokumen_permintaan_informasi_publik_path.max' => 'Ukuran Dokumen maksimal 2MB.',
+
             'tanda_tangan.required' => 'Tanda tangan wajib diisi.',
             'tanda_tangan.string' => 'Tanda tangan harus berupa data string.',
         ];
@@ -81,7 +94,15 @@ class FormPengaduan extends Component
             Log::info($this->validate());
             if ($this->bukti_identitas_diri_path) {
                 // Simpan file ke dalam storage/app/public/bukti_identitas
-                $filePath = $this->bukti_identitas_diri_path->store('bukti_identitas', 'public');
+                $filePathBuktIIdentitas = $this->bukti_identitas_diri_path->store('bukti-identitas', 'public');
+            }
+            if ($this->dokumen_pernyataan_keberatan_atas_permohonan_informasi_path) {
+                // Simpan file ke dalam storage/app/public/bukti_identitas
+                $filePathPernyataanKeberatan = $this->dokumen_pernyataan_keberatan_atas_permohonan_informasi_path->store('dokumen-formulir/dokumen-pernyataan-keberatan-atas-permohonan-informasi', 'public');
+            }
+            if ($this->dokumen_permintaan_informasi_publik_path) {
+                // Simpan file ke dalam storage/app/public/bukti_identitas
+                $filePathPermintaanInformasi = $this->dokumen_permintaan_informasi_publik_path->store('dokumen-formulir/dokumen-permintaan-informasi-publik', 'public');
             }
             ModelsFormPengaduan::create([
                 'nama_lengkap' => $this->nama_lengkap,
@@ -91,8 +112,11 @@ class FormPengaduan extends Component
                 'email' => $this->email,
                 'rincian_informasi' => $this->rincian_informasi,
                 'tujuan_penggunaan_informasi' => $this->tujuan_penggunaan_informasi,
+                'cara_memperoleh_informasi' => $this->cara_memperoleh_informasi,
                 'cara_mendapatkan_salinan_informasi' => $this->cara_mendapatkan_salinan_informasi,
-                'bukti_identitas_diri_path' => $filePath ?? null, // Simpan path file ke database
+                'bukti_identitas_diri_path' => $filePathBuktIIdentitas ?? null, // Simpan path file ke database
+                'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path' => $filePathPernyataanKeberatan ?? null, // Simpan path file ke database
+                'dokumen_permintaan_informasi_publik_path' => $filePathPermintaanInformasi ?? null, // Simpan path file ke database
                 'tanda_tangan' => $this->tanda_tangan,
             ]);
             session()->flash('message', 'Pengaduan entry created successfully.');

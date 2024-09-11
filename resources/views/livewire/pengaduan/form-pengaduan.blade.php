@@ -6,7 +6,7 @@
    class="mt-5 lg:mt-0 space-y-8 border-b border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
    <form wire:submit.prevent="submit">
     <!-- Nama Lengkap -->
-    <div class="sm:pb-6 pb-3">
+    <div class="sm:py-6 py-3">
      <livewire:components.text-input label="Nama Lengkap" name="nama_lengkap" placeholder="Ade Setiawan"
       wire:model="nama_lengkap" />
     </div>
@@ -26,9 +26,9 @@
     </div>
 
     <div class="sm:py-6 py-3">
-      <livewire:components.text-input label="Email" name="email" placeholder="pstbps@gmail.com" type="email"
-       wire:model="email" />
-     </div>
+     <livewire:components.text-input label="Email" name="email" placeholder="pstbps@gmail.com" type="email"
+      wire:model="email" />
+    </div>
 
     <div class="sm:py-6 py-3">
      <livewire:components.text-input type="textarea" rows="4" name="rincian_informasi"
@@ -62,10 +62,10 @@
       ]" />
     </div>
 
-    <div class="">
+    <div class="sm:py-6 py-3">
      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 ">
       <label for="bukti_identitas_diri_path" class="block sm:text-lg text-sm font-bold leading-6 ">
-       Bukti Identitas Diri Path
+       Bukti Identitas Diri
       </label>
       <div class="mt-2 sm:col-span-2 sm:mt-0">
        <div class="h-full">
@@ -73,7 +73,8 @@
          class="block w-full sm:text-lg text-sm  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
          aria-describedby="file_input_help" id="bukti_identitas_diri_path" type="file"
          name="bukti_identitas_diri_path" wire:model="bukti_identitas_diri_path">
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or PDF (MAX.2MB).</p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG atau PDF (MAX.2MB).
+        </p>
        </div>
 
        @error('bukti_identitas_diri_path')
@@ -84,18 +85,68 @@
     </div>
 
     <div class="sm:py-6 py-3">
-      <label class="block sm:text-lg text-sm  font-semibold text-center pb-3 text-gray-700">Tanda Tangan</label>
-      <div class="border border-gray-300 rounded-lg p-2">
-        <canvas id="signature-pad" class="border w-full h-60"></canvas>
+     <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 ">
+      <label for="dokumen_permintaan_informasi_publik_path" class="block sm:text-lg text-sm font-bold leading-6 ">
+       Dokumen Formulir Permintaan Publik
+      </label>
+      <div class="mt-2 sm:col-span-2 sm:mt-0">
+       <div class="h-full">
+        <input
+         class="block w-full sm:text-lg text-sm  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+         aria-describedby="file_input_help" id="dokumen_permintaan_informasi_publik_path" type="file"
+         name="dokumen_permintaan_informasi_publik_path" wire:model="dokumen_permintaan_informasi_publik_path">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG atau PDF (MAX.2MB).
+        </p>
+       </div>
+
+       @error('dokumen_permintaan_informasi_publik_path')
+        <span class="text-red-500 text-sm">{{ $message }}</span>
+       @enderror
       </div>
-      <div class="mt-2">
-        <button type="button" id="clear-signature" class="bg-red-500 text-white py-1 px-4 rounded">Hapus</button>
-      </div>
-      @error('tanda_tangan') 
-      <span class="text-red-500 text-sm">{{ $message }}</span>
-      @enderror
+     </div>
     </div>
-    
+
+    <div class="sm:py-6 py-3">
+     <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 ">
+      <label for="dokumen_pernyataan_keberatan_atas_permohonan_informasi_path"
+       class="block sm:text-lg text-sm font-bold leading-6 ">
+       Dokumen Pernyataan Keberatan Atas Permohonan Informasi
+      </label>
+      <div class="mt-2 sm:col-span-2 sm:mt-0">
+       <div class="h-full">
+        <input
+         class="block w-full sm:text-lg text-sm  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+         aria-describedby="file_input_help" id="dokumen_pernyataan_keberatan_atas_permohonan_informasi_path"
+         type="file" name="dokumen_pernyataan_keberatan_atas_permohonan_informasi_path"
+         wire:model="dokumen_pernyataan_keberatan_atas_permohonan_informasi_path">
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG atau PDF (MAX.2MB).
+        </p>
+       </div>
+
+       @error('dokumen_pernyataan_keberatan_atas_permohonan_informasi_path')
+        <span class="text-red-500 text-sm">{{ $message }}</span>
+       @enderror
+      </div>
+     </div>
+    </div>
+
+    <div class="sm:py-6 py-3 mx-auto flex flex-col items-center">
+      <label class="block sm:text-lg text-sm  font-semibold text-center pb-3 text-gray-700">Tanda Tangan</label>
+     <div class="w-fit">
+      <div class="border border-gray-300 rounded-lg p-2">
+        <canvas id="signature-pad" class="border"></canvas>
+      </div>
+      <div class="flex justify-end w-full mt-2">
+        <button type="button" id="clear-signature" class="bg-red-500 text-white py-1 px-4 rounded">Hapus</button>
+       </div>
+     </div>
+     
+     @error('tanda_tangan')
+      <span class="text-red-500 text-sm">{{ $message }}</span>
+     @enderror
+    </div>
+
+
 
     <div class="flex items-center justify-end mt-6 gap-x-6">
      <button type="submit" wire:loading.attr="disabled"
@@ -123,19 +174,18 @@
 </div>
 
 @script
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const canvas = document.getElementById('signature-pad');
-    const signaturePad = new SignaturePad(canvas);
+ <script>
+  document.addEventListener('DOMContentLoaded', function() {
+   const canvas = document.getElementById('signature-pad');
+   const signaturePad = new SignaturePad(canvas);
 
-    document.getElementById('clear-signature').addEventListener('click', function () {
-        signaturePad.clear();
-    });
+   document.getElementById('clear-signature').addEventListener('click', function() {
+    signaturePad.clear();
+   });
 
-    document.querySelector('form').addEventListener('submit', function () {
-        @this.set('tanda_tangan', signaturePad.toDataURL());
-    });
-});
-
-</script>
+   document.querySelector('form').addEventListener('submit', function() {
+    @this.set('tanda_tangan', signaturePad.toDataURL());
+   });
+  });
+ </script>
 @endscript

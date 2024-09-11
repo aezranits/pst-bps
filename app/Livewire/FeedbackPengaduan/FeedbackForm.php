@@ -13,6 +13,7 @@ class FeedbackForm extends Component
     public $nama_lengkap;
     public $petugas_pengaduan;
     public $kepuasan_petugas_pengaduan;
+    public $kepuasan_sarana_prasarana_pengaduan;
     public $kritik_saran;
     public $petugasPengaduanUser;
     public $petugasPengaduanPhotoUrl;
@@ -21,6 +22,7 @@ class FeedbackForm extends Component
         'nama_lengkap' => 'string|required',
         'petugas_pengaduan' => 'required',
         'kepuasan_petugas_pengaduan' => 'required|integer|between:1,5',
+        'kepuasan_sarana_prasarana_pengaduan' => 'required|integer|between:1,5',
         'kritik_saran' => 'string',
     ];
 
@@ -33,6 +35,9 @@ class FeedbackForm extends Component
             'kepuasan_petugas_pengaduan.required' => 'Kepuasan terhadap petugas PST wajib diisi.',
             'kepuasan_petugas_pengaduan.integer' => 'Kepuasan terhadap petugas PST harus berupa angka.',
             'kepuasan_petugas_pengaduan.between' => 'Kepuasan terhadap petugas PST harus antara 1 hingga 5.',
+            'kepuasan_sarana_prasarana_pengaduan.required' => 'Kepuasan terhadap petugas PST wajib diisi.',
+            'kepuasan_sarana_prasarana_pengaduan.integer' => 'Kepuasan terhadap petugas PST harus berupa angka.',
+            'kepuasan_sarana_prasarana_pengaduan.between' => 'Kepuasan terhadap petugas PST harus antara 1 hingga 5.',
 
         ];
     }

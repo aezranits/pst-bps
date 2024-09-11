@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nama_lengkap')->nullable();
             $table->foreignId('petugas_pengaduan')->nullable()->constrained('users')->onDelete('set null');
             $table->integer('kepuasan_petugas_pengaduan')->nullable();
+            $table->integer('kepuasan_sarana_prasarana_pengaduan')->nullable();
             $table->text('kritik_saran')->nullable();
             $table->timestamps();
         });

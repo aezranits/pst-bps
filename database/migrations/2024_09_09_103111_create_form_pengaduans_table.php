@@ -20,8 +20,11 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->text('rincian_informasi')->nullable();
             $table->text('tujuan_penggunaan_informasi')->nullable();
+            $table->string('cara_memperoleh_informasi')->nullable();
             $table->string('cara_mendapatkan_salinan_informasi')->nullable();
             $table->string('bukti_identitas_diri_path')->nullable(); // For file path storage
+            $table->string('dokumen_pernyataan_keberatan_atas_permohonan_informasi_path')->nullable(); // For file path storage
+            $table->string('dokumen_permintaan_informasi_publik_path')->nullable(); // For file path storage
             $table->text('tanda_tangan')->nullable(); // For storing base64 or other signature data
             $table->timestamps();
         });

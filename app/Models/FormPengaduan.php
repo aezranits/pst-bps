@@ -20,6 +20,8 @@ class FormPengaduan extends Model
         'cara_memperoleh_informasi',
         'cara_mendapatkan_salinan_informasi',
         'bukti_identitas_diri_path',
+        'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path',
+        'dokumen_permintaan_informasi_publik_path',
         'tanda_tangan',
     ];
 }
