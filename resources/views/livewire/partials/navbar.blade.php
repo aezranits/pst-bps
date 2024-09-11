@@ -24,7 +24,7 @@
                         </a>
 						<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
 							<a href="{{ route('guest-book') }}" wire:navigate 
-							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('buku-tamu')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('buku-tamu*')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
 								Buku Tamu
 								<svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -48,7 +48,7 @@
 						</div>
 						<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
 							<a href="{{ route('pengaduan') }}" wire:navigate 
-							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('pengaduan')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('pengaduan*') ? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
 								Pengaduan
 								<svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -139,7 +139,7 @@
 						<!-- Dropdown Menu GuestBook -->
 						<div x-data="{ dropdownOpen: false }" class="flow-root px-2 py-2">
 							<a @click="dropdownOpen = !dropdownOpen"
-								class="flex justify-between items-center p-2 -m-2 font-medium  hover:text-white hover:bg-lightYellow cursor-pointer {{ request()->is('buku-tamu', 'buku-tamu/feedback')? 'bg-lightYellow text-white' : 'text-gray-900' }}">
+								class="flex justify-between items-center p-2 -m-2 font-medium  hover:text-white hover:bg-lightYellow cursor-pointer {{ request()->is('buku-tamu*')? 'bg-lightYellow text-white' : 'text-gray-900' }}">
 								Buku Tamu
 								<svg :class="{ 'rotate-180': dropdownOpen }"
 									class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24"
@@ -169,7 +169,7 @@
 						<!-- Dropdown Menu Pengaduan -->
 						<div x-data="{ dropdownOpen: false }" class="flow-root px-2 py-2">
 							<a @click="dropdownOpen = !dropdownOpen"
-								class="flex justify-between items-center p-2 -m-2 font-medium  hover:text-white hover:bg-lightYellow cursor-pointer {{ request()->is('pengaduan', 'pengaduan/feedback')? 'bg-lightYellow text-white' : 'text-gray-900' }}">
+								class="flex justify-between items-center p-2 -m-2 font-medium  hover:text-white hover:bg-lightYellow cursor-pointer {{ request()->is('pengaduan*')? 'bg-lightYellow text-white' : 'text-gray-900' }}">
 								Pengaduan
 								<svg :class="{ 'rotate-180': dropdownOpen }"
 									class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24"

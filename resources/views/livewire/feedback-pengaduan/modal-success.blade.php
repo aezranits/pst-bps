@@ -15,9 +15,9 @@
 						</svg>
 					</div>
 					<div class="mt-3 text-center sm:mt-5">
-						<h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Feedback berhasil diisi</h3>
+						<h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Feedback Pengaduan berhasil diisi</h3>
 						<div class="mt-2">
-							<p class="text-sm text-gray-500">Terima kasih telah mengisi feedback.</p>
+							<p class="text-sm text-gray-500">Terima kasih telah mengisi feedback pengaduan.</p>
 						</div>
 					</div>
 				</div>

@@ -30,13 +30,13 @@ class RegencyResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-home';
 
-    protected static ?string $navigationLabel = 'Regency';
+    protected static ?string $navigationLabel = 'Kabupaten/Kota';
 
-    protected static ?string $modelLabel = 'Regencies';
+    protected static ?string $modelLabel = 'List Kabupaten/Kota';
 
     protected static ?string $navigationGroup = 'State Management';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 8;
 
     public static function form(Form $form): Form
     {

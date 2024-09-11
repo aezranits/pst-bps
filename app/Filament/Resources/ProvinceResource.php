@@ -29,13 +29,13 @@ class ProvinceResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-building-library';
     
-    protected static ?string $navigationLabel = 'Province';
+    protected static ?string $navigationLabel = 'Provinsi';
 
-    protected static ?string $modelLabel = 'Provinces';
+    protected static ?string $modelLabel = 'List Provinsi';
 
     protected static ?string $navigationGroup = 'State Management';
     
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 7;
 
 
     public static function form(Form $form): Form

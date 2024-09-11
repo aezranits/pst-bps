@@ -50,15 +50,15 @@ class GuestBookResource extends Resource
 {
     protected static ?string $model = GuestBook::class;
 
-    protected static ?string $navigationLabel = 'Guest Book';
+    protected static ?string $navigationLabel = 'Buku Tamu';
 
-    protected static ?string $modelLabel = 'Guest Books';
+    protected static ?string $modelLabel = 'List Buku Tamu';
 
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
-    protected static ?string $navigationGroup = 'System Management';
+    protected static ?string $navigationGroup = 'Buku Tamu';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 3;
 
     public function __construct(protected GuestbookRepositoryInterface $repository)
     {
