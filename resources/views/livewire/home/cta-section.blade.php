@@ -12,7 +12,7 @@
                             dan Amanah❤️
                         </h2>
                         <div class="mt-6 text-base">
-                            <a href="#" class="font-semibold text-lightYellow">
+                            <a href="{{ route('guest-book') }}" class="font-semibold text-lightYellow">
                                 Isi buku tamu
                                 <span aria-hidden="true"> &rarr;</span>
                             </a>

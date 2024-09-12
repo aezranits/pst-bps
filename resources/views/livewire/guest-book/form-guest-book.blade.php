@@ -60,7 +60,7 @@
      <div class="sm:py-6 py-3">
 
       <livewire:components.text-input colorText="text-grey" label="Asal Universitas / Lembaga Penelitian"
-       name="asal_universitas_lembaga" wire:model="asal_universitas_lembaga" />
+       name="asal_universitas_lembaga" wire:model="asal_universitas_lembaga" placeholder="The SMERU Research Institute" />
      </div>
     </div>
 
@@ -68,7 +68,7 @@
      <div class="sm:py-6 py-3">
 
       <livewire:components.text-input colorText="text-grey" label="Organisasi/Nama Perusahaan/Kantor"
-       name="organisasi_nama_perusahaan_kantor" />
+       name="organisasi_nama_perusahaan_kantor" placeholder="Komunitas Bantuan Sosial"/>
      </div>
     </div>
 

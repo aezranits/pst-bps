@@ -11,16 +11,16 @@
             x-transition:enter="transition ease-out duration-700 delay-100" 
             x-transition:enter-start="opacity-0 -translate-x-10" 
             x-transition:enter-end="opacity-100 translate-x-0">
-            Buku Tamu
+            Pelayanan Statistik Terpadu
         </h1>
 
         <!-- Second Title -->
-        <h1 class="text-grey md:text-nowrap text-4xl font-bold lg:text-6xl" 
+        <h1 class="pt-2 text-grey md:text-nowrap text-2xl font-bold lg:text-4xl" 
             x-show="show" 
             x-transition:enter="transition ease-out duration-700 delay-300" 
             x-transition:enter-start="opacity-0 -translate-x-10" 
             x-transition:enter-end="opacity-100 translate-x-0">
-            Pelayanan Statistik Terpadu
+            BPS KOTA BUKITTINGGI
         </h1>
 
         <!-- Description -->
@@ -29,7 +29,8 @@
             x-transition:enter="transition ease-out duration-700 delay-500" 
             x-transition:enter-start="opacity-0 -translate-x-10" 
             x-transition:enter-end="opacity-100 translate-x-0">
-            <p class="text-white lg:text-lg">Selamat datang di Pelayanan Statistik Terpadu BPS Bukittinggi. Di website ini Anda dapat menemukan berbagai layanan yang kami sediakan dan informasi kontak yang dapat dihubungi.</p>
+            <p class="text-white lg:text-lg">Selamat datang di Pelayanan Statistik Terpadu BPS Bukittinggi.</p>
+            <p class="text-white lg:text-lg">Di website ini Anda dapat menemukan berbagai layanan yang kami sediakan dan informasi kontak yang dapat dihubungi.</p>
         </div>
 
         <!-- Button -->

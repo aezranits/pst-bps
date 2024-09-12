@@ -13,11 +13,11 @@
 
     <div class="sm:py-6 py-3">
      <livewire:components.text-input type="textarea" rows="4" name="alamat" label="Alamat" wire:model="alamat"
-      placeholder="Jl. Perwira No. 50 Belakang Balok" />
+      placeholder="Jl. Perwira No. 50 Belakang Balok, Kota Bukittinggi, Provinsi Sumatera Barat" />
     </div>
 
     <div class="sm:pb-6 pb-3">
-     <livewire:components.text-input label="Pekerjaan" name="pekerjaan" placeholder="" wire:model="pekerjaan" />
+     <livewire:components.text-input label="Pekerjaan" name="pekerjaan" placeholder="" wire:model="pekerjaan" placeholder="Pegawai Negeri Sipil" />
     </div>
 
     <div class="sm:py-6 py-3">
@@ -31,14 +31,16 @@
     </div>
 
     <div class="sm:py-6 py-3">
-     <livewire:components.text-input type="textarea" rows="4" name="rincian_informasi"
+     <livewire:components.text-input type="textarea" rows="5" name="rincian_informasi"
       label="Rincian Informasi yang Dibutuhkan" wire:model="rincian_informasi"
-      placeholder="Jl. Perwira No. 50 Belakang Balok" />
+      placeholder="1. Permohonan informasi ketersediaan lowongan magang untuk mahasiswa Kampus UIN SMDD       
+2. Pemasukkan surat permohonan magang dan kontak narahubung 
+3. Permohonan informasi untuk konfirmasi kesediaan penerimaan magang untuk mahasiswa Kampus UIN SMDD" />
     </div>
 
     <div class="sm:py-6 py-3">
      <livewire:components.text-input label="Tujuan Penggunaan Informasi" name="tujuan_penggunaan_informasi"
-      placeholder="" wire:model="tujuan_penggunaan_informasi" />
+      placeholder="Permohonan Konfirmasi Magang dari Kampus UIN SMDD" wire:model="tujuan_penggunaan_informasi" />
     </div>
 
     <!-- Jenis Kelamin -->

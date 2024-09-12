@@ -1,168 +1,268 @@
-<div>
- <div class="relative isolate -z-10">
-  <svg
-   class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-gray-200 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]"
-   aria-hidden="true">
-   <defs>
-    <pattern id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84" width="200" height="200" x="50%" y="-1"
-     patternUnits="userSpaceOnUse">
-     <path d="M.5 200V.5H200" fill="none" />
-    </pattern>
-   </defs>
-   <svg x="50%" y="-1" class="overflow-visible fill-gray-50">
-    <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
-     stroke-width="0" />
-   </svg>
-   <rect width="100%" height="100%" stroke-width="0" fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)" />
-  </svg>
-  <div class="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
-   aria-hidden="true">
-   <div class="aspect-[801/1036] w-[50.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
-    style="clip-path: polygon(63.1% 29.5%, 100% 17.1%, 76.6% 3%, 48.4% 0%, 44.6% 4.7%, 54.5% 25.3%, 59.8% 49%, 55.2% 57.8%, 44.4% 57.2%, 27.8% 47.9%, 35.1% 81.5%, 0% 97.7%, 39.2% 100%, 35.2% 81.4%, 97.2% 52.8%, 63.1% 29.5%)">
+<div class="px-4 py-20 mx-auto max-w-7xl sm:px-6 sm:py-18 lg:px-8">
+  <div class="absolute inset-0 -z-10 w-full h-96 bg-darkBlue/90"></div>
+
+
+ <div class=" pt-2">
+  <div class=" w-fit p-2 mb-5 mx-auto text-white">
+   <p class="lg:text-6xl text-4xl tracking-wide font-serif">Tentang Kami</p>
+  </div>
+ </div>
+ <div x-data="{ activeTab: 'prosedur_permohonan' }" class=" md:flex md:w-full">
+  <!-- Sidebar -->
+
+  <div class="flex flex-col gap-y-2 bg-white shadow-lg md:mr-4 rounded-lg overflow-y-auto h-fit md:w-3/12 p-2 mb-4 md:mb-0">
+
+   <div @click="activeTab = 'standar_layanan'"
+    :class="activeTab === 'standar_layanan' ? 'bg-darkBlue  text-white' :
+        'text-black hover:bg-darkBlue hover:text-white'"
+    class="group flex flex-col rounded-md p-2  font-semibold leading-6 hover:cursor-pointer">
+    <span class="mt-1">Standar Layanan dan Maklumat Pelayanan Informasi Publik</span>
+   </div>
+   <div @click="activeTab = 'jalur_layanan'"
+    :class="activeTab === 'jalur_layanan' ? 'bg-darkBlue  text-white' :
+        'text-black hover:bg-darkBlue hover:text-white'"
+    class="group flex flex-col rounded-md p-2 font-semibold leading-6 hover:cursor-pointer">
+    <span class="mt-1">Jalur dan Waktu Layanan</span>
+   </div>
+   <div @click="activeTab = 'prosedur_layanan'"
+    :class="activeTab === 'prosedur_layanan' ? 'bg-darkBlue  text-white' :
+        'text-black hover:bg-darkBlue hover:text-white'"
+    class="group flex flex-col rounded-md p-2 font-semibold leading-6 hover:cursor-pointer">
+    <span class="mt-1">Prosedur Layanan</span>
+   </div>
+   <div @click="activeTab = 'prosedur_permohonan'"
+    :class="activeTab === 'prosedur_permohonan' ? 'bg-darkBlue  text-white' :
+        'text-black hover:bg-darkBlue hover:text-white'"
+    class="group flex flex-col rounded-md p-2 font-semibold leading-6 hover:cursor-pointer">
+    <span class="mt-1">Prosedur Permohonan Informasi Publik</span>
    </div>
   </div>
-  <div class="overflow-hidden">
-   <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-8 lg:pt-32">
-    <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-none lg:items-center">
-     <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">We’re changing the way people connect.
-      </h1>
-      <p class="relative mt-6 text-lg leading-8 text-gray-600 sm:max-w-md lg:max-w-none">Cupidatat minim id magna ipsum
-       sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit
-       ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate
-       tempor esse minim amet fugiat veniam occaecat aliqua.</p>
+
+  <!-- Content Area -->
+  <div class="flex-1">
+   <div x-show="activeTab === 'standar_layanan'" class="">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <p class="text-darkBlue text-xl font-semibold  mb-2">
+      Standar Layanan Informasi Publik
+     </p>
+     <p class="text-gray-800 text-lg mb-2">
+      Standar Layanan Informasi Publik yang selanjutnya disebut Standar Layanan merupakan ukuran yang dijadikan pedoman
+      dalam memberikan layanan, penyediaan, dan penyampaian Informasi Publik yang didalamnya berisi pedoman mengenai:
+     </p>
+
+     <ul class="list-disc list-inside text-lg space-y-2 text-gray-700 ml-6">
+      <li class="hover:text-blue-600">Standar Pengumuman</li>
+      <li class="hover:text-blue-600">Standar Permintaan Informasi Publik</li>
+      <li class="hover:text-blue-600">Standar Biaya</li>
+      <li class="hover:text-blue-600">Standar Pengajuan Keberatan</li>
+      <li class="hover:text-blue-600">Standar Penetapan dan Pemutakhiran Daftar Informasi Publik</li>
+      <li class="hover:text-blue-600">Standar Pendokumentasian Informasi Publik</li>
+      <li class="hover:text-blue-600">Standar Maklumat Pelayanan</li>
+      <li class="hover:text-blue-600">Standar Pengujian Konsekuensi</li>
+     </ul>
+
+     <div class=" text-gray-900 my-6">
+      <ul role="list" class="rounded-md space-y-4 text-lg">
+       <li class="flex items-center justify-between py-6 pl-4 pr-5 leading-6 border-grey border-2">
+        <div class="flex w-0 flex-1 items-center">
+         <svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd"
+           d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z"
+           clip-rule="evenodd" />
+         </svg>
+         <div class="ml-4 flex min-w-0 flex-1 gap-2 ">
+          <span class="truncate font-medium">resume_back_end_developer.pdf</span>
+          <span class="flex-shrink-0 text-gray-400">2.4mb</span>
+         </div>
+        </div>
+        <div class="ml-4 flex-shrink-0 ">
+         <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+        </div>
+       </li>
+
+       <li class="flex items-center justify-between py-6 pl-4 pr-5 leading-6 border-grey border-2">
+        <div class="flex w-0 flex-1 items-center">
+         <svg class="h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path fill-rule="evenodd"
+           d="M15.621 4.379a3 3 0 00-4.242 0l-7 7a3 3 0 004.241 4.243h.001l.497-.5a.75.75 0 011.064 1.057l-.498.501-.002.002a4.5 4.5 0 01-6.364-6.364l7-7a4.5 4.5 0 016.368 6.36l-3.455 3.553A2.625 2.625 0 119.52 9.52l3.45-3.451a.75.75 0 111.061 1.06l-3.45 3.451a1.125 1.125 0 001.587 1.595l3.454-3.553a3 3 0 000-4.242z"
+           clip-rule="evenodd" />
+         </svg>
+         <div class="ml-4 flex min-w-0 flex-1 gap-2 ">
+          <span class="truncate font-medium">resume_back_end_developer.pdf</span>
+          <span class="flex-shrink-0 text-gray-400">2.4mb</span>
+         </div>
+        </div>
+        <div class="ml-4 flex-shrink-0 ">
+         <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+        </div>
+       </li>
+      </ul>
      </div>
-     <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-      <div
-       class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-       <div class="relative">
-        <img
-         src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-         alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg">
-        <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
+
+     <div class="mt-2">
+      <img src="{{ asset('img/maklumat.jpg') }}" alt="" class="">
+     </div>
+
+    </div>
+
+
+   </div>
+
+   <div x-show="activeTab === 'jalur_layanan'" class="">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <p class="text-darkBlue text-xl font-semibold  mb-2">
+      Jalur dan Waktu Layanan
+     </p>
+     <ul class="list-decimal list-outside mx-6 text-lg space-y-2 text-gray-700">
+      <li class="">Jalur Telepon : (0752) 21251</li>
+      <li class="">Jalur Email : bps1375@bps.go.id</li>
+      <li class="">Jalur Website : <a href="https://ppid.bps.go.id/"
+        class="hover:text-blue-500">https://ppid.bps.go.id/</a> </li>
+      <li class="">Jalur Mobile : Allstat Android, Allstats IOS</li>
+      <li class="">Ruang Layanan Informasi Publik : Ruang BPS Kota Bukittinggi, Jl. Perwira No.50 Belakang Balok
+       Kota Bukittinggi.</li>
+     </ul>
+
+     <div class="mt-2">
+      <img src="{{ asset('img/jam-layanan.png') }}" alt="" class="">
+     </div>
+
+    </div>
+
+
+   </div>
+
+   <div x-show="activeTab === 'prosedur_layanan'" class="">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <p class="text-darkBlue text-xl font-semibold mb-2">Prosedur Pelayanan</p>
+     <p class="text-gray-800 text-lg mb-2">
+      Di BPS Bukittinggi terdapat beberapa jenis pelayanan yaitu :
+     </p>
+     <ul class="list-decimal list-outside mx-6  text-lg space-y-2 text-gray-700">
+      <li>Perpustakaan</li>
+      <li>Rekomendasi Statistik</li>
+      <li>Penjualan Produk Statistik</li>
+      <li>Konsultasi Statistik</li>
+     </ul>
+
+     <!-- Carousel -->
+     <div class="mt-2" x-data="carousel()" x-init="start()">
+      <!-- Carousel wrapper -->
+      <div class="relative w-full overflow-hidden rounded-lg">
+       <div class="relative " style="aspect-ratio: 16 / 9;">
+        <!-- Carousel items -->
+        <template x-for="(image, index) in images" :key="index">
+         <div x-show="current === index" class="absolute inset-0 transition-transform duration-700 ease-in-out"
+          :class="{ 'opacity-0': current !== index }">
+          <img :src="image" class="block w-full h-full object-cover" alt="Carousel image">
+         </div>
+        </template>
        </div>
-      </div>
-      <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-       <div class="relative">
-        <img
-         src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-         alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg">
-        <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
+
+       <!-- Slider indicators -->
+       <div class="absolute flex space-x-3 bottom-5 left-1/2 transform -translate-x-1/2 z-30">
+        <template x-for="(image, index) in images" :key="index">
+         <button @click="goToSlide(index)" class="w-3 h-3 rounded-full"
+          :class="{ 'bg-grey': current !== index, 'bg-darkBlue': current === index }"
+          aria-label="Slide indicator"></button>
+        </template>
        </div>
-       <div class="relative">
-        <img
-         src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80"
-         alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg">
-        <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
-       </div>
-      </div>
-      <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-       <div class="relative">
-        <img
-         src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80"
-         alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg">
-        <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
-       </div>
-       <div class="relative">
-        <img
-         src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80"
-         alt="" class="aspect-[2/3] w-full rounded-xl bg-gray-900/5 object-cover shadow-lg">
-        <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-900/10"></div>
-       </div>
+
+       <!-- Slider controls -->
+       <button @click="prev"
+        class="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+        <span
+         class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/30 group-hover:bg-black/50 group-focus:ring-4 group-focus:ring-white">
+         <svg class="w-4 h-4 text-black" fill="none" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+           d="M5 1 1 5l4 4" />
+         </svg>
+         <span class="sr-only">Previous</span>
+        </span>
+       </button>
+       <button @click="next"
+        class="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none">
+        <span
+         class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-black/30 group-hover:bg-black/50 group-focus:ring-4 group-focus:ring-white">
+         <svg class="w-4 h-4 text-black" fill="none" viewBox="0 0 6 10" xmlns="http://www.w3.org/2000/svg">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+           d="M1 9l4-4-4-4" />
+         </svg>
+         <span class="sr-only">Next</span>
+        </span>
+       </button>
       </div>
      </div>
     </div>
    </div>
-  </div>
- </div>
 
- <!-- Content section -->
- <div class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-8 xl:-mt-8">
-  <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-   <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our mission</h2>
-   <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
-    <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
-     <p class="text-xl leading-8 text-gray-600">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At
-      arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in
-      viverra scelerisque eget. Eleifend egestas fringilla sapien.</p>
-     <div class="mt-10 max-w-xl text-base leading-7 text-gray-700">
-      <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae
-       sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit.
-       Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed
-       turpis id.</p>
-      <p class="mt-10">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie
-       auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac
-       adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>
+   <div x-show="activeTab === 'prosedur_permohonan'" class="">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <p class="text-darkBlue text-xl font-semibold mb-2">Prosedur Permohonan Informasi Publik</p>
+     <p class="text-gray-800 text-lg mb-2">
+      Mekanisme Permintaan Informasi Publik BPS:
+     </p>
+
+     <ul class="list-decimal list-outside text-lg space-y-2 text-gray-700 mx-6">
+      <li>Pemohon Informasi dapat menyampaikan Permintaan Informasi Publik secara online melalui link Permintaan
+       Informasi Publik Online atau datang langsung ke Ruang Layanan PPID di Kantor Badan Pusat Statistik Kota
+       Bukittinggi Jl. Perwira No.50 Bukittinggi.</li>
+      <li>Pemohon Informasi melengkapi persyaratan Permintaan Informasi Publik sesuai dengan Standar Layanan PPID BPS
+       Kota Bukittinggi.</li>
+      <li>PPID BPS Kota Bukittinggi melakukan pemeriksaan kelengkapan Permintaan Informasi Publik paling lambat 3 (tiga)
+       hari sejak Permintaan Informasi Publik telah dicatat dalam buku register Permintaan Informasi Publik.</li>
+      <li>Jika persyaratan tidak lengkap, Pemohon Informasi dapat menyerahkan perbaikan Permintaan Informasi Publik
+       dalam jangka waktu paling lama 3 (tiga) hari sejak surat keterangan tidak lengkap diterima Pemohon Informasi
+       Publik.</li>
+      <li>PPID BPS Kota Bukittinggi menyampaikan pemberitahuan tertulis kepada Pemohon Informasi Publik paling lambat 10
+       (sepuluh) hari sejak Permintaan Informasi Publik dinyatakan lengkap.</li>
+      <li>Dalam hal penolakan Permintaan Informasi Publik berdasarkan alasan pengecualian Informasi, PPID BPS Kota
+       Bukittinggi wajib menyampaikan pemberitahuan secara tertulis dan disertai surat keputusan pengecualian informasi.
+      </li>
+      <li>Dalam hal PPID belum menguasai atau mendokumentasikan Informasi Publik yang diminta; dan/atau belum dapat
+       memutuskan status Informasi yang dimohon. PPID BPS memberitahukan perpanjangan waktu yang disertai dengan alasan
+       tertulis kepada Pemohon Informasi Publik, paling lambat 7 (tujuh) hari sejak jangka waktu pemberitahuan tertulis
+       dan tidak dapat diperpanjang lagi.</li>
+     </ul>
+
+     <div class="mt-2">
+      <img src="{{ asset('img/alur_permohonan.png') }}" alt="">
      </div>
     </div>
-    <div class="lg:flex lg:flex-auto lg:justify-center">
-     <dl class="w-64 space-y-8 xl:w-80">
-      <div class="flex flex-col-reverse gap-y-4">
-       <dt class="text-base leading-7 text-gray-600">Transactions every 24 hours</dt>
-       <dd class="text-5xl font-semibold tracking-tight text-gray-900">44 million</dd>
-      </div>
-      <div class="flex flex-col-reverse gap-y-4">
-       <dt class="text-base leading-7 text-gray-600">Assets under holding</dt>
-       <dd class="text-5xl font-semibold tracking-tight text-gray-900">$119 trillion</dd>
-      </div>
-      <div class="flex flex-col-reverse gap-y-4">
-       <dt class="text-base leading-7 text-gray-600">New users annually</dt>
-       <dd class="text-5xl font-semibold tracking-tight text-gray-900">46,000</dd>
-      </div>
-     </dl>
-    </div>
    </div>
+
+
   </div>
  </div>
-
- <!-- Image section -->
- <div class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-8">
-  <img
-   src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
-   alt="" class="aspect-[5/2] w-full object-cover xl:rounded-3xl">
- </div>
-
- <!-- Values section -->
- <div class="mx-auto mt-32 max-w-7xl px-6 pb-10 sm:mt-40 lg:px-8">
-  <div class="mx-auto max-w-2xl lg:mx-0">
-   <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Our values</h2>
-   <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam
-    voluptatum cupiditate veritatis in accusamus quisquam.</p>
-  </div>
-  <dl
-   class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-   <div>
-    <dt class="font-semibold text-gray-900">Be world-class</dt>
-    <dd class="mt-1 text-gray-600">Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam
-     exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.</dd>
-   </div>
-   <div>
-    <dt class="font-semibold text-gray-900">Share everything you know</dt>
-    <dd class="mt-1 text-gray-600">Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id
-     molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.</dd>
-   </div>
-   <div>
-    <dt class="font-semibold text-gray-900">Always learning</dt>
-    <dd class="mt-1 text-gray-600">Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error
-     labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.</dd>
-   </div>
-   <div>
-    <dt class="font-semibold text-gray-900">Be supportive</dt>
-    <dd class="mt-1 text-gray-600">Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit
-     veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.</dd>
-   </div>
-   <div>
-    <dt class="font-semibold text-gray-900">Take responsibility</dt>
-    <dd class="mt-1 text-gray-600">Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem
-     iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.</dd>
-   </div>
-   <div>
-    <dt class="font-semibold text-gray-900">Enjoy downtime</dt>
-    <dd class="mt-1 text-gray-600">Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius.
-     Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.</dd>
-   </div>
-  </dl>
- </div>
-
-
 </div>
+
+<script>
+ function carousel() {
+  return {
+   current: 0,
+   images: [
+    '{{ asset('img/layanan-1.png') }}',
+    '{{ asset('img/layanan-2.png') }}',
+    '{{ asset('img/layanan-3.png') }}',
+    '{{ asset('img/layanan-4.png') }}',
+    '{{ asset('img/layanan-5.png') }}',
+    '{{ asset('img/layanan-6.png') }}',
+    '{{ asset('img/layanan-7.png') }}',
+   ],
+   start() {
+    this.interval = setInterval(() => {
+     this.next();
+    }, 5000);
+   },
+   next() {
+    this.current = (this.current + 1) % this.images.length;
+   },
+   prev() {
+    this.current = (this.current - 1 + this.images.length) % this.images.length;
+   },
+   goToSlide(index) {
+    this.current = index;
+   }
+  };
+ }
+</script>

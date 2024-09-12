@@ -1,4 +1,5 @@
 <div class="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
+
 	@livewire('partials.svg-background')
 	<div class="mx-auto max-w-xl lg:max-w-4xl">
 		<!-- Heading -->

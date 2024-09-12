@@ -1,5 +1,6 @@
 <div class="max-w-7xl mx-auto p-8 mt-16">
  @livewire('partials.svg-background')
+ 
 
  <div class=" shadow-lg rounded-lg bg-white">
 

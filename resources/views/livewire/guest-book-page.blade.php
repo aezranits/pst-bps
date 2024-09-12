@@ -1,6 +1,7 @@
 <div class="pt-16 max-w-7xl mx-auto ">
 	@livewire('partials.svg-background')
 	
+	
 	<div class="relative flex w-full max-w-7xl mx-auto bg-lightBlue lg:rounded-3xl lg:m-5">
 		<div x-data="{ show: false }" x-init="setTimeout(() => show = true, 400)" 
 			x-show="show"
