@@ -43,7 +43,7 @@ class FormPengaduanResource extends Resource
                             ->schema([Forms\Components\TextInput::make('nama_lengkap')->required()->maxLength(255), Forms\Components\Textarea::make('alamat')->columnSpanFull(), Forms\Components\TextInput::make('pekerjaan')->maxLength(255), Forms\Components\TextInput::make('no_hp')->maxLength(255), Forms\Components\TextInput::make('email')->email()->maxLength(255)]),
                     ])
                     ->columnSpan(1)
-                    ->disabled(fn() => auth()->user()->hasRole('pst')),
+                    ->disabledOn('edit'),
 
                 // Section for Additional Information
                 Group::make()
@@ -53,7 +53,7 @@ class FormPengaduanResource extends Resource
                             ->schema([Forms\Components\Textarea::make('rincian_informasi')->columnSpanFull(), Forms\Components\Textarea::make('tujuan_penggunaan_informasi')->columnSpanFull(), Forms\Components\TextInput::make('cara_memperoleh_informasi')->maxLength(255), Forms\Components\TextInput::make('cara_mendapatkan_salinan_informasi')->maxLength(255)]),
                     ])
                     ->columnSpan(1)
-                    ->disabled(fn() => auth()->user()->hasRole('pst')),
+                    ->disabledOn('edit'),
 
                 // Section for Document Uploads and Signature
                 Group::make()
@@ -66,6 +66,7 @@ class FormPengaduanResource extends Resource
                                     ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'application/pdf'])
                                     ->openable()
                                     ->downloadable()
+                                    ->disabledOn('edit')
                                     ->maxSize(2048),
                                 FileUpload::make('dokumen_pernyataan_keberatan_atas_permohonan_informasi_path')
                                     ->directory('bukti_identitas')
@@ -80,6 +81,7 @@ class FormPengaduanResource extends Resource
                                     ->downloadable()
                                     ->maxSize(2048),
                                 ViewField::make('tanda_tangan')
+                                    ->disabledOn('edit')
                                     ->view('components.signature-display') // Custom view untuk menampilkan gambar base64
                                     ->columnSpanFull(),
                             ]),
@@ -96,7 +98,7 @@ class FormPengaduanResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([Tables\Actions\ViewAction::make()])
+            ->actions([Tables\Actions\EditAction::make(),Tables\Actions\ViewAction::make()])
             ->headerActions([
                 ExportAction::make()
                     ->exporter(FormPengaduanExporter::class)
@@ -122,5 +124,15 @@ class FormPengaduanResource extends Resource
             'view' => Pages\ViewFormPengaduan::route('/{record}'),
             'edit' => Pages\EditFormPengaduan::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasAnyRole('admin','petugas_pst');
+    }
+
+    public static function authorizeResource(?string $resource = null): bool
+    {
+        return auth()->user()->hasAnyRole('admin','petugas_pst');
     }
 }

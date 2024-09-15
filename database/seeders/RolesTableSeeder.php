@@ -17,5 +17,6 @@ class RolesTableSeeder extends Seeder
         Role::create(['name' => 'pst']);
         Role::create(['name' => 'front-office']);
         Role::create(['name' => 'petugas-pengaduan']);
+        Role::create(['name' => 'admin-slideshow']);
     }
 }

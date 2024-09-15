@@ -6,7 +6,7 @@
 				<div>
 					<div class="flex items-center w-auto gap-5 pb-4">
 						<img class="h-14" src='{{ asset('img/logo-bps.webp') }}' alt="logo-BPS" />
-						<div class="">
+						<div class="italic">
 							<p class="-my-2 font-bold lg:text-xl">BADAN PUSAT STATISTIK</p>
 							<p class="-my-2 font-bold lg:text-xl">KOTA BUKITTINGGI</p>
 						</div>

@@ -6,7 +6,7 @@
 
     <div x-show="show" class="relative flex flex-col items-center max-w-3xl px-6 py-32 mx-auto text-center sm:py-64 lg:px-0">
         <!-- First Title -->
-        <h1 class="text-lightYellow text-4xl font-bold lg:text-6xl" 
+        <h1 class="text-lightYellow md:text-nowrap text-4xl font-bold lg:text-6xl" 
             x-show="show" 
             x-transition:enter="transition ease-out duration-700 delay-100" 
             x-transition:enter-start="opacity-0 -translate-x-10" 
@@ -29,8 +29,10 @@
             x-transition:enter="transition ease-out duration-700 delay-500" 
             x-transition:enter-start="opacity-0 -translate-x-10" 
             x-transition:enter-end="opacity-100 translate-x-0">
-            <p class="text-white lg:text-lg">Selamat datang di Pelayanan Statistik Terpadu BPS Bukittinggi.</p>
-            <p class="text-white lg:text-lg">Di website ini Anda dapat menemukan berbagai layanan yang kami sediakan dan informasi kontak yang dapat dihubungi.</p>
+            <div class="max-w-xl">
+                <p class="text-white lg:text-lg">Selamat datang di Pelayanan Statistik Terpadu BPS Kota Bukittinggi.</p>
+                <p class="text-white lg:text-lg">Di website ini Anda dapat menemukan berbagai layanan yang kami sediakan dan informasi kontak yang dapat dihubungi.</p>
+            </div>
         </div>
 
         <!-- Button -->

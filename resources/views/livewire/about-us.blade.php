@@ -1,16 +1,17 @@
 <div class="px-4 py-20 mx-auto max-w-7xl sm:px-6 sm:py-18 lg:px-8">
-  <div class="absolute inset-0 -z-10 w-full h-96 bg-darkBlue/90"></div>
+ <div class="absolute inset-0 -z-10 w-full h-96 bg-darkBlue/90"></div>
 
 
  <div class=" pt-2">
   <div class=" w-fit p-2 mb-5 mx-auto text-white">
-   <p class="lg:text-6xl text-4xl tracking-wide font-serif">Tentang Kami</p>
+   <p class="lg:text-6xl text-5xl tracking-wide font-serif">Tentang Kami</p>
   </div>
  </div>
- <div x-data="{ activeTab: 'prosedur_permohonan' }" class=" md:flex md:w-full">
+ <div x-data="{ activeTab: 'standar_layanan' }" class=" md:flex md:w-full">
   <!-- Sidebar -->
 
-  <div class="flex flex-col gap-y-2 bg-white shadow-lg md:mr-4 rounded-lg overflow-y-auto h-fit md:w-3/12 p-2 mb-4 md:mb-0">
+  <div
+   class="flex flex-col gap-y-2 bg-white shadow-lg md:mr-4 rounded-lg overflow-y-auto h-fit md:w-3/12 p-2 mb-4 md:mb-0">
 
    <div @click="activeTab = 'standar_layanan'"
     :class="activeTab === 'standar_layanan' ? 'bg-darkBlue  text-white' :
@@ -35,6 +36,12 @@
         'text-black hover:bg-darkBlue hover:text-white'"
     class="group flex flex-col rounded-md p-2 font-semibold leading-6 hover:cursor-pointer">
     <span class="mt-1">Prosedur Permohonan Informasi Publik</span>
+   </div>
+   <div @click="activeTab = 'galeri_pst'"
+    :class="activeTab === 'galeri_pst' ? 'bg-darkBlue  text-white' :
+        'text-black hover:bg-darkBlue hover:text-white'"
+    class="group flex flex-col rounded-md p-2 font-semibold leading-6 hover:cursor-pointer">
+    <span class="mt-1">Galeri PST</span>
    </div>
   </div>
 
@@ -71,12 +78,12 @@
            clip-rule="evenodd" />
          </svg>
          <div class="ml-4 flex min-w-0 flex-1 gap-2 ">
-          <span class="truncate font-medium">resume_back_end_developer.pdf</span>
-          <span class="flex-shrink-0 text-gray-400">2.4mb</span>
+          <span class="truncate font-medium sm:text-base text-sm">Standar Layanan Informasi Publik BPS</span>
+          <span class="flex-shrink-0 text-gray-400 sm:text-base text-sm">2.88 mb</span>
          </div>
         </div>
         <div class="ml-4 flex-shrink-0 ">
-         <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+         <a href="{{ asset('dokumen/Standar_Layanan_Informasi_Publik_BPS_1724896378.pdf') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
         </div>
        </li>
 
@@ -88,12 +95,12 @@
            clip-rule="evenodd" />
          </svg>
          <div class="ml-4 flex min-w-0 flex-1 gap-2 ">
-          <span class="truncate font-medium">resume_back_end_developer.pdf</span>
-          <span class="flex-shrink-0 text-gray-400">2.4mb</span>
+          <span class="truncate font-medium sm:text-base text-sm">SK PENETAPAN STANDAR DAN MAKLUMAT PELAYANAN STATISTIK TERPADU</span>
+          <span class="flex-shrink-0 text-gray-400 sm:text-base text-sm">672.99 kb</span>
          </div>
         </div>
         <div class="ml-4 flex-shrink-0 ">
-         <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
+         <a href="{{ asset('dokumen/SK_PENETAPAN_STANDAR_DAN_MAKLUMAT_PELAYANAN_STATISTIK_TERPADU_1712288962_2.pdf') }}" class="font-medium text-indigo-600 hover:text-indigo-500">Download</a>
         </div>
        </li>
       </ul>
@@ -230,6 +237,33 @@
      </div>
     </div>
    </div>
+
+   <div x-show="activeTab === 'galeri_pst'" class="">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+     <p class="text-darkBlue sm:text-4xl text-2xl font-semibold mb-4 text-center">Galeri PST</p>
+     <div class="grid grid-cols-3 gap-4">
+      <div class="col-span-2 row-span-2">
+       <img src="{{ asset('img/cta-5.png') }}" alt="Image 1" class="w-full h-full object-cover rounded-lg">
+      </div>
+      <div>
+       <img src="{{ asset('img/cta-1.png') }}" alt="Image 2" class="w-full h-full object-cover rounded-lg">
+      </div>
+      <div>
+       <img src="{{ asset('img/cta-2.png') }}" alt="Image 3" class="w-full h-full object-cover rounded-lg">
+      </div>
+      <div>
+       <img src="{{ asset('img/cta-3.png') }}" alt="Image 4" class="w-full h-full object-cover rounded-lg">
+      </div>
+      <div>
+       <img src="{{ asset('img/cta-4.png') }}" alt="Image 5" class="w-full h-full object-cover rounded-lg">
+      </div>
+      <div>
+       <img src="{{ asset('img/cta-5.png') }}" alt="Image 5" class="w-full h-full object-cover rounded-lg">
+      </div>
+     </div>
+    </div>
+   </div>
+
 
 
   </div>

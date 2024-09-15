@@ -26,6 +26,7 @@ class FeedbackPengaduanResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $navigationGroup = 'Pengaduan';
+    
     protected static ?int $navigationSort = 6;
 
 
@@ -108,5 +109,15 @@ class FeedbackPengaduanResource extends Resource
             'view' => Pages\ViewFeedbackPengaduan::route('/{record}'),
             'edit' => Pages\EditFeedbackPengaduan::route('/{record}/edit'),
         ];
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->hasAnyRole('admin','petugas_pst');
+    }
+
+    public static function authorizeResource(?string $resource = null): bool
+    {
+        return auth()->user()->hasAnyRole('admin','petugas_pst');
     }
 }
