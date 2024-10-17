@@ -10,8 +10,8 @@
 							<img class="h-6" src='{{ asset('img/logo-ppid.webp') }}' alt="Logo PPID" />
 							<img class="h-8" src='{{ asset('img/logo-pst.svg') }}' alt="Logo PST" />
 							<div class="mt-2 text-white">
-								<p class="-my-2 font-semibold lg:text-base">Pelayanan Statistik Terpadu</p>
-								<p class="text-sm font-semibold">BPS KOTA BUKITTINGGI</p>
+								<p class="-my-1 text-xs font-semibold sm:-my-2 lg:text-base">Pelayanan Statistik Terpadu</p>
+								<p class="text-xs font-semibold sm:text-sm">BPS KOTA BUKITTINGGI</p>
 							</div>
 						</div>
 				</div>
