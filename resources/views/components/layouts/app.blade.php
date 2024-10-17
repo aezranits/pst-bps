@@ -20,7 +20,7 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js" defer></script>
 
     <!-- Signature Pad -->
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js" defer></script>
 
     <!-- Application Assets -->
     {{-- <link href="{{ asset('build/assets/app-BTEZCi8y.css') }}" rel="stylesheet" />
@@ -44,6 +44,7 @@
         @livewire('partials.footer')
     </div>
 
+    {{-- @livewireScripts --}}
     @livewireScripts
 </body>
 

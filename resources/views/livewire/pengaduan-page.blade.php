@@ -8,7 +8,7 @@
    <div class="flex items-center justify-between">
     <div class="flex items-center">
      <div class="mr-16 ">
-      <img class="lg:h-10 h-6" src='{{ asset('img/logo-ppid.png') }}' alt="Logo PPID" />
+      <img class="lg:h-10 h-6" src='{{ asset('img/logo-ppid.webp') }}' alt="Logo PPID" />
      </div>
      <div class="md:block hidden">
       <div class=" border-l-2 border-black ">
@@ -21,7 +21,7 @@
 
     </div>
 
-    <img class="lg:h-20 h-10" src='{{ asset('img/hak-anda-untuk-tahu.jpg') }}' alt="Logo PPID" />
+    <img class="lg:h-20 h-10" src='{{ asset('img/hak-anda-untuk-tahu.webp') }}' alt="Logo PPID" />
 
    </div>
    <div class="lg:text-4xl text-2xl tracking-wide font-serif text-center mb-5 ">

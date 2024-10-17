@@ -22,18 +22,18 @@
                         <div class="flex ml-24 space-x-6 min-w-max sm:ml-3 lg:space-x-8">
                             <div class="flex space-x-6  sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                 <div class="aspect-w-16 aspect-h-9">
-                                    <img class="object-cover h-64 rounded-lg w-full md:h-72" src="{{ asset('img/cta-5.png') }}" alt="">
+                                    <img class="object-cover h-64 rounded-lg w-full md:h-72" src="{{ asset('img/cta-5.webp') }}" alt="">
                                 </div>
                                 <div class="aspect-w-16 aspect-h-9">
-                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-5.png') }}" alt="">
+                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-5.webp') }}" alt="">
                                 </div>
                             </div>
                             <div class="flex space-x-6 sm:-mt-20  sm:flex-col sm:space-x-0 sm:space-y-6 lg:space-y-8">
                                 <div class="aspect-w-16 aspect-h-9">
-                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-2.png') }}" alt="">
+                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-2.webp') }}" alt="">
                                 </div>
                                 <div class="aspect-w-16 aspect-h-9 mt-6 sm:mt-0">
-                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-2.png') }}" alt="">
+                                    <img class="object-cover h-64 rounded-lg md:h-72 " src="{{ asset('img/cta-2.webp') }}" alt="">
                                 </div>
                             </div>
                         </div>

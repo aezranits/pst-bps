@@ -176,13 +176,15 @@ class FormGuestBook extends Component
             GuestBook::create($validatedData);
             session()->flash('message', 'Guestbook entry created successfully.');
             Log::info("Sukses membuat guestbook");
-            // Send email
-            $emailGuest = $validatedData['email'];
-            $nameGuest = $validatedData['nama_lengkap'];
-            $subjectGuest = 'Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi';
 
-            $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
-            Log::info("Sukses mengirim email");
+            // Send email
+            // $emailGuest = $validatedData['email'];
+            // $nameGuest = $validatedData['nama_lengkap'];
+            // $subjectGuest = 'Konfirmasi penilaian Hasil layanan PST BPS Kota Bukittinggi';
+
+            // $this->sendEmailFeedback($emailGuest, $subjectGuest, $nameGuest);
+            // Log::info("Sukses mengirim email");
+            
             $this->reset();
             Log::info("Sukses reset inputan");
             $this->dispatch('open-modal');

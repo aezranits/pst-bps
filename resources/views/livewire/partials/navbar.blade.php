@@ -7,7 +7,7 @@
 				<div class="flex justify-center ml-4 lg:ml-0">
 					<a href="{{ route('home') }}">
 						<div class="flex items-center w-auto gap-2">
-							<img class="h-6" src='{{ asset('img/logo-ppid.png') }}' alt="Logo PPID" />
+							<img class="h-6" src='{{ asset('img/logo-ppid.webp') }}' alt="Logo PPID" />
 							<img class="h-8" src='{{ asset('img/logo-pst.svg') }}' alt="Logo PST" />
 							<div class="mt-2 text-white">
 								<p class="-my-2 font-semibold lg:text-base">Pelayanan Statistik Terpadu</p>
@@ -19,11 +19,11 @@
 
 				<div class="flex items-center ml-auto">
 					<div class="hidden font-semibold lg:flex lg:items-center lg:justify-end gap-x-2">
-                        <a  href="{{ route('home') }}" wire:navigate  class="{{ request()->is('/')? 'bg-grey text-black' : 'text-white' }} py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent  hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100  focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                        <a  href="{{ route('home') }}"   class="{{ request()->is('/')? 'bg-grey text-black' : 'text-white' }} py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent  hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100  focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 Home
                         </a>
 						<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-							<a href="{{ route('guest-book') }}" wire:navigate 
+							<a href="{{ route('guest-book') }}"  
 							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('buku-tamu*')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
 								Buku Tamu
 								<svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -41,13 +41,13 @@
 								 x-transition:leave-end="opacity-0 transform scale-95" 
 								 class="absolute right-0 z-20 w-48 mt-2 origin-top-left bg-white rounded-md shadow-lg ring-1 ring-white ring-opacity-10 focus:outline-none ">
 								<div class="p-1" role="none">
-									<a wire:navigate href="{{ route('guest-book') }}" class=" {{ request()->is('buku-tamu')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 mb-1 text-sm hover:bg-lightYellow hover:text-white ">Layanan Buku Tamu</a>
-									<a wire:navigate href="{{ route('guest-book.feedback') }}" class=" {{ request()->is('buku-tamu/feedback')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 text-sm hover:bg-lightYellow hover:text-white ">Feedback</a>
+									<a  href="{{ route('guest-book') }}" class=" {{ request()->is('buku-tamu')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 mb-1 text-sm hover:bg-lightYellow hover:text-white ">Layanan Buku Tamu</a>
+									<a  href="{{ route('guest-book.feedback') }}" class=" {{ request()->is('buku-tamu/feedback')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 text-sm hover:bg-lightYellow hover:text-white ">Feedback</a>
 								</div>
 							</div>
 						</div>
 						<div x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false" class="relative">
-							<a href="{{ route('pengaduan') }}" wire:navigate 
+							<a href="{{ route('pengaduan') }}"  
 							   class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('pengaduan*') ? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
 								Pengaduan
 								<svg :class="{ 'rotate-180': open }" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -65,16 +65,16 @@
 								 x-transition:leave-end="opacity-0 transform scale-95" 
 								 class="absolute right-0 z-20 w-48 mt-2 origin-top-left bg-white rounded-md shadow-lg ring-1 ring-white ring-opacity-10 focus:outline-none ">
 								<div class="p-1" role="none">
-									<a wire:navigate href="{{ route('pengaduan') }}" class=" {{ request()->is('pengaduan')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 mb-1 text-sm hover:bg-lightYellow hover:text-white ">Layanan Pengaduan</a>
-									<a wire:navigate href="{{ route('pengaduan.feedback') }}" class=" {{ request()->is('pengaduan/feedback')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 text-sm hover:bg-lightYellow hover:text-white ">Feedback</a>
+									<a  href="{{ route('pengaduan') }}" class=" {{ request()->is('pengaduan')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 mb-1 text-sm hover:bg-lightYellow hover:text-white ">Layanan Pengaduan</a>
+									<a  href="{{ route('pengaduan.feedback') }}" class=" {{ request()->is('pengaduan/feedback')? 'bg-lightYellow/90 text-white' : 'text-black' }} block px-4 py-2 text-sm hover:bg-lightYellow hover:text-white ">Feedback</a>
 								</div>
 							</div>
 						</div>
                         
-                        <a href="{{ route('about-us') }}" wire:navigate class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('tentang-kami')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                        <a href="{{ route('about-us') }}"  class="py-2 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent {{ request()->is('tentang-kami')? 'bg-grey text-black' : 'text-white' }} hover:bg-grey hover:text-black focus:outline-none focus:bg-gray-100 focus:text-black disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 Tentang Kami
                         </a>
-                        <a href="/user/login" wire:navigate class="py-2 px-6 bg-lightYellow text-white inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent text-black hover:bg-lightYellow/95 focus:outline-none focus:bg-lightYellow/95  disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
+                        <a href="/user/login"  class="inline-flex items-center px-6 py-2 text-sm font-medium text-black text-white border border-transparent rounded-lg bg-lightYellow gap-x-2 hover:bg-lightYellow/95 focus:outline-none focus:bg-lightYellow/95 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700">
                                 Login
                         </a>
 					</div>
@@ -100,7 +100,7 @@
 		 <div x-show="open" class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
 
 			<!-- Background overlay -->
-			<div @click="open = false" class="fixed inset-0 bg-black bg-opacity-25 transition-opacity duration-300 ease-linear" 
+			<div @click="open = false" class="fixed inset-0 transition-opacity duration-300 ease-linear bg-black bg-opacity-25" 
 				:class="{ 'opacity-100': open, 'opacity-0': !open }" aria-hidden="true"></div>
 	
 			<!-- Sidebar container -->
@@ -113,13 +113,13 @@
 					x-transition:leave="transition ease-in duration-300"
 					x-transition:leave-start="translate-x-0 opacity-100"
 					x-transition:leave-end="translate-x-full opacity-0"
-					class="relative flex flex-col w-full max-w-xs pb-12 overflow-y-auto bg-white shadow-xl transform">
+					class="relative flex flex-col w-full max-w-xs pb-12 overflow-y-auto transform bg-white shadow-xl">
 	
 					<!-- Tombol Close -->
 					<div 
 						class="flex px-4 pt-5 pb-2" >
 						<button type="button"
-							class="relative inline-flex items-center justify-center p-2 -m-2 text-gray-400 rounded-md ml-auto"
+							class="relative inline-flex items-center justify-center p-2 ml-auto -m-2 text-gray-400 rounded-md"
 							@click="open = false">
 							<span class="absolute -inset-0.5"></span>
 							<span class="sr-only">Close menu</span>
@@ -133,7 +133,7 @@
 					<!-- Links -->
 					<div class="px-4 py-2 border-b border-gray-200">
 						<div class="flow-root px-2 py-2 hover:bg-lightYellow hover:text-white {{ request()->is('/')? 'bg-lightYellow text-white' : '' }}">
-							<a wire:navigate href="{{ route('home') }}" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Beranda</a>
+							<a  href="{{ route('home') }}" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Beranda</a>
 						</div>
 
 						<!-- Dropdown Menu GuestBook -->
@@ -197,14 +197,14 @@
 						</div>
 	
 						<div class="flow-root px-2 py-2 hover:bg-lightYellow hover:text-white {{ request()->is('tentang-kami')? 'bg-lightYellow text-white' : '' }}">
-							<a wire:navigate href="{{ route('about-us') }}" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Tentang Kami</a>
+							<a  href="{{ route('about-us') }}" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Tentang Kami</a>
 						</div>
 					</div>
 	
 					<!-- Login -->
 					<div class="px-4 py-2 border-t border-gray-200">
 						<div class="flow-root px-2 py-2 hover:bg-lightYellow hover:text-white">
-							<a wire:navigate href="/user/login" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Login</a>
+							<a  href="/user/login" class="block p-2 -m-2 font-medium text-gray-900 hover:text-white">Login</a>
 						</div>
 					</div>
 				</div>

@@ -1,6 +1,6 @@
 <div x-data="{ show: false }" x-init="show = true" class="relative bg-lightBlue h-screen flex items-center">
     <div aria-hidden="true" class="absolute inset-0 overflow-hidden blur-lg">
-        <img src="{{ asset('img/cover-gedung.png') }}" alt="" class="object-cover object-center w-full h-full">
+        <img src="{{ asset('img/cover-gedung.webp') }}" alt="" class="object-cover object-center w-full h-full">
     </div>
     <div aria-hidden="true" class="absolute inset-0 opacity-50 bg-lightBlue"></div>
 
