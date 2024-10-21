@@ -37,7 +37,7 @@ class FormPengaduan extends Component
         'cara_mendapatkan_salinan_informasi' => 'required|string',
         'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', 
         'dokumen_pernyataan_keberatan_atas_permohonan_informasi_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
-        'dokumen_permintaan_informasi_publik_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',// Add rules for file validation
+        'dokumen_permintaan_informasi_publik_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         'tanda_tangan' => 'required|string',
     ];
 

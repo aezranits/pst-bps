@@ -2,13 +2,13 @@
  @jenis_kelamin-changed.window="jenisKelamin = $event.detail; $wire.set('jenis_kelamin', jenisKelamin)"
  @tujuan_kunjungan-changed.window="tujuanKunjungan = $event.detail;if(tujuanKunjungan.includes('lainnya')) {tujuanLainnya = true;} else {tujuanLainnya = false;}; $wire.set('tujuan_kunjungan', tujuanKunjungan)">
  <div>
-  <h2 class="text-4xl font-bold leading-7 text-grey lg:hidden block">Buku Tamu</h2>
+  <h2 class="block text-4xl font-bold leading-7 text-grey lg:hidden">Buku Tamu</h2>
 
   <div
-   class="mt-5 lg:mt-0 space-y-8 border-b border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
+   class="mt-5 space-y-8 border-b lg:mt-0 border-gray-900/10 sm:space-y-0 sm:divide-y sm:divide-gray-900/10 sm:border-t sm:pb-0">
    <form wire:submit.prevent="submit">
     <!-- Nama Lengkap -->
-    <div class="sm:pb-6 pb-3">
+    <div class="pb-3 sm:pb-6">
      <livewire:components.text-input colorText="text-grey" label="Nama Lengkap" name="nama_lengkap"
       placeholder="Ade Setiawan" wire:model="nama_lengkap" />
     </div>
@@ -18,7 +18,7 @@
      :options="['Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan']" />
 
     <!-- Umur -->
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      <livewire:components.text-input colorText="text-grey" type="number" label="Usia" name="usia"
       wire:model="usia" placeholder="25" />
     </div>
@@ -35,12 +35,12 @@
     <!-- Conditional Inputs -->
     <div x-show="pekerjaan === 'mahasiswa'">
      <div>
-      <div class="sm:py-6 py-3">
+      <div class="py-3 sm:py-6">
 
        <livewire:components.text-input colorText="text-grey" label="Jurusan" name="jurusan" placeholder="Statistika"
         wire:model="jurusan" />
       </div>
-      <div class="sm:py-6 py-3">
+      <div class="py-3 sm:py-6">
 
        <livewire:components.text-input colorText="text-grey" label="Asal Universitas" name="asal_universitas"
         placeholder="Universitas Islam Negeri Sjech M. Djamil Djambek Bukittinggi" wire:model="asal_universitas" />
@@ -49,7 +49,7 @@
     </div>
 
     <div x-show="pekerjaan === 'dinas/instansi/opd'">
-     <div class="sm:py-6 py-3">
+     <div class="py-3 sm:py-6">
 
       <livewire:components.text-input colorText="text-grey" label="Asal Instansi" name="asal"
        placeholder="Diskominfo Kota Bukittinggi" wire:model="asal" />
@@ -57,7 +57,7 @@
     </div>
 
     <div x-show="pekerjaan === 'peneliti'">
-     <div class="sm:py-6 py-3">
+     <div class="py-3 sm:py-6">
 
       <livewire:components.text-input colorText="text-grey" label="Asal Universitas / Lembaga Penelitian"
        name="asal_universitas_lembaga" wire:model="asal_universitas_lembaga" placeholder="The SMERU Research Institute" />
@@ -65,43 +65,43 @@
     </div>
 
     <div x-show="pekerjaan === 'umum'">
-     <div class="sm:py-6 py-3">
+     <div class="py-3 sm:py-6">
 
       <livewire:components.text-input colorText="text-grey" label="Organisasi/Nama Perusahaan/Kantor"
-       name="organisasi_nama_perusahaan_kantor" placeholder="Komunitas Bantuan Sosial"/>
+       name="organisasi_nama_perusahaan_kantor" wire:model="organisasi_nama_perusahaan_kantor"  placeholder="Komunitas Bantuan Sosial"/>
      </div>
     </div>
 
     {{-- No HP --}}
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      <livewire:components.text-input colorText="text-grey" type="tel" label="No HP" name="no_hp"
       wire:model="no_hp" placeholder="081234567890" pattern="[0-9]*" inputmode="numeric" />
     </div>
 
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      <livewire:components.text-input colorText="text-grey" label="Email" name="email" placeholder="pstbps@gmail.com"
       type="email" wire:model="email" />
     </div>
 
     <!-- Pilihan Lainnya (Jika pekerjaan adalah umum, peneliti, dll) -->
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
 
      <livewire:components.select-option colorText="text-grey" name="provinsi_id" label="Provinsi" :options="$this->provinces"
       wire:model.live="provinsi_id" :key="$this->provinces->pluck('id')->join('-')">
     </div>
 
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      <livewire:components.select-option colorText="text-grey" name="kota_id" label="Kota" :options="$this->regencies"
       wire:model.live="kota_id" :key="$this->regencies->pluck('id')->join('-')">
     </div>
 
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      <livewire:components.text-input colorText="text-grey" type="textarea" rows="4" name="alamat" label="Alamat"
       wire:model="alamat" placeholder="Jl. Perwira No. 50 Belakang Balok" />
     </div>
 
     <!-- Tujuan Kunjungan -->
-    <div class="sm:py-6 py-3">
+    <div class="py-3 sm:py-6">
      @livewire(
          'components.check-box-input',
          [
@@ -121,7 +121,7 @@
      )
     </div>
 
-    <div class="sm:pb-6 pb-3">
+    <div class="pb-3 sm:pb-6">
      <div x-show="tujuanLainnya">
       <livewire:components.text-input colorText="text-grey" type="textarea" rows="4"
        name="tujuan_kunjungan_lainnya" wire:model="tujuan_kunjungan_lainnya" placeholder="Sebutkan tujuan lainnya" />
@@ -130,7 +130,7 @@
 
     <div class="flex items-center justify-end mt-6 gap-x-6">
      <button type="submit" wire:loading.attr="disabled"
-      class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 sm:text-lg text-sm font-bold rounded-lg border border-transparent bg-lightYellow text-white hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 disabled:opacity-50 disabled:pointer-events-none">
+      class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-transparent rounded-lg gap-x-2 sm:text-lg bg-lightYellow hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 disabled:opacity-50 disabled:pointer-events-none">
       <span wire:loading.remove>Kirim</span>
       <span wire:loading>
        <div role="status">

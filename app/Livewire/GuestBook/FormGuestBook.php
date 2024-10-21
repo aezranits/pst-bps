@@ -135,6 +135,7 @@ class FormGuestBook extends Component
 
     public function submit()
     {
+            Log::info(request());
             $validatedData = $this->validate();
             if (!in_array('lainnya', $validatedData['tujuan_kunjungan'])) {
                 $validatedData['tujuan_kunjungan_lainnya'] = null;
@@ -172,7 +173,6 @@ class FormGuestBook extends Component
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
             }
-
             GuestBook::create($validatedData);
             session()->flash('message', 'Guestbook entry created successfully.');
             Log::info("Sukses membuat guestbook");
