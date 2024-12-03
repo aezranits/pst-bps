@@ -12,6 +12,7 @@ use App\Models\GuestBook;
 use App\Models\Regency;
 use App\Repositories\Interface\GuestbookRepositoryInterface;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Section;
@@ -190,6 +191,27 @@ class GuestBookResource extends Resource
 
                                 TextInput::make('tujuan_kunjungan_lainnya')->label('Tujuan Kunjungan Lainnya')->placeholder('Masukkan tujuan kunjungan lainnya')->visible(fn($get) => in_array('lainnya', $get('tujuan_kunjungan'))),
                             ]),
+                            Group::make()
+                            ->schema([
+                                Section::make('Dokumen dan Tanda Tangan')
+                                    ->description('Unggah dokumen yang diperlukan dan berikan tanda tangan Anda.')
+                                    ->schema([
+                                        FileUpload::make('bukti_identitas_diri_path')
+                                            ->directory('bukti_identitas')
+                                            ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'application/pdf'])
+                                            ->openable()
+                                            ->downloadable()
+                                            ->maxSize(2048),
+                            
+                                        FileUpload::make('dokumen_permintaan_informasi_publik_path')
+                                            ->directory('bukti_identitas')
+                                            ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'application/pdf'])
+                                            ->openable()
+                                            ->downloadable()
+                                            ->maxSize(2048),
+                                    ]),
+                            ])
+                            ->columnSpan(2),
                     ])
                     ->columnSpan(2)
                     ->disabled(fn() => auth()->user()->hasRole('pst')),
