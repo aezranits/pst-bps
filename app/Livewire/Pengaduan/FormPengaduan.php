@@ -93,15 +93,12 @@ class FormPengaduan extends Component
             $this->validate();
             Log::info($this->validate());
             if ($this->bukti_identitas_diri_path) {
-                // Simpan file ke dalam storage/app/public/bukti_identitas
                 $filePathBuktIIdentitas = $this->bukti_identitas_diri_path->store('bukti-identitas', 'public');
             }
             if ($this->dokumen_pernyataan_keberatan_atas_permohonan_informasi_path) {
-                // Simpan file ke dalam storage/app/public/bukti_identitas
                 $filePathPernyataanKeberatan = $this->dokumen_pernyataan_keberatan_atas_permohonan_informasi_path->store('dokumen-formulir/dokumen-pernyataan-keberatan-atas-permohonan-informasi', 'public');
             }
             if ($this->dokumen_permintaan_informasi_publik_path) {
-                // Simpan file ke dalam storage/app/public/bukti_identitas
                 $filePathPermintaanInformasi = $this->dokumen_permintaan_informasi_publik_path->store('dokumen-formulir/dokumen-permintaan-informasi-publik', 'public');
             }
             ModelsFormPengaduan::create([

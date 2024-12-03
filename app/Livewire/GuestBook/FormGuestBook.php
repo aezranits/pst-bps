@@ -13,13 +13,16 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class FormGuestBook extends Component
 {
+    use WithFileUploads;
+
     public $nama_lengkap;
     public $jenis_kelamin;
     public $usia;
-    public $pekerjaan; // Make sure this property is defined
+    public $pekerjaan; 
     public $jurusan;
     public $asal_universitas;
     public $asal;
@@ -32,6 +35,8 @@ class FormGuestBook extends Component
     public $alamat;
     public $tujuan_kunjungan = [];
     public $tujuan_kunjungan_lainnya;
+    public $bukti_identitas_diri_path;
+    public $dokumen_permintaan_informasi_publik_path;
 
     protected $rules = [
         'nama_lengkap' => 'required|string|max:255',
@@ -50,6 +55,8 @@ class FormGuestBook extends Component
         'provinsi_id' => 'required',
         'tujuan_kunjungan' => 'required|array|min:1',
         'tujuan_kunjungan_lainnya' => 'nullable|string',
+        'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', 
+        'dokumen_permintaan_informasi_publik_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
     ];
 
     protected function rules()
@@ -109,6 +116,17 @@ class FormGuestBook extends Component
             'tujuan_kunjungan.min' => 'Minimal pilih satu tujuan kunjungan.',
             'tujuan_kunjungan_lainnya.string' => 'Tujuan kunjungan lainnya harus berupa teks.',
             'tujuan_kunjungan_lainnya.required' => 'Tujuan kunjungan lainnya wajib diisi jika terdapat tujuan lainnya.',
+
+            // Custom messages for new fields
+            'bukti_identitas_diri_path.required' => 'Bukti Identitas Diri wajib diunggah.',
+            'bukti_identitas_diri_path.file' => 'Bukti Identitas Diri harus berupa file.',
+            'bukti_identitas_diri_path.mimes' => 'Bukti Identitas Diri harus berupa file dengan format jpg, jpeg, png, atau pdf.',
+            'bukti_identitas_diri_path.max' => 'Ukuran file Bukti Identitas Diri maksimal 2MB.',
+
+            'dokumen_permintaan_informasi_publik_path.required' => 'Dokumen wajib diunggah.',
+            'dokumen_permintaan_informasi_publik_path.file' => 'Dokumen harus berupa file.',
+            'dokumen_permintaan_informasi_publik_path.mimes' => 'Dokumen harus berupa file dengan format jpg, jpeg, png, atau pdf.',
+            'dokumen_permintaan_informasi_publik_path.max' => 'Ukuran Dokumen maksimal 2MB.',
         ];
     }
 
@@ -173,6 +191,14 @@ class FormGuestBook extends Component
                     $validatedData['organisasi_nama_perusahaan_kantor'] = null;
                     break;
             }
+
+            if ($validatedData['bukti_identitas_diri_path']) {
+                $validatedData['bukti_identitas_diri_path'] = $validatedData['bukti_identitas_diri_path']->store('bukti-identitas', 'public');
+            }
+            if ($validatedData['dokumen_permintaan_informasi_publik_path']) {
+                $validatedData['dokumen_permintaan_informasi_publik_path'] = $validatedData['dokumen_permintaan_informasi_publik_path']->store('dokumen-formulir/dokumen-permintaan-informasi-publik', 'public');
+            }
+
             GuestBook::create($validatedData);
             session()->flash('message', 'Guestbook entry created successfully.');
             Log::info("Sukses membuat guestbook");

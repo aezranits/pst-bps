@@ -30,7 +30,9 @@ class GuestBook extends Model
         'petugas_pst',
         'in_progress_at',
         'done_at',
-        'duration'
+        'duration',
+        'bukti_identitas_diri_path',
+        'dokumen_permintaan_informasi_publik_path',
     ];
 
     protected $casts = [

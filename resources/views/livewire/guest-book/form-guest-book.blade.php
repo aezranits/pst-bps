@@ -128,6 +128,48 @@
      </div>
     </div>
 
+    <!-- Bukti Identitas Diri -->
+    <div class="py-3 sm:py-6">
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 ">
+       <label for="bukti_identitas_diri_path" class="block text-sm font-bold leading-6 text-white sm:text-lg">
+        Bukti Identitas Diri
+       </label>
+       <div class="mt-2 sm:col-span-2 sm:mt-0">
+        <div class="h-full">
+         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer sm:text-lg bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                aria-describedby="file_input_help" id="bukti_identitas_diri_path" type="file"
+                name="bukti_identitas_diri_path" wire:model="bukti_identitas_diri_path">
+         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG atau PDF (MAX.2MB).</p>
+        </div>
+ 
+        @error('bukti_identitas_diri_path')
+         <span class="text-sm text-red-500">{{ $message }}</span>
+        @enderror
+       </div>
+      </div>
+    </div>
+
+    <!-- Dokumen Formulir Permintaan Publik -->
+    <div class="py-3 sm:py-6">
+      <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 ">
+       <label for="dokumen_permintaan_informasi_publik_path" class="block text-sm font-bold leading-6 text-white sm:text-lg">
+        Dokumen Formulir Permintaan Publik
+       </label>
+       <div class="mt-2 sm:col-span-2 sm:mt-0">
+        <div class="h-full">
+         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer sm:text-lg bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                aria-describedby="file_input_help" id="dokumen_permintaan_informasi_publik_path" type="file"
+                name="dokumen_permintaan_informasi_publik_path" wire:model="dokumen_permintaan_informasi_publik_path">
+         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG atau PDF (MAX.2MB).</p>
+        </div>
+ 
+        @error('dokumen_permintaan_informasi_publik_path')
+         <span class="text-sm text-red-500">{{ $message }}</span>
+        @enderror
+       </div>
+      </div>
+    </div>
+
     <div class="flex items-center justify-end mt-6 gap-x-6">
      <button type="submit" wire:loading.attr="disabled"
       class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-transparent rounded-lg gap-x-2 sm:text-lg bg-lightYellow hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 disabled:opacity-50 disabled:pointer-events-none">
