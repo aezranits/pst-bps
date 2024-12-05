@@ -56,7 +56,7 @@ class FormGuestBook extends Component
         'tujuan_kunjungan' => 'required|array|min:1',
         'tujuan_kunjungan_lainnya' => 'nullable|string',
         'bukti_identitas_diri_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048', 
-        'dokumen_permintaan_informasi_publik_path' => 'required|file|mimes:jpg,jpeg,png,pdf|max:2048',
+        'dokumen_permintaan_informasi_publik_path' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
     ];
 
     protected function rules()
@@ -123,7 +123,7 @@ class FormGuestBook extends Component
             'bukti_identitas_diri_path.mimes' => 'Bukti Identitas Diri harus berupa file dengan format jpg, jpeg, png, atau pdf.',
             'bukti_identitas_diri_path.max' => 'Ukuran file Bukti Identitas Diri maksimal 2MB.',
 
-            'dokumen_permintaan_informasi_publik_path.required' => 'Dokumen wajib diunggah.',
+            // 'dokumen_permintaan_informasi_publik_path.required' => 'Dokumen wajib diunggah.',
             'dokumen_permintaan_informasi_publik_path.file' => 'Dokumen harus berupa file.',
             'dokumen_permintaan_informasi_publik_path.mimes' => 'Dokumen harus berupa file dengan format jpg, jpeg, png, atau pdf.',
             'dokumen_permintaan_informasi_publik_path.max' => 'Ukuran Dokumen maksimal 2MB.',

@@ -12,16 +12,16 @@
 		</div>
 		<!-- Petugas PST Section -->
 		<div>
-			<label for="petugas-pst" class="block text-lg font-medium leading-6 text-gray-900">Petugas PST <span class="text-red-500">*</span></label>
+			<label for="petugas-pst" class="block text-lg font-medium leading-6 text-gray-900">Petugas Informasi Publik <span class="text-red-500">*</span></label>
 			<div class="relative mt-3">
-                <div class="rounded-2xl bg-white">
+                <div class="bg-white rounded-2xl">
                     @if (!is_null($petugasPstPhotoUrl))
-                    <img class="mx-auto h-48 w-48 rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$petugasPstPhotoUrl) }}" alt="">
+                    <img class="w-48 h-48 mx-auto rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$petugasPstPhotoUrl) }}" alt="">
                     @endif
                     <div wire:ignore class="mt-6 text-base font-semibold leading-7 tracking-tight text-white">
                         <select wire:model="petugas_pst" id="petugas-pst" style="width: 100%; height: 100%"
                             class="select-2 w-full rounded-md border-0 bg-white py-1.5 pl-3 pr-12 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-lg sm:leading-6">
-                            <option value="">Pilih Petugas PST</option>
+                            <option value="">Pilih Petugas Informasi Publik</option>
                             @foreach ($this->listPetugasPst as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                             @endforeach
@@ -58,18 +58,18 @@
                 }
             }
         }" class="flex flex-col items-center">
-            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas PST? <span class="text-red-500">*</span></label>
+            <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari petugas Informasi Publik? <span class="text-red-500">*</span></label>
             <div class="relative mt-2">
-                <div class="flex items-center space-x-0 justify-center">
+                <div class="flex items-center justify-center space-x-0">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
-                            <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="w-12 p-1 m-0 text-gray-400 rounded-sm cursor-pointer fill-current focus:outline-none focus:shadow-outline" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                            <svg class="transition duration-150 w-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                         </button>
                     </template>
                 </div>
-                <div class="p-2 flex items-center justify-center text-lightYellow">
+                <div class="flex items-center justify-center p-2 text-lightYellow">
                     <template x-if="rating || hoverRating">
                         <p x-text="currentLabel()"></p>
                     </template>
@@ -87,9 +87,9 @@
 		<div>
 			<label for="front-office" class="block text-lg font-medium leading-6 text-gray-900">Front Office <span class="text-red-500">*</span></label>
 			<div class="relative mt-2">
-                <div class="rounded-2xl bg-white">
+                <div class="bg-white rounded-2xl">
                     @if (!is_null($frontOfficePhotoUrl))
-                    <img class="mx-auto h-48 w-48 rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$frontOfficePhotoUrl) }}" alt="">
+                    <img class="w-48 h-48 mx-auto rounded-lg md:h-56 md:w-56" src="{{ asset('storage/'.$frontOfficePhotoUrl) }}" alt="">
                     @endif
                     <div wire:ignore class="mt-6 text-base font-semibold leading-7 tracking-tight text-white">
                         <select  wire:model="front_office" id="front-office" style="width: 100%; height: 100%"
@@ -133,16 +133,16 @@
         }" class="flex flex-col items-center">
             <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Front Office? <span class="text-red-500">*</span></label>
             <div class="relative mt-2">
-                <div class="flex items-center space-x-0  justify-center">
+                <div class="flex items-center justify-center space-x-0">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
-                            <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="w-12 p-1 m-0 text-gray-400 rounded-sm cursor-pointer fill-current focus:outline-none focus:shadow-outline" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                            <svg class="transition duration-150 w-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                         </button>
                     </template>
                 </div>
-                <div class="p-2 flex items-center justify-center text-lightYellow">
+                <div class="flex items-center justify-center p-2 text-lightYellow">
                     <template x-if="rating || hoverRating">
                         <p x-text="currentLabel()"></p>
                     </template>
@@ -182,16 +182,16 @@
         }" class="flex flex-col items-center sm:col-span-2">
             <label class="block text-lg font-semibold leading-6 text-gray-900">Bagaimana Anda menilai pelayanan keseluruhan dari Sarana Prasarana?</label>
             <div class="relative mt-2">
-                <div class="flex items-center space-x-0 justify-center ">
+                <div class="flex items-center justify-center space-x-0 ">
                     <template x-for="(star, index) in ratings" :key="index">
-                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="rounded-sm text-gray-400 fill-current focus:outline-none focus:shadow-outline p-1 w-12 m-0 cursor-pointer" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
-                            <svg class="w-15 transition duration-150" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <button type="button" @click="rate(star.amount)" @mouseover="hoverRating = star.amount" @mouseleave="hoverRating = rating" aria-hidden="true" :title="star.label" class="w-12 p-1 m-0 text-gray-400 rounded-sm cursor-pointer fill-current focus:outline-none focus:shadow-outline" :class="{'text-gray-600': hoverRating >= star.amount, 'text-yellow-400': rating >= star.amount && hoverRating >= star.amount}">
+                            <svg class="transition duration-150 w-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                             </svg>
                         </button>
                     </template>
                 </div>
-                <div class="p-2 flex items-center justify-center" class="text-lightYellow">
+                <div class="flex items-center justify-center p-2" class="text-lightYellow">
                     <template x-if="rating || hoverRating" >
                         <p x-text="currentLabel()" class="text-lightYellow"></p>
                     </template>
@@ -220,7 +220,7 @@
 
 	<div class="mt-10">
         <button type="submit" wire:loading.attr="disabled"
-        class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 sm:text-lg text-sm font-bold rounded-lg border border-transparent bg-lightYellow text-white hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 disabled:opacity-50 disabled:pointer-events-none">
+        class="inline-flex items-center justify-center w-full px-4 py-3 text-sm font-bold text-white border border-transparent rounded-lg gap-x-2 sm:text-lg bg-lightYellow hover:bg-lightYellow/80 focus:outline-none focus:bg-lightYellow/80 disabled:opacity-50 disabled:pointer-events-none">
         <span wire:loading.remove>Kirim</span>
         <span wire:loading>
          <div role="status">
